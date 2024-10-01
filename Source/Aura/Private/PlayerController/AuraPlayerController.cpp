@@ -40,11 +40,11 @@ void AAuraPlayerController::Move(const FInputActionValue& InputValue)
 {
 	const FVector2D Value = InputValue.Get<FVector2D>();
 
-	const FVector ForwardInput = FVector::ForwardVector * Value.Y;
+	const FVector ForwardInput = FVector::ForwardVector * Value.X;
 
 	GetCharacter()->AddMovementInput(ForwardInput);
 
-	const FVector SidesInput = FVector::RightVector * Value.X;
+	const FVector SidesInput = FVector::RightVector * Value.Y;
 
 	GetCharacter()->AddMovementInput(SidesInput);
 }
