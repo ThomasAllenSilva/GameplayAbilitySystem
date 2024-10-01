@@ -52,21 +52,16 @@ void UHighlightableComponent::OnEndCursorOver(AActor* TouchedActor)
 
 void UHighlightableComponent::InitializeHighlightableMeshs()
 {
-	TArray<UActorComponent*> Components;
+	TArray<UMeshComponent*> Components;
 
-	Owner->GetComponents(Components, true);
+	Owner->GetComponents<UMeshComponent>(Components, true);
 
-	for (UActorComponent* Component : Components)
+	for (UMeshComponent* MeshComponent : Components)
 	{
-		UMeshComponent* MeshComponent = Cast<UMeshComponent>(Component);
+		MeshComponent->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Block);
 
-		if (MeshComponent)
-		{
-			MeshComponent->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Block);
+		MeshComponent->SetCustomDepthStencilValue(HighlightColor);
 
-			MeshComponent->SetCustomDepthStencilValue(HighlightColor);
-
-			HighlightableMeshs.Add(MeshComponent);
-		}
+		HighlightableMeshs.Add(MeshComponent);
 	}
 }
