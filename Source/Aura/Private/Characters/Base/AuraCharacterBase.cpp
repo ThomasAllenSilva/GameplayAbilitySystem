@@ -2,6 +2,8 @@
 
 #include "Characters/Base/AuraCharacterBase.h"
 
+#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+
 AAuraCharacterBase::AAuraCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -21,6 +23,11 @@ AAuraCharacterBase::AAuraCharacterBase()
 	WeaponMesh->PrimaryComponentTick.bStartWithTickEnabled = false;
 
 	WeaponMesh->PrimaryComponentTick.bAllowTickOnDedicatedServer = false;
+}
+
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 // Called when the game starts or when spawned
