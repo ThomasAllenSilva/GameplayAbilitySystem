@@ -10,7 +10,7 @@
 
 #include "AuraCharacterBase.generated.h"
 
-class UAuraAbilitySystemComponent;
+class UAbilitySystemComponent;
 
 class UAuraAttributeSet;
 
@@ -25,14 +25,12 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
-	virtual void BeginPlay() override;
-
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 
 protected:
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UAuraAttributeSet> AttributeSet;

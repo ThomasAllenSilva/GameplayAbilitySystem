@@ -18,3 +18,17 @@ UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }
+
+UAuraAttributeSet* AAuraPlayerState::GetAttributeSet() const
+{
+	return AttributeSet;
+}
+
+void AAuraPlayerState::BeginPlay()
+{
+	Super::BeginPlay();
+
+	check(GetPawn());
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
+}

@@ -3,13 +3,20 @@
 
 #include "Characters/Enemy/AuraEnemyCharacter.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "AbilitySystemComponent.h"
 
 #include "AbilitySystem/AttributeSet/AuraAttributeSet.h"
 
 AAuraEnemyCharacter::AAuraEnemyCharacter()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
 
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSetBase");
+}
+
+void AAuraEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }

@@ -13,5 +13,9 @@ UCLASS()
 class AAuraPlayerCharacter : public AAuraCharacterBase
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void PossessedBy(AController* NewController) override;
+
 	
 };

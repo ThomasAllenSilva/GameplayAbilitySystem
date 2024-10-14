@@ -23,6 +23,10 @@ public:
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	virtual UAuraAttributeSet* GetAttributeSet() const;
+
+	virtual void BeginPlay() override;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
