@@ -14,10 +14,15 @@ class UAuraAbilitySystemComponent;
 
 class UAuraAttributeSet;
 
+class UPlayerGasData;
+
+class UAuraPlayerStatusUserWidgetView;
+
 UCLASS()
 class AAuraPlayerState final : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
+
 public:
 	AAuraPlayerState();
 
@@ -27,10 +32,18 @@ public:
 
 	virtual void BeginPlay() override;
 
+	FORCEINLINE UPlayerGasData* GetPlayerGasData() const { return PlayerGasData; }
+
 private:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UAuraPlayerStatusUserWidgetView> PlayerStatusWidget;
+
+	UPROPERTY()
+	TObjectPtr<UPlayerGasData> PlayerGasData;
 };
