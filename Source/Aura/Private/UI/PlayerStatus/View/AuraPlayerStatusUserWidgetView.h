@@ -18,7 +18,19 @@ class UAuraPlayerStatusUserWidgetView final : public UUserWidget
 public:
 	void SetWidgetController(UAuraPlayerStatusWidgetController* WidgetController);
 
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHealthValueChanged(float NewHealthValue);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnMaxHealthValueChanged(float NewMaxHealthValue);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnManaValueChanged(float NewManaValue);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnMaxManaValueChanged(float NewMaxManaValue);
+
 private:
-	UPROPERTY()
 	TObjectPtr<UAuraPlayerStatusWidgetController> Controller;
 };

@@ -41,14 +41,24 @@ void AAuraPlayerState::BeginPlay()
 
 	PlayerGasData->InitializeData(AbilitySystemComponent, AttributeSet);
 
+	CreateAttributesStatusWidget();
+}
+
+void AAuraPlayerState::CreateAttributesStatusWidget()
+{
 	check(PlayerStatusWidget);
+
 	UAuraPlayerStatusUserWidgetView* Widget = CreateWidget<UAuraPlayerStatusUserWidgetView>(GetWorld(), PlayerStatusWidget);
+
 	check(Widget);
 
 	UAuraPlayerStatusWidgetController* WidgetController = NewObject<UAuraPlayerStatusWidgetController>(this);
+
 	WidgetController->SetGasData(PlayerGasData);
 
 	Widget->AddToViewport();
 
 	Widget->SetWidgetController(WidgetController);
+
+	WidgetController->BroadcastInitialValues();
 }

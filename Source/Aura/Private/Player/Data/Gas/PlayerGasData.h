@@ -12,6 +12,8 @@ class UAuraAbilitySystemComponent;
 
 class UAuraAttributeSet;
 
+struct FOnAttributeChangeData;
+
 UCLASS()
 class UPlayerGasData final : public UObject
 {
@@ -24,10 +26,17 @@ public:
 
 	void InitializeData(UAuraAbilitySystemComponent* InASC, UAuraAttributeSet* InAttributeSet);
 
+protected:
+	virtual void BeginDestroy() override;
+
 private:
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
+
+
+private:
+	void HealthValueChanged(const FOnAttributeChangeData& Data);
 };

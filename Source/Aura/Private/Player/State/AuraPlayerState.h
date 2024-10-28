@@ -46,4 +46,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UPlayerGasData> PlayerGasData;
+
+private:
+	void CreateAttributesStatusWidget();
 };
