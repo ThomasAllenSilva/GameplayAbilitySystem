@@ -19,4 +19,8 @@ public:
 protected:
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToActor(const AActor* Target, TSubclassOf<UGameplayEffect> EffectToApply);
+
+private:
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UGameplayEffect> Effect;
 };
