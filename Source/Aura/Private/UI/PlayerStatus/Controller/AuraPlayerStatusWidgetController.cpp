@@ -14,9 +14,7 @@ void UAuraPlayerStatusWidgetController::SetGasData(UPlayerGasData* GasData)
 
 	check(GasData);
 
-	FGameplayAttribute HealthAttributeData = PlayerGasData->GetAttributeSet()->GetHealthAttribute();
-
-	PlayerGasData->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(HealthAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnHealthAttribueValueChanged);
+	BindAttributeDelegatesCallbacks();
 }
 
 void UAuraPlayerStatusWidgetController::BroadcastInitialValues()
@@ -36,21 +34,26 @@ void UAuraPlayerStatusWidgetController::BindAttributeDelegatesCallbacks()
 {
 	const UAuraAttributeSet* AttributeSet = PlayerGasData->GetAttributeSet();
 
+	UAuraAbilitySystemComponent* PlayerASC = PlayerGasData->GetAbilitySystemComponent();
+
+	check(AttributeSet);
+	check(PlayerASC);
+
 	FGameplayAttribute HealthAttributeData = AttributeSet->GetHealthAttribute();
 
-	PlayerGasData->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(HealthAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnHealthAttribueValueChanged);
+	PlayerASC->GetGameplayAttributeValueChangeDelegate(HealthAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnHealthAttribueValueChanged);
 
 	FGameplayAttribute MaxHealthAttributeData = AttributeSet->GetMaxHealthAttribute();
 
-	PlayerGasData->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(MaxHealthAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnMaxHealthAttribueValueChanged);
+	PlayerASC->GetGameplayAttributeValueChangeDelegate(MaxHealthAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnMaxHealthAttribueValueChanged);
 
 	FGameplayAttribute ManaAttributeData = AttributeSet->GetManaAttribute();
 
-	PlayerGasData->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(ManaAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnManaAttribueValueChanged);
+	PlayerASC->GetGameplayAttributeValueChangeDelegate(ManaAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnManaAttribueValueChanged);
 
 	FGameplayAttribute MaxManaAttributeData = AttributeSet->GetMaxManaAttribute();
 
-	PlayerGasData->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(MaxManaAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnMaxManaAttribueValueChanged);
+	PlayerASC->GetGameplayAttributeValueChangeDelegate(MaxManaAttributeData).AddUObject(this, &UAuraPlayerStatusWidgetController::OnMaxManaAttribueValueChanged);
 }
 
 void UAuraPlayerStatusWidgetController::OnHealthAttribueValueChanged(const FOnAttributeChangeData& HealthData) const
