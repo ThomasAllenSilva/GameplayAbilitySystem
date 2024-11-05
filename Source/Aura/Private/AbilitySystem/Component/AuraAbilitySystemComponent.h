@@ -13,5 +13,5 @@ UCLASS()
 class UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
 };
