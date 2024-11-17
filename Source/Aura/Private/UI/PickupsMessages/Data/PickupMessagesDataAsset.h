@@ -10,24 +10,25 @@
 
 #include "PickupMessagesDataAsset.generated.h"
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FPickupMessageDefinition
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName Message;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UTexture2D> Texture;
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class UPickupMessagesDataAsset final : public UDataAsset
 {
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable)
 	const FPickupMessageDefinition& GetPickupMessageDefinition(const FGameplayTag& Tag);
 
 private:

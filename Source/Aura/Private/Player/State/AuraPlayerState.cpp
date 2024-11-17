@@ -46,11 +46,9 @@ void AAuraPlayerState::BeginPlay()
 
 void AAuraPlayerState::CreateAttributesStatusWidget()
 {
-	check(PlayerStatusWidget);
+	check(PlayerStatusWidgetTemplate);
 
-	UAuraPlayerStatusUserWidgetView* Widget = CreateWidget<UAuraPlayerStatusUserWidgetView>(GetWorld(), PlayerStatusWidget);
-
-	check(Widget);
+	UAuraPlayerStatusUserWidgetView* Widget = CreateWidget<UAuraPlayerStatusUserWidgetView>(GetWorld(), PlayerStatusWidgetTemplate);
 
 	UAuraPlayerStatusWidgetController* WidgetController = NewObject<UAuraPlayerStatusWidgetController>(this);
 

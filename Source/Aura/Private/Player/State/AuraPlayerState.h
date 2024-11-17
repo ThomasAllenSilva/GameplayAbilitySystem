@@ -42,7 +42,7 @@ private:
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UAuraPlayerStatusUserWidgetView> PlayerStatusWidget;
+	TSubclassOf<UAuraPlayerStatusUserWidgetView> PlayerStatusWidgetTemplate;
 
 	UPROPERTY()
 	TObjectPtr<UPlayerGasData> PlayerGasData;

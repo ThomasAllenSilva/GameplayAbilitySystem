@@ -4,9 +4,9 @@
 
 #include "UI/PlayerStatus/Controller/AuraPlayerStatusWidgetController.h"
 
-void UAuraPlayerStatusUserWidgetView::SetWidgetController(UAuraPlayerStatusWidgetController* WidgetController)
+void UAuraPlayerStatusUserWidgetView::SetWidgetController(UObject* WidgetController)
 {
-	Controller = WidgetController;
+	Controller = CastChecked<UAuraPlayerStatusWidgetController>(WidgetController);
 
 	Controller->OnHealthValueChanged.AddDynamic(this, &UAuraPlayerStatusUserWidgetView::OnHealthValueChanged);
 

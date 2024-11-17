@@ -6,17 +6,19 @@
 
 #include "Blueprint/UserWidget.h"
 
+#include "UI/Interfaces/Initializer/IAuraWidgetControllerInitializer.h"
+
 #include "AuraPlayerStatusUserWidgetView.generated.h"
 
 class UAuraPlayerStatusWidgetController;
 
 UCLASS()
-class UAuraPlayerStatusUserWidgetView final : public UUserWidget
+class UAuraPlayerStatusUserWidgetView final : public UUserWidget, public IAuraWidgetControllerInitializer
 {
 	GENERATED_BODY()
-	
+
 public:
-	void SetWidgetController(UAuraPlayerStatusWidgetController* WidgetController);
+	virtual void SetWidgetController(UObject* Controller) override;
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
