@@ -10,6 +10,8 @@
 
 #include "Player/Data/Gas/PlayerGasData.h"
 
+#include "GameFeaturesSubsystem.h"
+
 APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
 {
 	checkf(WorldContextObject, TEXT("Context Object Is Required To Get Player State"));
@@ -43,4 +45,52 @@ const UAuraAttributeSet* UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeS
 	UPlayerGasData* PlayerGasData = PlayerState->GetPlayerGasData();
 
 	return PlayerGasData->GetAttributeSet();
+}
+
+void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& PluginName)
+{
+	UGameFeaturesSubsystem& GameFeaturesSubsystem = UGameFeaturesSubsystem::Get();
+
+	FString OutPluginName;
+
+	GameFeaturesSubsystem.GetPluginURLByName(PluginName, OutPluginName);
+
+	GameFeaturesSubsystem.LoadAndActivateGameFeaturePlugin(
+		OutPluginName,
+		FGameFeaturePluginLoadComplete::CreateLambda([](const UE::GameFeatures::FResult& Result)
+			{
+				if (Result.HasError())
+				{
+					UE_LOG(LogTemp, Error, TEXT("Failed to load and activate Game Feature Plugin"));
+				}
+				else
+				{
+					UE_LOG(LogTemp, Log, TEXT("Game Feature Plugin successfully loaded and activated."));
+				}
+			})
+	);
+}
+
+void UAuraBlueprintFunctionLibrary::UnloadGameFeature(const FString& PluginName)
+{
+	UGameFeaturesSubsystem& GameFeaturesSubsystem = UGameFeaturesSubsystem::Get();
+
+	FString OutPluginName;
+
+	GameFeaturesSubsystem.GetPluginURLByName(PluginName, OutPluginName);
+
+	GameFeaturesSubsystem.UnloadGameFeaturePlugin(
+		OutPluginName,
+		FGameFeaturePluginLoadComplete::CreateLambda([](const UE::GameFeatures::FResult& Result)
+			{
+				if (Result.HasError())
+				{
+					UE_LOG(LogTemp, Error, TEXT("Failed to load and activate Game Feature Plugin"));
+				}
+				else
+				{
+					UE_LOG(LogTemp, Log, TEXT("Game Feature Plugin successfully loaded and activated."));
+				}
+			})
+		, true);
 }
