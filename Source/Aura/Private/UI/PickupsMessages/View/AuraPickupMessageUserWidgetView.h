@@ -24,6 +24,8 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnRequestedPickupMessage(const FGameplayTag& MessageTag);
 
+	virtual void BeginDestroy() override;
+
 private:
 	TObjectPtr<UAuraPickupWidgetController> WidgetController;
 };

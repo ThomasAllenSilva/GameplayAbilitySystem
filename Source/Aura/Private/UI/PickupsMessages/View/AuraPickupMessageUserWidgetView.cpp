@@ -7,7 +7,17 @@
 
 void UAuraPickupMessageUserWidgetView::SetWidgetController(UObject* Controller)
 {
-	WidgetController = CastChecked<UAuraPickupWidgetController>(Controller);
+	//WidgetController = CastChecked<UAuraPickupWidgetController>(Controller);
 
-	WidgetController->OnRequestedPickupMessage.AddDynamic(this, &UAuraPickupMessageUserWidgetView::OnRequestedPickupMessage);
+	//WidgetController->OnRequestedPickupMessage.AddDynamic(this, &UAuraPickupMessageUserWidgetView::OnRequestedPickupMessage);
+}
+
+void UAuraPickupMessageUserWidgetView::BeginDestroy()
+{
+	Super::BeginDestroy();
+
+	if (WidgetController != nullptr)
+	{
+		WidgetController->OnRequestedPickupMessage.RemoveDynamic(this, &UAuraPickupMessageUserWidgetView::OnRequestedPickupMessage);
+	}
 }
