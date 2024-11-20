@@ -8,8 +8,6 @@
 
 #include "AbilitySystemInterface.h"
 
-#include "AuraUIBlueprintFunctionLibrary.h"
-
 #include "AuraPlayerState.generated.h"
 
 class UAuraAbilitySystemComponent;
@@ -17,9 +15,6 @@ class UAuraAbilitySystemComponent;
 class UAuraAttributeSet;
 
 class UPlayerGasData;
-
-class UAuraPlayerStatusUserWidgetView;
-
 
 UCLASS()
 class AAuraPlayerState final : public APlayerState, public IAbilitySystemInterface
@@ -44,15 +39,6 @@ private:
 	UPROPERTY()
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
 
-	UPROPERTY(EditDefaultsOnly)
-	FWidgetDefinition PlayerStatusWidgetDefinition;
-
-	UPROPERTY(EditDefaultsOnly)
-	FWidgetDefinition PickupMessageWidgetDefinition;
-
 	UPROPERTY()
 	TObjectPtr<UPlayerGasData> PlayerGasData;
-
-private:
-	void CreateWidgets();
 };
