@@ -32,6 +32,10 @@ public:
 
 	FORCEINLINE UPlayerGasData* GetPlayerGasData() const { return PlayerGasData; }
 
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnExecutedBeginPlay();
+
 private:
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;

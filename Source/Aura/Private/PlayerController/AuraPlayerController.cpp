@@ -42,6 +42,11 @@ void AAuraPlayerController::SetupInputComponent()
 
 void AAuraPlayerController::Move(const FInputActionValue& InputValue)
 {
+	if (GetCharacter() == nullptr)
+	{
+		return;
+	}
+
 	const FVector2D Value = InputValue.Get<FVector2D>();
 
 	const FVector ForwardInput = FVector::ForwardVector * Value.X;

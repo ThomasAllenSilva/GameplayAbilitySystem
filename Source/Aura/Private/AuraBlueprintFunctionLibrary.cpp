@@ -31,6 +31,8 @@ UAuraAbilitySystemComponent* UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilit
 {
 	AAuraPlayerState* PlayerState = Cast<AAuraPlayerState>(GetLocalPlayerState(WorldContextObject));
 
+	checkf(PlayerState, TEXT("Cannot Retrieve AbilitySystemComponent From Null Player State"));
+
 	UPlayerGasData* PlayerGasData = PlayerState->GetPlayerGasData();
 
 	return PlayerGasData->GetAbilitySystemComponent();
@@ -54,7 +56,7 @@ void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& Pl
 	FString OutPluginName;
 
 	GameFeaturesSubsystem.GetPluginURLByName(PluginName, OutPluginName);
-
+	
 	GameFeaturesSubsystem.LoadAndActivateGameFeaturePlugin(
 		OutPluginName,
 		FGameFeaturePluginLoadComplete::CreateLambda([](const UE::GameFeatures::FResult& Result)

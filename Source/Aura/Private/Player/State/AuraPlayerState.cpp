@@ -36,4 +36,6 @@ void AAuraPlayerState::BeginPlay()
 	PlayerGasData = NewObject<UPlayerGasData>(this);
 
 	PlayerGasData->InitializeData(AbilitySystemComponent, AttributeSet);
+
+	OnExecutedBeginPlay();
 }
