@@ -19,22 +19,37 @@ class UAuraPlayerStatusUserWidget final : public UUserWidget
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnHealthValueChanged(float NewHealthValue);
+	void OnHealthValueChanged();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnMaxHealthValueChanged(float NewMaxHealthValue);
+	void OnMaxHealthValueChanged();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnManaValueChanged(float NewManaValue);
+	void OnManaValueChanged();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnMaxManaValueChanged(float NewMaxManaValue);
+	void OnMaxManaValueChanged();
 
 protected:
 	virtual void NativeConstruct() override;
 
 private:
+	UPROPERTY(BlueprintReadOnly, Category = "Player Status", meta = (AllowPrivateAccess = "true"))
+	float Health;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player Status", meta = (AllowPrivateAccess = "true"))
+	float MaxHealth;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player Status", meta = (AllowPrivateAccess = "true"))
+	float Mana;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player Status", meta = (AllowPrivateAccess = "true"))
+	float MaxMana;
+
+private:
+	void InitPlayerStatusValues();
+
 	void BindToAttributesChanges();
 
-	void BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(float));
+	void BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue);
 };

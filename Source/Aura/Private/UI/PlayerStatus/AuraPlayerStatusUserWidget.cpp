@@ -10,9 +10,24 @@
 
 void UAuraPlayerStatusUserWidget::NativeConstruct()
 {
-	Super::NativeConstruct();
+	InitPlayerStatusValues();
 
 	BindToAttributesChanges();
+
+	Super::NativeConstruct();
+}
+
+void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
+{
+	const UAuraAttributeSet* AttributeSet = UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeSet(this);
+
+	Health = AttributeSet->GetHealth();
+
+	MaxHealth = AttributeSet->GetMaxHealth();
+
+	Mana = AttributeSet->GetMana();
+
+	MaxMana = AttributeSet->GetMaxMana();
 }
 
 void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
@@ -21,20 +36,21 @@ void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
 
 	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged);
+	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxHealthAttribute(), &UAuraPlayerStatusUserWidget::OnMaxHealthValueChanged);
+	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxHealthAttribute(), &UAuraPlayerStatusUserWidget::OnMaxHealthValueChanged, MaxHealth);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetManaAttribute(), &UAuraPlayerStatusUserWidget::OnManaValueChanged);
+	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetManaAttribute(), &UAuraPlayerStatusUserWidget::OnManaValueChanged, Mana);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged);
+	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
 }
 
-void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(float))
+void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)
 {
 	PlayerASC->GetGameplayAttributeValueChangeDelegate(Attribute).AddWeakLambda(this,
-		[this, Callback](const FOnAttributeChangeData& Data)
+		[this, Callback, &WidgetAttributeValue](const FOnAttributeChangeData& Data)
 		{
-			(this->*Callback)(Data.NewValue);
+			WidgetAttributeValue = Data.NewValue;
+			(this->*Callback)();
 		});
 }
