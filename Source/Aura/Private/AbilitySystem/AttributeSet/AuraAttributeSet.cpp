@@ -31,7 +31,17 @@ void UAuraAttributeSet::TryClampAttributeValueChange(const FGameplayAttribute& A
 		NewValue = FMath::Clamp(NewValue, 0.0f, 100.0f);
 	}
 
+	if (Attribute == GetMaxHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.0f, 100.0f);
+	}
+
 	if (Attribute == GetManaAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.0f, 100.0f);
+	}
+
+	if (Attribute == GetMaxManaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.0f, 100.0f);
 	}
