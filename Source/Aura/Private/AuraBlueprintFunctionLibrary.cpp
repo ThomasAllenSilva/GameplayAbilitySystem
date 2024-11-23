@@ -17,6 +17,7 @@ APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* 
 	checkf(WorldContextObject, TEXT("Context Object Is Required To Get Player State"));
 
 	UWorld* World = WorldContextObject->GetWorld();
+	if (World == nullptr) return nullptr;
 
 	ULocalPlayer* LocalPlayer = World->GetFirstLocalPlayerFromController();
 	if (LocalPlayer == nullptr) return nullptr;
@@ -29,11 +30,18 @@ APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* 
 
 UAuraAbilitySystemComponent* UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject)
 {
-	AAuraPlayerState* PlayerState = Cast<AAuraPlayerState>(GetLocalPlayerState(WorldContextObject));
+	APlayerState* PlayerState = GetLocalPlayerState(WorldContextObject);
 
-	checkf(PlayerState, TEXT("Cannot Retrieve AbilitySystemComponent From Null Player State"));
+	if (PlayerState == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot Retrieve AbilitySystemComponent From Null Player State"));
 
-	UPlayerGasData* PlayerGasData = PlayerState->GetPlayerGasData();
+		return nullptr;
+	}
+
+	AAuraPlayerState* AuraPlayerState = Cast<AAuraPlayerState>(PlayerState);
+
+	UPlayerGasData* PlayerGasData = AuraPlayerState->GetPlayerGasData();
 
 	return PlayerGasData->GetAbilitySystemComponent();
 }

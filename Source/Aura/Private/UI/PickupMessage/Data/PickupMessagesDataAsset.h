@@ -28,7 +28,7 @@ class UPickupMessagesDataAsset final : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure)
 	const FPickupMessageDefinition& GetPickupMessageDefinition(const FGameplayTag& Tag);
 
 private:

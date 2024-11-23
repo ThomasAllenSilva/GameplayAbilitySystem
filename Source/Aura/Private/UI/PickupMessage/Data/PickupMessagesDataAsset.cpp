@@ -1,7 +1,7 @@
 // Thomas Learning Project
 
 
-#include "UI/PickupsMessages/Data/PickupMessagesDataAsset.h"
+#include "PickupMessagesDataAsset.h"
 
 const FPickupMessageDefinition& UPickupMessagesDataAsset::GetPickupMessageDefinition(const FGameplayTag& Tag)
 {
