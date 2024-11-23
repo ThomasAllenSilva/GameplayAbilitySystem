@@ -33,7 +33,7 @@ private:
 	UPROPERTY(BlueprintReadWrite, Category = "Widget Settings", meta = (AllowPrivateAccess = "true"))
 	FGameplayTag MessageTag;
 
-	FDelegateHandle GameplayEffectAppliedHandle;
+	FDelegateHandle EffectAppliedDelegateHandle;
 
 private:
 	void OnGameplayEffectAppliedDelegateToSelf(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle EffectHandle);

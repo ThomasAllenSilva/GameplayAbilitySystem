@@ -13,7 +13,7 @@ void UAuraPickupMessageUserWidget::NativeConstruct()
 
 	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	GameplayEffectAppliedHandle = PlayerASC->OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraPickupMessageUserWidget::OnGameplayEffectAppliedDelegateToSelf);
+	EffectAppliedDelegateHandle = PlayerASC->OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraPickupMessageUserWidget::OnGameplayEffectAppliedDelegateToSelf);
 }
 
 void UAuraPickupMessageUserWidget::BeginDestroy()
@@ -24,7 +24,7 @@ void UAuraPickupMessageUserWidget::BeginDestroy()
 
 	if (IsValid(PlayerASC))
 	{
-		PlayerASC->OnGameplayEffectAppliedDelegateToSelf.Remove(GameplayEffectAppliedHandle);
+		PlayerASC->OnGameplayEffectAppliedDelegateToSelf.Remove(EffectAppliedDelegateHandle);
 	}
 }
 
