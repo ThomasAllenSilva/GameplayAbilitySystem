@@ -8,10 +8,6 @@
 
 #include "Player/Data/Gas/PlayerGasData.h"
 
-#include "UI/PlayerStatus/View/AuraPlayerStatusUserWidgetView.h"
-
-#include "UI/PlayerStatus/Controller/AuraPlayerStatusWidgetController.h"
-
 AAuraPlayerState::AAuraPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
@@ -33,7 +29,7 @@ void AAuraPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(GetPawn());
+	checkf(GetPawn(), TEXT("NULL Pawn When Initing Ability Actor Info"));
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
 
@@ -41,24 +37,5 @@ void AAuraPlayerState::BeginPlay()
 
 	PlayerGasData->InitializeData(AbilitySystemComponent, AttributeSet);
 
-	CreateAttributesStatusWidget();
-}
-
-void AAuraPlayerState::CreateAttributesStatusWidget()
-{
-	check(PlayerStatusWidget);
-
-	UAuraPlayerStatusUserWidgetView* Widget = CreateWidget<UAuraPlayerStatusUserWidgetView>(GetWorld(), PlayerStatusWidget);
-
-	check(Widget);
-
-	UAuraPlayerStatusWidgetController* WidgetController = NewObject<UAuraPlayerStatusWidgetController>(this);
-
-	WidgetController->SetGasData(PlayerGasData);
-
-	Widget->AddToViewport();
-
-	Widget->SetWidgetController(WidgetController);
-
-	WidgetController->BroadcastInitialValues();
+	OnExecutedBeginPlay();
 }

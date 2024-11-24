@@ -16,8 +16,6 @@ class UAuraAttributeSet;
 
 class UPlayerGasData;
 
-class UAuraPlayerStatusUserWidgetView;
-
 UCLASS()
 class AAuraPlayerState final : public APlayerState, public IAbilitySystemInterface
 {
@@ -34,6 +32,10 @@ public:
 
 	FORCEINLINE UPlayerGasData* GetPlayerGasData() const { return PlayerGasData; }
 
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnExecutedBeginPlay();
+
 private:
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
@@ -41,12 +43,6 @@ private:
 	UPROPERTY()
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UAuraPlayerStatusUserWidgetView> PlayerStatusWidget;
-
 	UPROPERTY()
 	TObjectPtr<UPlayerGasData> PlayerGasData;
-
-private:
-	void CreateAttributesStatusWidget();
 };
