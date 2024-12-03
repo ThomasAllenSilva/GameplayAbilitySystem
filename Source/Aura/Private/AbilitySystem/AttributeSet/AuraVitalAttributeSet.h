@@ -8,7 +8,7 @@
 
 #include "AbilitySystemComponent.h"
 
-#include "AuraAttributeSet.generated.h"
+#include "AuraVitalAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -17,32 +17,24 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class UAuraAttributeSet final : public UAttributeSet
+class UAuraVitalAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
-	
-public:
-	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
-
-	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
 
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health);
+	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, Health);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData MaxHealth;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth);
+	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, MaxHealth);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana);
+	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, Mana);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData MaxMana;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
-
-private:
-	void TryClampAttributeValueChange(const FGameplayAttribute& Attribute, float& NewValue) const;
+	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, MaxMana);
 };

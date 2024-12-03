@@ -37,7 +37,7 @@ protected:
 	void OnExecutedBeginPlay();
 
 private:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
