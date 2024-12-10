@@ -1,10 +1,23 @@
 #pragma once
 
+#if !UE_BUILD_SHIPPING
 #define LOG_MESSAGE(StringMessage) LogMessage(StringMessage);
 
 #define LOG_WARNING(StringMessage) LogWarning(StringMessage);
 
 #define LOG_ERROR(StringMessage) LogError(StringMessage);
+
+#define VALIDATE_CONDITION(Condition, StringMessage) LogIfInvalidCondition(Condition, StringMessage);
+#else
+
+#define LOG_MESSAGE(StringMessage)
+
+#define LOG_WARNING(StringMessage)
+
+#define LOG_ERROR(StringMessage)
+
+#define VALIDATE_CONDITION(Condition, StringMessage)
+#endif
 
 static void LogMessage(const FString& Message)
 {
@@ -34,4 +47,12 @@ static void LogError(const FString& Message)
 	}
 
 	UE_LOG(LogTemp, Error, TEXT("%s"), *Message);
+}
+
+static void LogIfInvalidCondition(bool bCondition, const FString& Message)
+{
+	if (bCondition == false)
+	{
+		LogMessage(Message);
+	}
 }
