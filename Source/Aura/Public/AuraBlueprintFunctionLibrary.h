@@ -23,6 +23,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static const UAuraAttributeSet* GetLocalPlayerAttributeSet(const UObject* WorldContextObject);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static const FString GetTagLastName(const FGameplayTag& Tag);
+
 	UFUNCTION(BlueprintCallable, Category = "Game Features")
 	static void LoadAndActivateGameFeature(const FString& PluginName);
 

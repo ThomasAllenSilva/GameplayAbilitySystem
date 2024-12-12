@@ -57,6 +57,40 @@ const UAuraAttributeSet* UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeS
 	return PlayerGasData->GetAttributeSet();
 }
 
+const FString UAuraBlueprintFunctionLibrary::GetTagLastName(const FGameplayTag& Tag)
+{
+	if (!Tag.IsValid())
+	{
+		return FString("Invalid Or Null Tag");
+	}
+
+	FString TagString = Tag.ToString();
+
+	int32 LastDotIndex;
+
+	if (TagString.FindLastChar('.', LastDotIndex))
+	{
+		FString LastName = TagString.Mid(LastDotIndex + 1);
+
+		FString FormattedName;
+
+		for (int32 i = 0; i < LastName.Len(); i++)
+		{
+			if (i > 0 && FChar::IsUpper(LastName[i]) && FChar::IsLower(LastName[i - 1]))
+			{
+				FormattedName.AppendChar(' ');
+			}
+
+			FormattedName.AppendChar(LastName[i]);
+		}
+
+		return FormattedName;
+	}
+
+	return TagString;
+}
+
+
 void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& PluginName)
 {
 	UGameFeaturesSubsystem& GameFeaturesSubsystem = UGameFeaturesSubsystem::Get();
