@@ -8,6 +8,8 @@
 #define LOG_ERROR(StringMessage) LogError(StringMessage);
 
 #define VALIDATE_CONDITION(Condition, StringMessage) LogIfInvalidCondition(Condition, StringMessage);
+
+#define ASSERT_CONDITION(Condition, StringMessage) LogIfInvalidCondition(Condition, StringMessage);
 #else
 
 #define LOG_MESSAGE(StringMessage)
@@ -17,6 +19,8 @@
 #define LOG_ERROR(StringMessage)
 
 #define VALIDATE_CONDITION(Condition, StringMessage)
+
+#define ASSERT_CONDITION(Condition, StringMessage)
 #endif
 
 static void LogMessage(const FString& Message)
@@ -55,4 +59,9 @@ static void LogIfInvalidCondition(bool bCondition, const FString& Message)
 	{
 		LogMessage(Message);
 	}
+}
+
+static void CrashIfInvalidCondition(bool bCondition, const FString& Message)
+{
+	checkf(bCondition, TEXT("%s"), *Message)
 }
