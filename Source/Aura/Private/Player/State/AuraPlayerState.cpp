@@ -6,6 +6,12 @@
 
 #include "AbilitySystem/AttributeSet/AuraAttributeSet.h"
 
+#include "AbilitySystem/AttributeSet/AuraPrimaryAttributeSet.h"
+
+#include "AbilitySystem/AttributeSet/AuraSecondaryAttributeSet.h"
+
+#include "AbilitySystem/AttributeSet/AuraVitalAttributeSet.h"
+
 #include "Player/Data/Gas/PlayerGasData.h"
 
 AAuraPlayerState::AAuraPlayerState()
@@ -13,6 +19,12 @@ AAuraPlayerState::AAuraPlayerState()
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSetBase");
+
+	PrimaryAttributeSet = CreateDefaultSubobject<UAuraPrimaryAttributeSet>("AuraPrimaryAttributeSet");
+
+	SecondaryAttributeSet = CreateDefaultSubobject<UAuraSecondaryAttributeSet>("AuraSecondaryAttributeSet");
+
+	VitalAttributeSet = CreateDefaultSubobject<UAuraVitalAttributeSet>("AuraVitalAttributeSet");
 }
 
 UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const

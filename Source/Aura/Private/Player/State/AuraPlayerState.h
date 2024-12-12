@@ -16,6 +16,12 @@ class UAuraAttributeSet;
 
 class UPlayerGasData;
 
+class UAuraPrimaryAttributeSet;
+
+class UAuraSecondaryAttributeSet;
+
+class UAuraVitalAttributeSet;
+
 UCLASS()
 class AAuraPlayerState final : public APlayerState, public IAbilitySystemInterface
 {
@@ -42,6 +48,15 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
+
+	UPROPERTY()
+	TObjectPtr<UAuraPrimaryAttributeSet> PrimaryAttributeSet;
+
+	UPROPERTY()
+	TObjectPtr<UAuraSecondaryAttributeSet> SecondaryAttributeSet;
+
+	UPROPERTY()
+	TObjectPtr<UAuraVitalAttributeSet> VitalAttributeSet;
 
 	UPROPERTY()
 	TObjectPtr<UPlayerGasData> PlayerGasData;
