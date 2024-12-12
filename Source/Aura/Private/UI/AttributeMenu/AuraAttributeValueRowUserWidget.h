@@ -22,8 +22,12 @@ class UAuraAttributeValueRowUserWidget final : public UUserWidget
 protected:
 	virtual void NativeConstruct() override;
 
+	virtual void BeginDestroy() override;
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnAttributeValueChanged(float NewValue);
+
+	void InternalOnAttributeValueChanged(const FOnAttributeChangeData& AttributeData);
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess))
@@ -31,4 +35,6 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, meta = (AllowPrivateAccess))
 	FGameplayTag AssociatedTag;
+
+	FDelegateHandle DelegateHandle;
 };

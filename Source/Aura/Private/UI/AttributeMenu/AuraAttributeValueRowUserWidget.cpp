@@ -19,23 +19,40 @@ void UAuraAttributeValueRowUserWidget::NativeConstruct()
 
 	UAuraAbilitySystemComponent* ASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	const FAuraAttributeInfo& AttributeInfo = AttributeInfoData->GetAttributeInfo(AssociatedTag);
+	FAuraAttributeInfo AttributeInfo = AttributeInfoData->GetAttributeInfo(AssociatedTag);
 
-	//What happens if I try to add Delegate to a attribute that does not exist inside the ASC?
-	FOnGameplayAttributeValueChange AttributeValueChangeDelegate = ASC->GetGameplayAttributeValueChangeDelegate(AttributeInfo.AssociatedAttribute);
+	ASSERT_CONDITION(ASC->HasAttributeSetForAttribute(AttributeInfo.AssociatedAttribute), FString::Printf(TEXT("Could Not Find Attribute Set For: %s"), *AttributeInfo.AssociatedAttribute.GetName()))
 
-	AttributeValueChangeDelegate.AddWeakLambda(this,
-		[this](const FOnAttributeChangeData& AttributeData)
-		{
-			OnAttributeValueChanged(AttributeData.NewValue);
-		});
+	FOnGameplayAttributeValueChange& AttributeValueChangeDelegate = ASC->GetGameplayAttributeValueChangeDelegate(AttributeInfo.AssociatedAttribute);
 
+	DelegateHandle = AttributeValueChangeDelegate.AddUObject(this, &UAuraAttributeValueRowUserWidget::InternalOnAttributeValueChanged);
 
 	bool bFound;
 
 	float Value = ASC->GetGameplayAttributeValue(AttributeInfo.AssociatedAttribute, bFound);
 
-	VALIDATE_CONDITION(bFound, FString::Printf(TEXT("Could Not Find Attribute Value For: %s"), *AttributeInfo.AssociatedAttribute.GetName()))
-
 	OnAttributeValueChanged(Value);
+}
+
+void UAuraAttributeValueRowUserWidget::BeginDestroy()
+{
+	Super::BeginDestroy();
+
+	UAuraAbilitySystemComponent* ASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+
+	if (ASC == nullptr)
+	{
+		return;
+	}
+
+	const FAuraAttributeInfo& AttributeInfo = AttributeInfoData->GetAttributeInfo(AssociatedTag);
+
+	FOnGameplayAttributeValueChange& AttributeValueChangeDelegate = ASC->GetGameplayAttributeValueChangeDelegate(AttributeInfo.AssociatedAttribute);
+
+	AttributeValueChangeDelegate.Remove(DelegateHandle);
+}
+
+void UAuraAttributeValueRowUserWidget::InternalOnAttributeValueChanged(const FOnAttributeChangeData& AttributeData)
+{
+	OnAttributeValueChanged(AttributeData.NewValue);
 }
