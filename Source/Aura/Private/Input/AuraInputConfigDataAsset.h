@@ -20,6 +20,8 @@ class UAuraInputConfigDataAsset final : public UDataAsset
 public:
 	UInputAction* GetInputAction(const FGameplayTag& Tag);
 	
+	FORCEINLINE const TMap<FGameplayTag, UInputAction*> GetInputDefinitions() const { return InputDefinitions; }
+
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TMap<FGameplayTag, UInputAction*> InputDefinitions;
