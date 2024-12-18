@@ -38,13 +38,29 @@ void UAuraAbilitySystemComponent::BeginPlay()
 	}
 }
 
-void UAuraAbilitySystemComponent::AbilityInputPressed(const FGameplayTag& InputTag)
+void UAuraAbilitySystemComponent::AbilityInputHeld(const FGameplayTag& InputTag)
 {
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (AbilitySpec.DynamicAbilityTags.HasTag(InputTag) && AbilitySpec.IsActive() == false)
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
 		{
-			TryActivateAbility(AbilitySpec.Handle);
+			AbilitySpecInputPressed(AbilitySpec);
+
+			if (AbilitySpec.IsActive() == false)
+			{
+				TryActivateAbility(AbilitySpec.Handle);
+			}
+		}
+	}
+}
+
+void UAuraAbilitySystemComponent::AbilityInputReleased(const FGameplayTag& InputTag)
+{
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
+		{
+			AbilitySpecInputReleased(AbilitySpec);
 		}
 	}
 }

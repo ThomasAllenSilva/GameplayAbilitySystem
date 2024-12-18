@@ -14,9 +14,12 @@ class UAuraAbilitySystemComponent : public UAbilitySystemComponent
 	GENERATED_BODY()
 
 public:
-	virtual void BeginPlay() override;
+	void AbilityInputHeld(const FGameplayTag& InputTag);
 
-	virtual void AbilityLocalInputPressed(int32 InputID) override;
+	void AbilityInputReleased(const FGameplayTag& InputTag);
+
+protected:
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))

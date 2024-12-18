@@ -20,14 +20,14 @@ class UAuraEnhancedInputComponent : public UEnhancedInputComponent
 	
 public:
 	template<class UserClass, typename Callback>
-	void BindInputPressed(const UAuraInputConfigDataAsset* InputDefinition, UserClass* UserObject, Callback FunctionCallback);
+	void BindAbilityInput(const UAuraInputConfigDataAsset* InputDefinition, UserClass* UserObject, Callback FunctionCallback, ETriggerEvent TriggerEvent);
 };
 
 template<class UserClass, typename Callback>
-inline void UAuraEnhancedInputComponent::BindInputPressed(const UAuraInputConfigDataAsset* InputDefinition, UserClass* UserObject, Callback FunctionCallback)
+inline void UAuraEnhancedInputComponent::BindAbilityInput(const UAuraInputConfigDataAsset* InputDefinition, UserClass* UserObject, Callback FunctionCallback, ETriggerEvent TriggerEvent)
 {
-	for (TPair<FGameplayTag, UInputAction*>& InputDefinition : InputDefinition->GetInputDefinitions())
+	for (const TPair<FGameplayTag, UInputAction*> Definition : InputDefinition->GetInputDefinitions())
 	{
-		BindAction(InputDefinition.Value, ETriggerEvent::Started, UserObject, FunctionCallback, InputDefinition.Key);
+		BindAction(Definition.Value, TriggerEvent, UserObject, FunctionCallback, Definition.Key);
 	}
 }

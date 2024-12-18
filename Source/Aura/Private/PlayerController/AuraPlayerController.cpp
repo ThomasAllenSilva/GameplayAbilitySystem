@@ -5,8 +5,6 @@
 
 #include "EnhancedInputSubsystems.h"
 
-#include "EnhancedInputComponent.h"
-
 #include "InputMappingContext.h"
 
 #include "InputAction.h"
@@ -15,6 +13,11 @@
 
 #include "GameFramework/Character.h"
 
+#include "Input/AuraEnhancedInputComponent.h"
+
+#include "Debug.h"
+#include "AuraBlueprintFunctionLibrary.h"
+#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -31,13 +34,19 @@ void AAuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
+	ASSERT_CONDITION(InputConfig != nullptr, TEXT("Input Config Is Null. Not Possible To Continue Input Binding"))
+
 	bShowMouseCursor = true;
 
 	bEnableMouseOverEvents = true;
 
-	UEnhancedInputComponent* EnhancedInput = CastChecked<UEnhancedInputComponent>(InputComponent);
+	UAuraEnhancedInputComponent* EnhancedInput = CastChecked<UAuraEnhancedInputComponent>(InputComponent);
 
 	EnhancedInput->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+
+	EnhancedInput->BindAbilityInput(InputConfig, this, &AAuraPlayerController::AbilityInputHeld, ETriggerEvent::Triggered);
+
+	EnhancedInput->BindAbilityInput(InputConfig, this, &AAuraPlayerController::AbilityInputReleased, ETriggerEvent::Canceled);
 }
 
 void AAuraPlayerController::Move(const FInputActionValue& InputValue)
@@ -56,4 +65,14 @@ void AAuraPlayerController::Move(const FInputActionValue& InputValue)
 	const FVector SidesInput = FVector::RightVector * Value.Y;
 
 	GetCharacter()->AddMovementInput(SidesInput);
+}
+
+void AAuraPlayerController::AbilityInputHeld(FGameplayTag InputTag)
+{
+	UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this)->AbilityInputHeld(InputTag);
+}
+
+void AAuraPlayerController::AbilityInputReleased(FGameplayTag InputTag)
+{
+	UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this)->AbilityInputReleased(InputTag);
 }
