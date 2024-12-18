@@ -9,7 +9,7 @@
 
 #define VALIDATE_CONDITION(Condition, StringMessage) LogIfInvalidCondition(Condition, StringMessage);
 
-#define ASSERT_CONDITION(Condition, StringMessage) LogIfInvalidCondition(Condition, StringMessage);
+#define ASSERT_CONDITION(Condition, StringMessage) CrashIfInvalidCondition(Condition, StringMessage);
 #else
 
 #define LOG_MESSAGE(StringMessage)
