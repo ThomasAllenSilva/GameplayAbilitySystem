@@ -18,5 +18,6 @@ class UAuraGameplayAbility final : public UGameplayAbility
 	
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	FGameplayTag InputTag;
 };
