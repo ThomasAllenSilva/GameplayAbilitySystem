@@ -28,3 +28,11 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 
 	return ProjectileInstance;
 }
+
+void AAuraProjectile::OnProjectileOverlap(AActor* OtherActor)
+{
+
+
+
+	Destroy();
+}
