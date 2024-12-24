@@ -8,6 +8,8 @@
 
 #include "AbilitySystemInterface.h"
 
+#include "AbilitySystem/Interfaces/CombatInterface.h"
+
 #include "AuraCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -15,7 +17,7 @@ class UAbilitySystemComponent;
 class UAuraAttributeSet;
 
 UCLASS(Abstract)
-class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface
+class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -23,6 +25,8 @@ public:
 	AAuraCharacterBase();
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	virtual FVector GetProjectileSpawnLocation() override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")

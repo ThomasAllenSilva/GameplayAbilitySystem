@@ -32,6 +32,6 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 
 FVector AAuraCharacterBase::GetProjectileSpawnLocation()
 {
-	return FVector();
+	return WeaponMesh->GetSocketLocation(PROJECTILE_SOCKET_NAME);
 }
 

@@ -3,10 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "UObject/Interface.h"
+
 #include "CombatInterface.generated.h"
 
-// This class does not need to be modified.
+#define PROJECTILE_SOCKET_NAME "ProjectileSpawnPoint"
+
 UINTERFACE(MinimalAPI)
 class UCombatInterface : public UInterface
 {
@@ -20,6 +23,6 @@ class ICombatInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual FVector GetProjectileSpawnLocation() = 0;
 };
