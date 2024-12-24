@@ -17,7 +17,8 @@ public class Aura : ModuleRules
             "GameplayAbilities",
             "GameplayTags",
             "GameplayTasks",
-            "ModularGameplay"});
+            "ModularGameplay",
+            "MotionWarping"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

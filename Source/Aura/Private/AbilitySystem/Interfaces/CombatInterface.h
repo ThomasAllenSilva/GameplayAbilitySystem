@@ -8,9 +8,11 @@
 
 #include "CombatInterface.generated.h"
 
-#define PROJECTILE_SOCKET_NAME "ProjectileSpawnPoint"
+static const FName ProjectileSocketName = TEXT("ProjectileSpawnPoint");
 
-UINTERFACE(MinimalAPI)
+static const FName WarpName = TEXT("FacingTarget");
+
+UINTERFACE(MinimalAPI, NotBlueprintable)
 class UCombatInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -25,4 +27,7 @@ class ICombatInterface
 
 public:
 	virtual FVector GetProjectileSpawnLocation() = 0;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void UpdateWarpTargetFromLocation(const FVector& Location) = 0;
 };

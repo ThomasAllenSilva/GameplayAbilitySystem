@@ -16,6 +16,8 @@ class UAbilitySystemComponent;
 
 class UAuraAttributeSet;
 
+class UMotionWarpingComponent;
+
 UCLASS(Abstract)
 class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
@@ -28,6 +30,8 @@ public:
 
 	virtual FVector GetProjectileSpawnLocation() override;
 
+	virtual void UpdateWarpTargetFromLocation(const FVector& Location) override;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
@@ -38,4 +42,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UAuraAttributeSet> AttributeSet;
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;
 };
