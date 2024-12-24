@@ -2,6 +2,8 @@
 
 #include "AbilitySystem/Actor/AuraProjectile.h"
 
+#include "AbilitySystem/Interfaces/CombatInterface.h"
+
 #include "GameFramework/ProjectileMovementComponent.h"
 
 AAuraProjectile::AAuraProjectile()
@@ -15,13 +17,25 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 }
 
-const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& SpawnLocation, const FVector& TargetLocation)
+const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation)
 {
+	FVector SpawnLocation = OwningActor->GetActorLocation();
+
+	if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(OwningActor))
+	{
+		SpawnLocation = CombatInterface->GetProjectileSpawnLocation();
+	}
+
 	const FVector Direction = (TargetLocation - SpawnLocation);
 
-	FTransform SpawnTransform = FTransform(Direction.Rotation().Quaternion());
+	FRotator Rotation = Direction.Rotation();
+
+	Rotation.Pitch = 0.0f;
+
+	FTransform SpawnTransform = FTransform(Rotation.Quaternion());
+
 	SpawnTransform.SetLocation(SpawnLocation);
-	
+
 	AAuraProjectile* ProjectileInstance = WorldContextObject->GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass, SpawnTransform, OwningActor);
 
 	ProjectileInstance->FinishSpawning(SpawnTransform);
