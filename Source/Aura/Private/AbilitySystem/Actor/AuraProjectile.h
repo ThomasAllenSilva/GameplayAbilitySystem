@@ -10,6 +10,10 @@
 
 class UProjectileMovementComponent;
 
+class UNiagaraSystem;
+
+class USoundBase;
+
 UCLASS()
 class AAuraProjectile final : public AActor
 {
@@ -25,7 +29,19 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnProjectileOverlap(AActor* OtherActor);
 
+	UFUNCTION(BlueprintCallable)
+	virtual void BeginPlay() override;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Effects")
+	TObjectPtr<UNiagaraSystem> CollisionEffect;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	TObjectPtr<USoundBase> CollisionSound;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	TObjectPtr<USoundBase> AttachedSpawnSound;
 };

@@ -34,8 +34,6 @@ UAuraAbilitySystemComponent* UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilit
 
 	if (PlayerState == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Cannot Retrieve AbilitySystemComponent From Null Player State"));
-
 		return nullptr;
 	}
 

@@ -3,11 +3,14 @@
 
 #include "AuraGameInstance.h"
 
+UAuraGameInstance::UAuraGameInstance()
+{
+	UE_LOG(LogTemp, Display, TEXT("Trying To Change"));
+}
+
 void UAuraGameInstance::StartGameInstance()
 {
 	Super::StartGameInstance();
-
-	UE_LOG(LogTemp, Display, TEXT("StartGameInstance"));
 
 	OnBeforeStartGameInstance();
 }
