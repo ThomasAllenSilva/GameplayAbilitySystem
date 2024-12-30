@@ -6,6 +6,8 @@
 
 #include "GameFramework/Actor.h"
 
+#include "GameplayEffectTypes.h"
+
 #include "AuraProjectile.generated.h"
 
 class UProjectileMovementComponent;
@@ -23,11 +25,11 @@ public:
 	AAuraProjectile();
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
-	static const AAuraProjectile* CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation);
+	static const AAuraProjectile* CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const FGameplayEffectSpecHandle& EffectSpecHandle);
 
 protected:
 	UFUNCTION(BlueprintCallable)
-	void OnProjectileOverlap(AActor* OtherActor);
+	void ApplyProjectileEffectToTarget(AActor* OtherActor);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void BeginPlay() override;
@@ -44,4 +46,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
 	TObjectPtr<USoundBase> AttachedSpawnSound;
+
+	UPROPERTY()
+	FGameplayEffectSpecHandle EffectSpecHandle;
 };

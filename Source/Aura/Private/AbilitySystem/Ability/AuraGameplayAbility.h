@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class UAuraGameplayAbility final : public UGameplayAbility
+class UAuraGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 	

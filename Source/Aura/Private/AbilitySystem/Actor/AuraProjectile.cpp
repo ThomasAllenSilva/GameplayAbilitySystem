@@ -8,6 +8,10 @@
 
 #include "Kismet/GameplayStatics.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+
+#include "AbilitySystemComponent.h"
+
 #include "GameFramework/ProjectileMovementComponent.h"
 
 AAuraProjectile::AAuraProjectile()
@@ -21,7 +25,7 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 }
 
-const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation)
+const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const FGameplayEffectSpecHandle& EffectSpecHandle)
 {
 	FVector SpawnLocation = OwningActor->GetActorLocation();
 
@@ -40,6 +44,8 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 
 	AAuraProjectile* ProjectileInstance = WorldContextObject->GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass, SpawnTransform, OwningActor);
 
+	ProjectileInstance->EffectSpecHandle = EffectSpecHandle;
+
 	ProjectileInstance->FinishSpawning(SpawnTransform);
 
 	return ProjectileInstance;
@@ -54,7 +60,7 @@ void AAuraProjectile::BeginPlay()
 	UGameplayStatics::SpawnSoundAttached(AttachedSpawnSound, GetRootComponent(), NAME_None, FVector::ZeroVector, EAttachLocation::KeepRelativeOffset, true);
 }
 
-void AAuraProjectile::OnProjectileOverlap(AActor* OtherActor)
+void AAuraProjectile::ApplyProjectileEffectToTarget(AActor* TargetActor)
 {
 	checkf(CollisionEffect, TEXT("Invalid Or Null Collision Effect For Projectile"));
 
@@ -63,6 +69,11 @@ void AAuraProjectile::OnProjectileOverlap(AActor* OtherActor)
 	UGameplayStatics::PlaySoundAtLocation(this, CollisionSound, GetActorLocation());
 
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, CollisionEffect, GetActorLocation());
+
+	if (UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor))
+	{
+		ASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
+	}
 
 	Destroy();
 }
