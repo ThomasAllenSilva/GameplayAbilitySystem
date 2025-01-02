@@ -29,7 +29,7 @@ public:
 
 protected:
 	UFUNCTION(BlueprintCallable)
-	void ApplyProjectileEffectToTarget(AActor* OtherActor);
+	void ApplyProjectileEffectToTarget(AActor* TargetActor);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void BeginPlay() override;

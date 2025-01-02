@@ -16,6 +16,14 @@
 				"GameFeatures",
 				"EnhancedInput"
 			]
+		},
+		{
+			"Name": "CommonFramework",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
 		}
 	],
 	"Plugins": [
