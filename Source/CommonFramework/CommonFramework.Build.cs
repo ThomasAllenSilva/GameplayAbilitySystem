@@ -12,14 +12,7 @@ public class CommonFramework : ModuleRules
             "Core",
             "CoreUObject",
             "Engine",
-            "InputCore",
-            "EnhancedInput",
-            "GameplayAbilities",
-            "GameplayTags",
-            "GameplayTasks",
-            "ModularGameplay",
-            "MotionWarping",
-            "Niagara"});
+            "UMG"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

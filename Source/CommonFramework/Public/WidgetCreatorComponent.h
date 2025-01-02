@@ -3,26 +3,51 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "Components/ActorComponent.h"
+
 #include "WidgetCreatorComponent.generated.h"
 
+class UWidgetComponentSettings;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class COMMONFRAMEWORK_API UWidgetCreatorComponent : public UActorComponent
+UENUM()
+enum EWidgetCreationType
+{
+	AddToViewport,
+
+	WidgetComponent
+};
+
+USTRUCT(BlueprintType)
+struct FActorWidgets
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UUserWidget> Widget;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TEnumAsByte<EWidgetCreationType> WidgetCreationType;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::WidgetComponent"))
+	TObjectPtr<UWidgetComponentSettings> WidgetComponentSettings;
+};
+
+UCLASS(ClassGroup = (CommonFramework), meta = (BlueprintSpawnableComponent))
+class COMMONFRAMEWORK_API UWidgetCreatorComponent final : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:
 	UWidgetCreatorComponent();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+private:
+	void CreateStartupWidgets();
+private:
+	UPROPERTY(EditDefaultsOnly)
+	TArray<FActorWidgets> StartupWidgets;
 };

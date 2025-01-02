@@ -3,32 +3,70 @@
 
 #include "WidgetCreatorComponent.h"
 
-// Sets default values for this component's properties
+#include "Blueprint/UserWidget.h"
+
+#include "WidgetComponentSettings.h"
+
+#include "Components/WidgetComponent.h"
+
 UWidgetCreatorComponent::UWidgetCreatorComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
+	PrimaryComponentTick.bStartWithTickEnabled = false;
+
+	PrimaryComponentTick.bAllowTickOnDedicatedServer = false;
 }
 
-
-// Called when the game starts
 void UWidgetCreatorComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	CreateStartupWidgets();
 }
 
-
-// Called every frame
-void UWidgetCreatorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UWidgetCreatorComponent::CreateStartupWidgets()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	for (FActorWidgets& WidgetTemplate : StartupWidgets)
+	{
+		UWorld* World = GetWorld();
 
-	// ...
+		ULocalPlayer* LocalPlayer = World->GetFirstLocalPlayerFromController();
+
+		APlayerController* PlayerController = LocalPlayer->GetPlayerController(World);
+
+		UUserWidget* WidgetInstance = CreateWidget<UUserWidget>(PlayerController, WidgetTemplate.Widget);
+
+		if (WidgetTemplate.WidgetCreationType == EWidgetCreationType::AddToViewport)
+		{
+			WidgetInstance->AddToViewport();
+		}
+
+		else
+		{
+			AActor* OwningActor = GetOwner();
+
+			UWidgetComponent* WidgetComponent = NewObject<UWidgetComponent>(OwningActor);
+
+			WidgetComponent->SetupAttachment(OwningActor->GetRootComponent());
+
+			WidgetComponent->RegisterComponent();
+
+			WidgetComponent->SetWidgetClass(WidgetTemplate.Widget);
+
+			WidgetComponent->SetWidgetSpace(WidgetTemplate.WidgetComponentSettings->GetWidgetSpace());
+
+			WidgetComponent->SetTickMode(WidgetTemplate.WidgetComponentSettings->GetTickMode());
+
+			WidgetComponent->SetDrawSize(WidgetTemplate.WidgetComponentSettings->GetDrawSize());
+
+			WidgetComponent->SetDrawAtDesiredSize(WidgetTemplate.WidgetComponentSettings->bDrawAtDesiredSize);
+
+			WidgetComponent->SetPivot(WidgetTemplate.WidgetComponentSettings->GetPivot());
+
+			WidgetComponent->SetRelativeLocation(WidgetTemplate.WidgetComponentSettings->GetRelativeLocation());
+
+			WidgetComponent->SetRelativeRotation(WidgetTemplate.WidgetComponentSettings->GetRelativeRotation());
+		}
+	}
 }
-
