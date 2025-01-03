@@ -2,25 +2,16 @@
 
 using UnrealBuildTool;
 
-public class Aura : ModuleRules
+public class DebugUtils : ModuleRules
 {
-    public Aura(ReadOnlyTargetRules Target) : base(Target)
+    public DebugUtils(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] {
             "Core",
             "CoreUObject",
-            "Engine",
-            "InputCore",
-            "EnhancedInput",
-            "GameplayAbilities",
-            "GameplayTags",
-            "GameplayTasks",
-            "ModularGameplay",
-            "MotionWarping",
-            "Niagara",
-            "DebugUtils"});
+            "Engine",});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

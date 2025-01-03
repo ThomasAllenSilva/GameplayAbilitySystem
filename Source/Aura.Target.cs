@@ -10,6 +10,6 @@ public class AuraTarget : TargetRules
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 
-		ExtraModuleNames.AddRange( new string[] { "Aura", "CommonFramework" } );
+		ExtraModuleNames.AddRange( new string[] { "Aura", "CommonFramework", "DebugUtils" } );
 	}
 }
