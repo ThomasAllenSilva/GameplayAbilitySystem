@@ -29,6 +29,11 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 {
 	for (FActorWidgets& WidgetTemplate : StartupWidgets)
 	{
+		if (WidgetTemplate.Widget == nullptr)
+		{
+			return;
+		}
+
 		UWorld* World = GetWorld();
 
 		ULocalPlayer* LocalPlayer = World->GetFirstLocalPlayerFromController();
