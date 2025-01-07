@@ -2,15 +2,13 @@
 
 #include "CommonNodes/TickableTimerAsyncAction.h"
 
-UTickableTimerAsyncAction* UTickableTimerAsyncAction::TickableTimer(const UObject* WorldContextObj, float Time, float Rate)
+UTickableTimerAsyncAction* UTickableTimerAsyncAction::TickableTimer(const UObject* WorldContextObj, float Time)
 {
 	UTickableTimerAsyncAction* Node = NewObject<UTickableTimerAsyncAction>();
 
 	Node->WorldContext = WorldContextObj;
 
 	Node->MaxTime = Time;
-
-	Node->Rate = Rate;
 
 	return Node;
 }
@@ -23,37 +21,36 @@ void UTickableTimerAsyncAction::Activate()
 	}
 
 	bActive = true;
-
-	FTimerDelegate TimerDelegate;
-
-	TimerDelegate.BindUObject(this, &UTickableTimerAsyncAction::InternalTick);
-
-	WorldContext->GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, Rate, true);
 }
 
-void UTickableTimerAsyncAction::InternalTick()
+void UTickableTimerAsyncAction::Tick(float DeltaTime)
 {
-	float DeltaSeconds = WorldContext->GetWorld()->GetDeltaSeconds();
-
-	ElapsedTime += DeltaSeconds;
-
-	Tick.Broadcast(DeltaSeconds);
-
-	if (DeltaSeconds >= MaxTime)
+	//TODO: Fix this tick function because its prolly ticking at every tick group
+	if (bActive)
 	{
-		InternalCompleted();
+		ElapsedTime += DeltaTime;
+
+		OnTick.Broadcast(DeltaTime);
+
+		if (DeltaTime >= MaxTime)
+		{
+			InternalCompleted();
+		}
 	}
+
+	UE_LOG(LogTemp, Display, TEXT("Ticking"));
 }
 
 void UTickableTimerAsyncAction::InternalCompleted()
 {
-	WorldContext->GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
-
-	TimerHandle.Invalidate();
-
 	float DeltaSeconds = WorldContext->GetWorld()->GetDeltaSeconds();
 
 	Completed.Broadcast(DeltaSeconds);
 
 	bActive = false;
+}
+
+TStatId UTickableTimerAsyncAction::GetStatId() const
+{
+	RETURN_QUICK_DECLARE_CYCLE_STAT(UTickableTimerAsyncAction, STATGROUP_Tickables);
 }
