@@ -38,6 +38,10 @@ void ULerpFloatWithinTime::OnTick(float DeltaSeconds)
 
 	if (ElapsedTime >= MaxTime)
 	{
+		SetReadyToDestroy();
+
+		MarkPendingKill();
+
 		TickObject->OnTick.Unbind();
 
 		TickObject = nullptr;
