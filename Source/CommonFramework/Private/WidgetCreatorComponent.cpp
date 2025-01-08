@@ -1,11 +1,12 @@
 // Thomas Learning Project
 
-
 #include "WidgetCreatorComponent.h"
 
 #include "Blueprint/UserWidget.h"
 
 #include "WidgetComponentSettings.h"
+
+#include "Data/ContextObject.h"
 
 #include "Components/WidgetComponent.h"
 
@@ -42,6 +43,8 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 
 		UUserWidget* WidgetInstance = CreateWidget<UUserWidget>(PlayerController, WidgetTemplate.Widget);
 
+		AActor* OwningActor = GetOwner();
+
 		if (WidgetTemplate.WidgetCreationType == EWidgetCreationType::AddToViewport)
 		{
 			WidgetInstance->AddToViewport();
@@ -49,8 +52,6 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 
 		else
 		{
-			AActor* OwningActor = GetOwner();
-
 			UWidgetComponent* WidgetComponent = NewObject<UWidgetComponent>(OwningActor);
 
 			WidgetComponent->SetupAttachment(OwningActor->GetRootComponent());
@@ -72,6 +73,11 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 			WidgetComponent->SetRelativeLocation(WidgetTemplate.WidgetComponentSettings->GetRelativeLocation());
 
 			WidgetComponent->SetRelativeRotation(WidgetTemplate.WidgetComponentSettings->GetRelativeRotation());
+		}
+
+		if (UContextObject* ContextObject = Cast<UContextObject>(WidgetInstance))
+		{
+			ContextObject->SetOwningActor(OwningActor);
 		}
 	}
 }
