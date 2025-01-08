@@ -4,7 +4,7 @@
 
 #include "TickableObject.h"
 
-ULerpFloatWithinTime* ULerpFloatWithinTime::LerpFloatWithinTime(const UObject* WorldContextObj, float A, float B, float Time)
+ULerpFloatWithinTime* ULerpFloatWithinTime::LerpFloatWithinTime(float A, float B, float Time)
 {
 	ULerpFloatWithinTime* Node = NewObject<ULerpFloatWithinTime>();
 
@@ -38,10 +38,6 @@ void ULerpFloatWithinTime::OnTick(float DeltaSeconds)
 
 	if (ElapsedTime >= MaxTime)
 	{
-		SetReadyToDestroy();
-
-		MarkPendingKill();
-
 		TickObject->OnTick.Unbind();
 
 		TickObject = nullptr;

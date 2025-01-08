@@ -18,8 +18,8 @@ class ULerpFloatWithinTime final : public UBlueprintAsyncActionBase
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", WorldContext = "WorldContextObject", HidePin = "WorldContextObj", DefaultToSelf = "WorldContextObj"), Category = "AsyncNode")
-	static ULerpFloatWithinTime* LerpFloatWithinTime(const UObject* WorldContextObj, float A, float B, float Time);
+	UFUNCTION(BlueprintCallable, Category = "AsyncNode")
+	static ULerpFloatWithinTime* LerpFloatWithinTime(float A, float B, float Time);
 
 	virtual void Activate() override;
 
