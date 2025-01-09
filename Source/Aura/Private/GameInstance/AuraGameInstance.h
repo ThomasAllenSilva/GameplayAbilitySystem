@@ -14,7 +14,9 @@ class AURA_API UAuraGameInstance final : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	 virtual void StartGameInstance() override;
+	UAuraGameInstance();
+
+	virtual void StartGameInstance() override;
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)

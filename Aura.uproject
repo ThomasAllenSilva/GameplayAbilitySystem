@@ -13,7 +13,26 @@
 				"GameplayAbilities",
 				"UMG",
 				"CoreUObject",
-				"GameFeatures"
+				"GameFeatures",
+				"EnhancedInput"
+			]
+		},
+		{
+			"Name": "CommonFramework",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"CoreUObject",
+				"UMG"
+			]
+		},
+		{
+			"Name": "DebugUtils",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
 			]
 		}
 	],
@@ -48,6 +67,10 @@
 		},
 		{
 			"Name": "CommonUI",
+			"Enabled": true
+		},
+		{
+			"Name": "MotionWarping",
 			"Enabled": true
 		}
 	]

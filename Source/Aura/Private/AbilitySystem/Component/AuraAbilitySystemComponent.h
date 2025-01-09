@@ -13,12 +13,18 @@ class UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 
-	UAuraAbilitySystemComponent();
-
 public:
+	void AbilityInputHeld(const FGameplayTag& InputTag);
+
+	void AbilityInputReleased(const FGameplayTag& InputTag);
+
+protected:
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))
 	TArray<TSubclassOf<UGameplayEffect>> InitializationEffects;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))
+	TArray<TSubclassOf<UGameplayAbility>> InitialAbilities;
 };

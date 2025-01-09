@@ -34,8 +34,6 @@ UAuraAbilitySystemComponent* UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilit
 
 	if (PlayerState == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Cannot Retrieve AbilitySystemComponent From Null Player State"));
-
 		return nullptr;
 	}
 
@@ -55,6 +53,19 @@ const UAuraAttributeSet* UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeS
 	UPlayerGasData* PlayerGasData = PlayerState->GetPlayerGasData();
 
 	return PlayerGasData->GetAttributeSet();
+}
+
+const APlayerController* UAuraBlueprintFunctionLibrary::GetLocalPlayerController(const UObject* WorldContextObject)
+{
+	UWorld* World = WorldContextObject->GetWorld();
+	if (World == nullptr) return nullptr;
+
+	ULocalPlayer* LocalPlayer = World->GetFirstLocalPlayerFromController();
+	if (LocalPlayer == nullptr) return nullptr;
+
+	APlayerController* PlayerController = LocalPlayer->GetPlayerController(World);
+
+	return PlayerController;
 }
 
 const FString UAuraBlueprintFunctionLibrary::GetTagLastName(const FGameplayTag& Tag)
@@ -98,7 +109,7 @@ void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& Pl
 	FString OutPluginName;
 
 	GameFeaturesSubsystem.GetPluginURLByName(PluginName, OutPluginName);
-	
+
 	GameFeaturesSubsystem.LoadAndActivateGameFeaturePlugin(
 		OutPluginName,
 		FGameFeaturePluginLoadComplete::CreateLambda([](const UE::GameFeatures::FResult& Result)

@@ -2,7 +2,7 @@
 
 #include "Characters/Base/AuraCharacterBase.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "MotionWarpingComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -23,6 +23,8 @@ AAuraCharacterBase::AAuraCharacterBase()
 	WeaponMesh->PrimaryComponentTick.bStartWithTickEnabled = false;
 
 	WeaponMesh->PrimaryComponentTick.bAllowTickOnDedicatedServer = false;
+
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>("Motion Warping");
 }
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
@@ -30,3 +32,12 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+FVector AAuraCharacterBase::GetProjectileSpawnLocation()
+{
+	return WeaponMesh->GetSocketLocation(ProjectileSocketName);
+}
+
+void AAuraCharacterBase::UpdateWarpTargetFromLocation(const FVector& Location)
+{
+	MotionWarpingComponent->AddOrUpdateWarpTargetFromLocation(WarpName, Location);
+}
