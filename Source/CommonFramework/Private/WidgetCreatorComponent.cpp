@@ -60,7 +60,7 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 
 			WidgetComponent->RegisterComponent();
 
-			WidgetComponent->SetWidgetClass(WidgetTemplate.Widget);
+			WidgetComponent->SetWidget(WidgetInstance);
 
 			WidgetComponent->SetWidgetSpace(ComponentSettings->GetWidgetSpace());
 
@@ -79,7 +79,7 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 			WidgetComponent->SetCollisionEnabled(ComponentSettings->CollisionEnabled);
 
 			WidgetComponent->SetGenerateOverlapEvents(ComponentSettings->bGenerateOverlapEvents);
-
+	
 			WidgetComponent->SetCollisionResponseToAllChannels(ComponentSettings->CollisionResponse);
 		}
 
