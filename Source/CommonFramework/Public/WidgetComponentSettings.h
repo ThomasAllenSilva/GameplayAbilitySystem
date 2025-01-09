@@ -47,4 +47,16 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	FRotator  RelativeRotation;
 	PROPERTY_ACCESSOR(FRotator, RelativeRotation)
+
+	UPROPERTY(EditDefaultsOnly)
+	bool bGenerateOverlapEvents;
+	PROPERTY_ACCESSOR(bool, bGenerateOverlapEvents)
+
+	UPROPERTY(EditDefaultsOnly)
+	ECollisionEnabled::Type CollisionEnabled = ECollisionEnabled::NoCollision;
+	PROPERTY_ACCESSOR(bool, CollisionEnabled)
+
+	UPROPERTY(EditDefaultsOnly)
+	ECollisionResponse CollisionResponse = ECollisionResponse::ECR_Ignore;
+	PROPERTY_ACCESSOR(ECollisionResponse, CollisionResponse)
 };

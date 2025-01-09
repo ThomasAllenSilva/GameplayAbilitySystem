@@ -6,7 +6,7 @@
 
 #include "WidgetComponentSettings.h"
 
-#include "Data/ContextObject.h"
+#include "UI/Base/ContextualUserWidget.h"
 
 #include "Components/WidgetComponent.h"
 
@@ -52,6 +52,8 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 
 		else
 		{
+			UWidgetComponentSettings* ComponentSettings = WidgetTemplate.WidgetComponentSettings;
+
 			UWidgetComponent* WidgetComponent = NewObject<UWidgetComponent>(OwningActor);
 
 			WidgetComponent->SetupAttachment(OwningActor->GetRootComponent());
@@ -60,22 +62,28 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 
 			WidgetComponent->SetWidgetClass(WidgetTemplate.Widget);
 
-			WidgetComponent->SetWidgetSpace(WidgetTemplate.WidgetComponentSettings->GetWidgetSpace());
+			WidgetComponent->SetWidgetSpace(ComponentSettings->GetWidgetSpace());
 
-			WidgetComponent->SetTickMode(WidgetTemplate.WidgetComponentSettings->GetTickMode());
+			WidgetComponent->SetTickMode(ComponentSettings->GetTickMode());
 
-			WidgetComponent->SetDrawSize(WidgetTemplate.WidgetComponentSettings->GetDrawSize());
+			WidgetComponent->SetDrawSize(ComponentSettings->GetDrawSize());
 
-			WidgetComponent->SetDrawAtDesiredSize(WidgetTemplate.WidgetComponentSettings->bDrawAtDesiredSize);
+			WidgetComponent->SetDrawAtDesiredSize(ComponentSettings->bDrawAtDesiredSize);
 
-			WidgetComponent->SetPivot(WidgetTemplate.WidgetComponentSettings->GetPivot());
+			WidgetComponent->SetPivot(ComponentSettings->GetPivot());
 
-			WidgetComponent->SetRelativeLocation(WidgetTemplate.WidgetComponentSettings->GetRelativeLocation());
+			WidgetComponent->SetRelativeLocation(ComponentSettings->GetRelativeLocation());
 
-			WidgetComponent->SetRelativeRotation(WidgetTemplate.WidgetComponentSettings->GetRelativeRotation());
+			WidgetComponent->SetRelativeRotation(ComponentSettings->GetRelativeRotation());
+
+			WidgetComponent->SetCollisionEnabled(ComponentSettings->CollisionEnabled);
+
+			WidgetComponent->SetGenerateOverlapEvents(ComponentSettings->bGenerateOverlapEvents);
+
+			WidgetComponent->SetCollisionResponseToAllChannels(ComponentSettings->CollisionResponse);
 		}
 
-		if (UContextObject* ContextObject = Cast<UContextObject>(WidgetInstance))
+		if (UContextualUserWidget* ContextObject = Cast<UContextualUserWidget>(WidgetInstance))
 		{
 			ContextObject->SetOwningActor(OwningActor);
 		}
