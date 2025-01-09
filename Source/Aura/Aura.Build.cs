@@ -20,7 +20,8 @@ public class Aura : ModuleRules
             "ModularGameplay",
             "MotionWarping",
             "Niagara",
-            "DebugUtils"});
+            "DebugUtils",
+            "CommonFramework"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 
