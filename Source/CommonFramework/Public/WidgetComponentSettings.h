@@ -53,10 +53,10 @@ private:
 	PROPERTY_ACCESSOR(bool, bGenerateOverlapEvents)
 
 	UPROPERTY(EditDefaultsOnly)
-	ECollisionEnabled::Type CollisionEnabled = ECollisionEnabled::NoCollision;
-	PROPERTY_ACCESSOR(bool, CollisionEnabled)
+	TEnumAsByte<ECollisionEnabled::Type> CollisionEnabled = ECollisionEnabled::NoCollision;
+	PROPERTY_ACCESSOR(ECollisionEnabled::Type, CollisionEnabled)
 
 	UPROPERTY(EditDefaultsOnly)
-	ECollisionResponse CollisionResponse = ECollisionResponse::ECR_Ignore;
+	TEnumAsByte<ECollisionResponse> CollisionResponse = ECollisionResponse::ECR_Ignore;
 	PROPERTY_ACCESSOR(ECollisionResponse, CollisionResponse)
 };
