@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
 
-#include "GameplayEffect.h"
+#include "AuraBlueprintFunctionLibrary.h"
 
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
@@ -11,19 +11,7 @@ void UAuraAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (TSubclassOf<UGameplayEffect>& EffectTemplate : InitializationEffects)
-	{
-		if (IsValid(EffectTemplate) == false)
-		{
-			continue;
-		}
-
-		const FGameplayEffectContextHandle ContextHandle = MakeEffectContext();
-
-		const FGameplayEffectSpecHandle SpecHandle = MakeOutgoingSpec(EffectTemplate, 1.0f, ContextHandle);
-
-		ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-	}
+	UAuraBlueprintFunctionLibrary::InitializeCharacterClass(this, CharacterClassTag, this);
 
 	for (TSubclassOf<UGameplayAbility>& AbilityTemplate : InitialAbilities)
 	{
