@@ -17,6 +17,9 @@ class UAuraGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 	
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	FScalableFloat ScalableDamage;
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	FGameplayTag InputTag;
