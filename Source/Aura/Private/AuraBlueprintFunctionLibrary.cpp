@@ -10,6 +10,12 @@
 
 #include "Player/Data/Gas/PlayerGasData.h"
 
+#include "GameMode/AuraGameMode.h"
+
+#include "Kismet/GameplayStatics.h"
+
+#include "AbilitySystem/Data/CharacterClassConfigurationInfo.h"
+
 #include "GameFeaturesSubsystem.h"
 
 APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
@@ -101,6 +107,32 @@ const FString UAuraBlueprintFunctionLibrary::GetTagLastName(const FGameplayTag& 
 	return TagString;
 }
 
+AAuraGameMode* UAuraBlueprintFunctionLibrary::GetAuraGameMode(const UObject* WorldContextObject)
+{
+	AAuraGameMode* AuraGameMode = CastChecked<AAuraGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
+
+	return AuraGameMode;
+}
+
+void UAuraBlueprintFunctionLibrary::InitializeCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC)
+{
+	AAuraGameMode* AuraGameMode = GetAuraGameMode(WorldContextObject);
+
+	UCharacterClassConfigurationInfo* CharacterClassConfigurationInfo = AuraGameMode->GetCharacterClassConfigurationInfo();
+
+	checkf(CharacterClassConfigurationInfo, TEXT("Aura Game Mode Has An Invalid Or Null CharacterClassConfigurationInfo Data"));
+
+	const FClassConfigurationInfo& ClassConfigurationInfo = CharacterClassConfigurationInfo->GetClassConfiguration(ClassTag);
+
+	FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassConfigurationInfo.PrimaryAttributesStartEffect, 1, ASC->MakeEffectContext());
+	ASC->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
+
+	FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = ASC->MakeOutgoingSpec(CharacterClassConfigurationInfo->SecondaryAttributesStartEffect, 1, ASC->MakeEffectContext());
+	ASC->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+
+	FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(CharacterClassConfigurationInfo->VitalAttributesStartEffect, 1, ASC->MakeEffectContext());
+	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+}
 
 void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& PluginName)
 {

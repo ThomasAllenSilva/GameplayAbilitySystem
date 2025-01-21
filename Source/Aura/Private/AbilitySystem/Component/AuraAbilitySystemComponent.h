@@ -23,8 +23,8 @@ protected:
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))
-	TArray<TSubclassOf<UGameplayEffect>> InitializationEffects;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))
 	TArray<TSubclassOf<UGameplayAbility>> InitialAbilities;
+
+	UPROPERTY(EditDefaultsOnly)
+	FGameplayTag CharacterClassTag;
 };

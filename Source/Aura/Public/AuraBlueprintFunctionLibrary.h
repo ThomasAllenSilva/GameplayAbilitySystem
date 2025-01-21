@@ -8,11 +8,13 @@
 
 #include "AuraBlueprintFunctionLibrary.generated.h"
 
+class AAuraGameMode;
+
 UCLASS()
 class AURA_API UAuraBlueprintFunctionLibrary final : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
-	
+
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static APlayerState* GetLocalPlayerState(const UObject* WorldContextObject);
@@ -28,6 +30,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static const FString GetTagLastName(const FGameplayTag& Tag);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	static AAuraGameMode* GetAuraGameMode(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	static void InitializeCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable, Category = "Game Features")
 	static void LoadAndActivateGameFeature(const FString& PluginName);
