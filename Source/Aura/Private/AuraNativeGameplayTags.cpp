@@ -24,3 +24,5 @@ UE_DEFINE_GAMEPLAY_TAG(Attributes_Secondary_MaxMana, "Attributes.Secondary.MaxMa
 
 
 UE_DEFINE_GAMEPLAY_TAG(Damage, "Damage");
+
+UE_DEFINE_GAMEPLAY_TAG(Effects_HitReact, "Effects.HitReact");
