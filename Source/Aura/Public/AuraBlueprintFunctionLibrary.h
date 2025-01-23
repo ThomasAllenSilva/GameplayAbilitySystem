@@ -34,8 +34,11 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static AAuraGameMode* GetAuraGameMode(const UObject* WorldContextObject);
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, meta = (DefaultToSelf = "WorldContextObject"))
 	static void InitializeGlobalCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC);
+
+	UFUNCTION(BlueprintCallable)
+	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);
 
 	UFUNCTION(BlueprintCallable, Category = "Game Features")
 	static void LoadAndActivateGameFeature(const FString& PluginName);

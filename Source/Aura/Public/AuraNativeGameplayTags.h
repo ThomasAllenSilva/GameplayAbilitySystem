@@ -24,4 +24,8 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxMana);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage);
 
+// Common Tags
+
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event);
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Status_Dead);

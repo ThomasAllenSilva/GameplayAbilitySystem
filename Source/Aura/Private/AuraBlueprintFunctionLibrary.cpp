@@ -17,7 +17,7 @@
 #include "AbilitySystem/Data/GlobalCharacterClassSettings.h"
 
 #include "GameFeaturesSubsystem.h"
-
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
 APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
@@ -168,6 +168,16 @@ void UAuraBlueprintFunctionLibrary::InitializeGlobalCharacterClass(const UObject
 
 			ASC->GiveAbility(AbilitySpec);
 		}
+	}
+}
+
+void UAuraBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag)
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
+
+	if (ASC->HasMatchingGameplayTag(Tag) == false)
+	{
+		ASC->AddLooseGameplayTag(Tag);
 	}
 }
 

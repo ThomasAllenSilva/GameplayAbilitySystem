@@ -2,6 +2,12 @@
 
 #include "AbilitySystem/AttributeSet/AuraAttributeSet.h"
 
+#include "GameplayEffectExtension.h"
+
+#include "AuraBlueprintFunctionLibrary.h"
+
+#include "AuraNativeGameplayTags.h"
+
 void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	TryClampAttributeValueChange(Attribute, NewValue);
@@ -9,7 +15,21 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 
 void UAuraAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {
+
 	TryClampAttributeValueChange(Attribute, NewValue);
+}
+
+void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		if (GetHealth() <= 0.0f)
+		{
+			UAuraBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), Common_Status_Dead);
+		}
+	}
 }
 
 void UAuraAttributeSet::TryClampAttributeValueChange(const FGameplayAttribute& Attribute, float& NewValue) const

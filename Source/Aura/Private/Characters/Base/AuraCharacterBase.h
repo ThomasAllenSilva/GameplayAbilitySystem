@@ -33,7 +33,7 @@ public:
 	virtual void UpdateWarpTargetFromLocation(const FVector& Location) override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 
 protected:
