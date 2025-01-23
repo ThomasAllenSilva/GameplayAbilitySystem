@@ -1,21 +1,27 @@
 // Thomas Learning Project
 
-
 #include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
 
 #include "AuraBlueprintFunctionLibrary.h"
 
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
+#include "AbilitySystem/Data/CharacterClassSettings.h"
+
 void UAuraAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UAuraBlueprintFunctionLibrary::InitializeCharacterClass(this, CharacterClassTag, this);
+	UAuraBlueprintFunctionLibrary::InitializeGlobalCharacterClass(this, CharacterClassTag, this);
 
-	for (TSubclassOf<UGameplayAbility>& AbilityTemplate : InitialAbilities)
+	if (CharacterClassConfiguration == nullptr)
 	{
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityTemplate);
+		return;
+	}
+
+	for (const TSubclassOf<UGameplayAbility>& StartupAbility : CharacterClassConfiguration->GetStartupAbilities())
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(StartupAbility);
 
 		if (const UAuraGameplayAbility* AuraGameplayAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
 		{
@@ -23,6 +29,13 @@ void UAuraAbilitySystemComponent::BeginPlay()
 		}
 
 		GiveAbility(AbilitySpec);
+	}
+
+	for (const TSubclassOf<UGameplayEffect>& StartupEffect : CharacterClassConfiguration->GetStartupEffects())
+	{
+		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingSpec(StartupEffect, 1, MakeEffectContext());
+
+		ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	}
 }
 

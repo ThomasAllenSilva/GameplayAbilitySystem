@@ -14,9 +14,11 @@
 
 #include "Kismet/GameplayStatics.h"
 
-#include "AbilitySystem/Data/CharacterClassConfigurationInfo.h"
+#include "AbilitySystem/Data/GlobalCharacterClassSettings.h"
 
 #include "GameFeaturesSubsystem.h"
+
+#include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
 APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
 {
@@ -114,24 +116,59 @@ AAuraGameMode* UAuraBlueprintFunctionLibrary::GetAuraGameMode(const UObject* Wor
 	return AuraGameMode;
 }
 
-void UAuraBlueprintFunctionLibrary::InitializeCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC)
+void UAuraBlueprintFunctionLibrary::InitializeGlobalCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC)
 {
 	AAuraGameMode* AuraGameMode = GetAuraGameMode(WorldContextObject);
 
-	UCharacterClassConfigurationInfo* CharacterClassConfigurationInfo = AuraGameMode->GetCharacterClassConfigurationInfo();
+	UGlobalCharacterClassSettings* CharacterClassConfigurationInfo = AuraGameMode->GetCharacterClassConfigurationInfo();
 
 	checkf(CharacterClassConfigurationInfo, TEXT("Aura Game Mode Has An Invalid Or Null CharacterClassConfigurationInfo Data"));
 
-	const FClassConfigurationInfo& ClassConfigurationInfo = CharacterClassConfigurationInfo->GetClassConfiguration(ClassTag);
+	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : CharacterClassConfigurationInfo->GetStartupEffects())
+	{
+		FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, 1, ASC->MakeEffectContext());
 
-	FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassConfigurationInfo.PrimaryAttributesStartEffect, 1, ASC->MakeEffectContext());
-	ASC->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
 
-	FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = ASC->MakeOutgoingSpec(CharacterClassConfigurationInfo->SecondaryAttributesStartEffect, 1, ASC->MakeEffectContext());
-	ASC->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+	for (const TSubclassOf<UGameplayAbility>& AbilityTemplate : CharacterClassConfigurationInfo->GetStartupAbilities())
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityTemplate);
 
-	FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(CharacterClassConfigurationInfo->VitalAttributesStartEffect, 1, ASC->MakeEffectContext());
-	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+		if (const UAuraGameplayAbility* AuraGameplayAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
+		{
+			AbilitySpec.DynamicAbilityTags.AddTag(AuraGameplayAbility->InputTag);
+		}
+
+		ASC->GiveAbility(AbilitySpec);
+	}
+
+	if (const FClassSettings* ClassSettings = CharacterClassConfigurationInfo->GetClassSettings(ClassTag))
+	{
+		for (const TSubclassOf<UGameplayEffect>& GameplayEffect : ClassSettings->StartupEffects)
+		{
+			FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, 1, ASC->MakeEffectContext());
+
+			ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		}
+
+		for (const TSubclassOf<UGameplayAbility>& AbilityTemplate : ClassSettings->StartupAbilities)
+		{
+			if (IsValid(AbilityTemplate) == false)
+			{
+				continue;
+			}
+
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityTemplate);
+
+			if (const UAuraGameplayAbility* AuraGameplayAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
+			{
+				AbilitySpec.DynamicAbilityTags.AddTag(AuraGameplayAbility->InputTag);
+			}
+
+			ASC->GiveAbility(AbilitySpec);
+		}
+	}
 }
 
 void UAuraBlueprintFunctionLibrary::LoadAndActivateGameFeature(const FString& PluginName)

@@ -1,6 +1,5 @@
 // Thomas Learning Project
 
-
 #include "AbilitySystem/Ability/AuraProjectileSpell.h"
 
 #include "AbilitySystem/Actor/AuraProjectile.h"
@@ -13,13 +12,18 @@
 
 void UAuraProjectileSpell::SpawnProjectile(const FVector& TargetLocation)
 {
-	checkf(SpellEffect, TEXT("Invalid Or Null Effect When Creating Projectile"));
-
 	UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo();
 
-	FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(SpellEffect, GetAbilityLevel(), ASC->MakeEffectContext());
+	TArray<FGameplayEffectSpecHandle> EffectSpecHandles;
 
-	EffectSpecHandle = UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(EffectSpecHandle, Damage, ScalableDamage.GetValueAtLevel(GetAbilityLevel()));
+	for (TSubclassOf<UGameplayEffect>& GameplayEffect : SpellEffects)
+	{
+		FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, GetAbilityLevel(), ASC->MakeEffectContext());
 
-	AAuraProjectile::CreateProjectile(this, ProjectileClass, GetAvatarActorFromActorInfo(), TargetLocation, EffectSpecHandle);
+		EffectSpecHandle = UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(EffectSpecHandle, Damage, ScalableDamage.GetValueAtLevel(GetAbilityLevel()));
+
+		EffectSpecHandles.Add(EffectSpecHandle);
+	}
+
+	AAuraProjectile::CreateProjectile(this, ProjectileClass, GetAvatarActorFromActorInfo(), TargetLocation, EffectSpecHandles);
 }

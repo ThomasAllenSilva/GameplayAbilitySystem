@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/GameModeBase.h"
+
 #include "AuraGameMode.generated.h"
 
-class UCharacterClassConfigurationInfo;
+class UGlobalCharacterClassSettings;
 
 UCLASS()
 class AAuraGameMode : public AGameModeBase
@@ -16,7 +18,7 @@ class AAuraGameMode : public AGameModeBase
 public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage);
 
-	FORCEINLINE UCharacterClassConfigurationInfo* GetCharacterClassConfigurationInfo() const { return CharacterClassConfigurationInfo; }
+	FORCEINLINE UGlobalCharacterClassSettings* GetCharacterClassConfigurationInfo() const { return CharacterClassConfigurationInfo; }
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -24,5 +26,5 @@ protected:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UCharacterClassConfigurationInfo> CharacterClassConfigurationInfo;
+	TObjectPtr<UGlobalCharacterClassSettings> CharacterClassConfigurationInfo;
 };

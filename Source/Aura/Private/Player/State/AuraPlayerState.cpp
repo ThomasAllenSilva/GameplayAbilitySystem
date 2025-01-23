@@ -24,7 +24,7 @@ AAuraPlayerState::AAuraPlayerState()
 
 	SecondaryAttributeSet = CreateDefaultSubobject<UAuraSecondaryAttributeSet>("AuraSecondaryAttributeSet");
 
-	VitalAttributeSet = CreateDefaultSubobject<UAuraVitalAttributeSet>("AuraVitalAttributeSet");
+	//VitalAttributeSet = CreateDefaultSubobject<UAuraVitalAttributeSet>("AuraVitalAttributeSet");
 }
 
 UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const

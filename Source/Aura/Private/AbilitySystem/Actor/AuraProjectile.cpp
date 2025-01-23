@@ -14,6 +14,8 @@
 
 #include "GameFramework/ProjectileMovementComponent.h"
 
+#include "AuraNativeGameplayTags.h"
+
 AAuraProjectile::AAuraProjectile()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -25,7 +27,7 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 }
 
-const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const FGameplayEffectSpecHandle& EffectSpecHandle)
+const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const TArray<FGameplayEffectSpecHandle>& EffectSpecHandle)
 {
 	FVector SpawnLocation = OwningActor->GetActorLocation();
 
@@ -44,7 +46,7 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 
 	AAuraProjectile* ProjectileInstance = WorldContextObject->GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass, SpawnTransform, OwningActor);
 
-	ProjectileInstance->EffectSpecHandle = EffectSpecHandle;
+	ProjectileInstance->EffectsSpecHandle = EffectSpecHandle;
 
 	ProjectileInstance->FinishSpawning(SpawnTransform);
 
@@ -72,9 +74,25 @@ void AAuraProjectile::ApplyProjectileEffectToTarget(AActor* TargetActor)
 
 	if (UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor))
 	{
-		ASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
+		for (FGameplayEffectSpecHandle& EffectSpecHandle : EffectsSpecHandle)
+		{
+			ASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
+
+			FGameplayTagContainer TagContainer;
+
+			EffectSpecHandle.Data.Get()->GetAllGrantedTags(TagContainer);
+
+			for (const FGameplayTag& GameplayTag : TagContainer)
+			{
+				if (GameplayTag.MatchesTag(Common_Event))
+				{
+					FGameplayEventData EventData;
+
+					UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor, GameplayTag, EventData);
+				}
+			}
+		}
 	}
 
 	Destroy();
 }
-

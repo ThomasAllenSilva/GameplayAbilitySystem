@@ -35,7 +35,7 @@ public:
 	static AAuraGameMode* GetAuraGameMode(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
-	static void InitializeCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC);
+	static void InitializeGlobalCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable, Category = "Game Features")
 	static void LoadAndActivateGameFeature(const FString& PluginName);

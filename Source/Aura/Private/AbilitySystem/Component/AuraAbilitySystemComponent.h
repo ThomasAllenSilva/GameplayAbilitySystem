@@ -8,6 +8,8 @@
 
 #include "AuraAbilitySystemComponent.generated.h"
 
+class UCharacterClassSettings;
+
 UCLASS()
 class UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -22,8 +24,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category = "Initialization", meta = (AllowPrivateAccess))
-	TArray<TSubclassOf<UGameplayAbility>> InitialAbilities;
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UCharacterClassSettings> CharacterClassConfiguration;
 
 	UPROPERTY(EditDefaultsOnly)
 	FGameplayTag CharacterClassTag;
