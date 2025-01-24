@@ -12,7 +12,8 @@ public class CommonFramework : ModuleRules
             "Core",
             "CoreUObject",
             "Engine",
-            "UMG"});
+            "UMG",
+            "GameplayTags"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

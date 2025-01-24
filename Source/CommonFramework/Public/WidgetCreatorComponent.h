@@ -6,33 +6,13 @@
 
 #include "Components/ActorComponent.h"
 
+#include "GameplayTagContainer.h"
+
 #include "WidgetCreatorComponent.generated.h"
 
-class UWidgetComponentSettings;
+class UWidgetDefinitions;
 
-UENUM()
-enum EWidgetCreationType
-{
-	AddToViewport,
-
-	WidgetComponent
-};
-
-USTRUCT(BlueprintType)
-struct FActorWidgets
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UUserWidget> Widget;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TEnumAsByte<EWidgetCreationType> WidgetCreationType;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::WidgetComponent"))
-	TObjectPtr<UWidgetComponentSettings> WidgetComponentSettings;
-};
+struct FWidgetSetupSettings;
 
 UCLASS(ClassGroup = (CommonFramework), meta = (BlueprintSpawnableComponent))
 class COMMONFRAMEWORK_API UWidgetCreatorComponent final : public UActorComponent
@@ -42,12 +22,17 @@ class COMMONFRAMEWORK_API UWidgetCreatorComponent final : public UActorComponent
 public:
 	UWidgetCreatorComponent();
 
+	UUserWidget* CreateWidgetByTag(const FGameplayTag& Tag);
+
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	void CreateStartupWidgets();
+
+	UUserWidget* ConstructWidgetUsingSettings(const FWidgetSetupSettings& WidgetSetupSettings);
+
 private:
 	UPROPERTY(EditDefaultsOnly)
-	TArray<FActorWidgets> StartupWidgets;
+	TArray<TObjectPtr<UWidgetDefinitions>> WidgetDefinitions;
 };
