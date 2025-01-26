@@ -12,14 +12,24 @@ void UAuraAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UAuraBlueprintFunctionLibrary::InitializeGlobalCharacterClass(this, CharacterClassTag, this);
-
 	if (CharacterClassConfiguration == nullptr)
 	{
 		return;
 	}
 
-	for (const TSubclassOf<UGameplayAbility>& StartupAbility : CharacterClassConfiguration->GetStartupAbilities())
+	InitializeComponentConfiguration(CharacterClassConfiguration);
+}
+
+void UAuraAbilitySystemComponent::InitializeComponentConfiguration(const UCharacterClassSettings* ClassSettings)
+{
+	for (const TSubclassOf<UAttributeSet>& StartupAttribute : ClassSettings->GetStartupAttributes())
+	{
+		const UAttributeSet* AttributeSet = GetOrCreateAttributeSubobject(StartupAttribute);
+
+		check(AttributeSet);
+	}
+
+	for (const TSubclassOf<UGameplayAbility>& StartupAbility : ClassSettings->GetStartupAbilities())
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(StartupAbility);
 
@@ -31,11 +41,16 @@ void UAuraAbilitySystemComponent::BeginPlay()
 		GiveAbility(AbilitySpec);
 	}
 
-	for (const TSubclassOf<UGameplayEffect>& StartupEffect : CharacterClassConfiguration->GetStartupEffects())
+	for (const TSubclassOf<UGameplayEffect>& StartupEffect : ClassSettings->GetStartupEffects())
 	{
 		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingSpec(StartupEffect, 1, MakeEffectContext());
 
 		ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+
+	for (const TObjectPtr<UCharacterClassSettings>& SharedConfiguration : ClassSettings->GetSharedConfigurations())
+	{
+		InitializeComponentConfiguration(SharedConfiguration);
 	}
 }
 

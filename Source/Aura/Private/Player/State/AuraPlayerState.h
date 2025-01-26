@@ -14,7 +14,6 @@ class UAuraAbilitySystemComponent;
 
 class UAuraAttributeSet;
 
-class UPlayerGasData;
 
 class UAuraPrimaryAttributeSet;
 
@@ -32,32 +31,9 @@ public:
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
-	virtual UAuraAttributeSet* GetAttributeSet() const;
-
 	virtual void BeginPlay() override;
-
-	FORCEINLINE UPlayerGasData* GetPlayerGasData() const { return PlayerGasData; }
-
-protected:
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnExecutedBeginPlay();
 
 private:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY()
-	TObjectPtr<UAuraAttributeSet> AttributeSet;
-
-	UPROPERTY()
-	TObjectPtr<UAuraPrimaryAttributeSet> PrimaryAttributeSet;
-
-	UPROPERTY()
-	TObjectPtr<UAuraSecondaryAttributeSet> SecondaryAttributeSet;
-
-	UPROPERTY()
-	TObjectPtr<UAuraVitalAttributeSet> VitalAttributeSet;
-
-	UPROPERTY()
-	TObjectPtr<UPlayerGasData> PlayerGasData;
 };

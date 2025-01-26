@@ -13,9 +13,5 @@ void AAuraPlayerCharacter::PossessedBy(AController* NewController)
 
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 
-	AttributeSet = AuraPlayerState->GetAttributeSet();
-
 	check(AbilitySystemComponent);
-
-	check(AttributeSet);
 }

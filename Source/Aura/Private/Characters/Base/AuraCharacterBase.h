@@ -40,9 +40,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAuraAttributeSet> AttributeSet;
-
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;

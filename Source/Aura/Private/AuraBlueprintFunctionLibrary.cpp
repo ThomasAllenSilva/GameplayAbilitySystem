@@ -8,16 +8,12 @@
 
 #include "Player/State/AuraPlayerState.h"
 
-#include "Player/Data/Gas/PlayerGasData.h"
-
-#include "GameMode/AuraGameMode.h"
-
 #include "Kismet/GameplayStatics.h"
 
-#include "AbilitySystem/Data/GlobalCharacterClassSettings.h"
-
 #include "GameFeaturesSubsystem.h"
+
 #include "AbilitySystemBlueprintLibrary.h"
+
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
 APlayerState* UAuraBlueprintFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
@@ -47,20 +43,7 @@ UAuraAbilitySystemComponent* UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilit
 
 	AAuraPlayerState* AuraPlayerState = Cast<AAuraPlayerState>(PlayerState);
 
-	UPlayerGasData* PlayerGasData = AuraPlayerState->GetPlayerGasData();
-
-	return PlayerGasData->GetAbilitySystemComponent();
-}
-
-const UAuraAttributeSet* UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeSet(const UObject* WorldContextObject)
-{
-	AAuraPlayerState* PlayerState = Cast<AAuraPlayerState>(GetLocalPlayerState(WorldContextObject));
-
-	checkf(PlayerState, TEXT("Cannot Retrieve AttributeSet From Null Player State"));
-
-	UPlayerGasData* PlayerGasData = PlayerState->GetPlayerGasData();
-
-	return PlayerGasData->GetAttributeSet();
+	return Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent());
 }
 
 const APlayerController* UAuraBlueprintFunctionLibrary::GetLocalPlayerController(const UObject* WorldContextObject)
@@ -107,68 +90,6 @@ const FString UAuraBlueprintFunctionLibrary::GetTagLastName(const FGameplayTag& 
 	}
 
 	return TagString;
-}
-
-AAuraGameMode* UAuraBlueprintFunctionLibrary::GetAuraGameMode(const UObject* WorldContextObject)
-{
-	AAuraGameMode* AuraGameMode = CastChecked<AAuraGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
-
-	return AuraGameMode;
-}
-
-void UAuraBlueprintFunctionLibrary::InitializeGlobalCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC)
-{
-	AAuraGameMode* AuraGameMode = GetAuraGameMode(WorldContextObject);
-
-	UGlobalCharacterClassSettings* CharacterClassConfigurationInfo = AuraGameMode->GetCharacterClassConfigurationInfo();
-
-	checkf(CharacterClassConfigurationInfo, TEXT("Aura Game Mode Has An Invalid Or Null CharacterClassConfigurationInfo Data"));
-
-	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : CharacterClassConfigurationInfo->GetStartupEffects())
-	{
-		FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, 1, ASC->MakeEffectContext());
-
-		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-	}
-
-	for (const TSubclassOf<UGameplayAbility>& AbilityTemplate : CharacterClassConfigurationInfo->GetStartupAbilities())
-	{
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityTemplate);
-
-		if (const UAuraGameplayAbility* AuraGameplayAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
-		{
-			AbilitySpec.DynamicAbilityTags.AddTag(AuraGameplayAbility->InputTag);
-		}
-
-		ASC->GiveAbility(AbilitySpec);
-	}
-
-	if (const FClassSettings* ClassSettings = CharacterClassConfigurationInfo->GetClassSettings(ClassTag))
-	{
-		for (const TSubclassOf<UGameplayEffect>& GameplayEffect : ClassSettings->StartupEffects)
-		{
-			FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, 1, ASC->MakeEffectContext());
-
-			ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-		}
-
-		for (const TSubclassOf<UGameplayAbility>& AbilityTemplate : ClassSettings->StartupAbilities)
-		{
-			if (IsValid(AbilityTemplate) == false)
-			{
-				continue;
-			}
-
-			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityTemplate);
-
-			if (const UAuraGameplayAbility* AuraGameplayAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
-			{
-				AbilitySpec.DynamicAbilityTags.AddTag(AuraGameplayAbility->InputTag);
-			}
-
-			ASC->GiveAbility(AbilitySpec);
-		}
-	}
 }
 
 void UAuraBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag)

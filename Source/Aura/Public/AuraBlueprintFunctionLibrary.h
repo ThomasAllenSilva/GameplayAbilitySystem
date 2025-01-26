@@ -23,19 +23,10 @@ public:
 	static UAuraAbilitySystemComponent* GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
-	static const UAuraAttributeSet* GetLocalPlayerAttributeSet(const UObject* WorldContextObject);
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static const APlayerController* GetLocalPlayerController(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static const FString GetTagLastName(const FGameplayTag& Tag);
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
-	static AAuraGameMode* GetAuraGameMode(const UObject* WorldContextObject);
-
-	UFUNCTION(BlueprintCallable, meta = (DefaultToSelf = "WorldContextObject"))
-	static void InitializeGlobalCharacterClass(const UObject* WorldContextObject, const FGameplayTag& ClassTag, UAuraAbilitySystemComponent* ASC);
 
 	UFUNCTION(BlueprintCallable)
 	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);

@@ -24,9 +24,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	void InitializeComponentConfiguration(const UCharacterClassSettings* ClassSettings);
+
+private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCharacterClassSettings> CharacterClassConfiguration;
-
-	UPROPERTY(EditDefaultsOnly)
-	FGameplayTag CharacterClassTag;
 };
