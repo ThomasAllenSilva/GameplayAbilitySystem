@@ -2,8 +2,6 @@
 
 #include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
-
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
 #include "AbilitySystem/Data/CharacterClassSettings.h"
