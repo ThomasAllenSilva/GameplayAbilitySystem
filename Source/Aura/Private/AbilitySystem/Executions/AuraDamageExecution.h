@@ -18,4 +18,7 @@ public:
 	UAuraDamageExecution();
 
 	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
+
+private:
+	float GetCalculatedCapturedAttributeMagnitude(const FGameplayEffectCustomExecutionParameters& CustomExecutionParameters, const FGameplayEffectAttributeCaptureDefinition& AttributeCaptureDefinition, const FAggregatorEvaluateParameters& EvaluateParameters) const;
 };

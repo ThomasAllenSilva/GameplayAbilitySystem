@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
+#include "AbilitySystemComponent.h"
 #include "AuraMetaAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -25,6 +26,6 @@ public:
 
 private:
 	// The base amount of damage to apply in the damage execution.
-	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes", meta = (AllowPrivateAccess))
 	FGameplayAttributeData BaseDamage;
 };
