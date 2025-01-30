@@ -7,13 +7,13 @@
 #include "AuraDamageExecution.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UAuraDamageExecution final : public UGameplayEffectExecutionCalculation
 {
 	GENERATED_BODY()
-	
+
 public:
 	UAuraDamageExecution();
 
@@ -21,4 +21,10 @@ public:
 
 private:
 	float GetCalculatedCapturedAttributeMagnitude(const FGameplayEffectCustomExecutionParameters& CustomExecutionParameters, const FGameplayEffectAttributeCaptureDefinition& AttributeCaptureDefinition, const FAggregatorEvaluateParameters& EvaluateParameters) const;
+
+	void CalculateBlockChance(float BlockChanceMagnitude, float& OutDamage) const;
+
+	void CalculateArmorPenetration(float TargetAmor, float SourceArmorPenetration, float& OutDamage) const;
+
+	void CalculateCriticalHit(float SourceCriticalHitChance, float TargetCriticalHitResistance, float CriticalHitDamage, float& OutDamage) const;
 };
