@@ -39,8 +39,8 @@ public:
 	ATTRIBUTE_ACCESSORS(UAuraSecondaryAttributeSet, CriticalHitChance);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes")
-	FGameplayAttributeData CritialHitDamage;
-	ATTRIBUTE_ACCESSORS(UAuraSecondaryAttributeSet, CritialHitDamage);
+	FGameplayAttributeData CriticalHitDamage;
+	ATTRIBUTE_ACCESSORS(UAuraSecondaryAttributeSet, CriticalHitDamage);
 
 	UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes")
 	FGameplayAttributeData CriticalHitResistance;
