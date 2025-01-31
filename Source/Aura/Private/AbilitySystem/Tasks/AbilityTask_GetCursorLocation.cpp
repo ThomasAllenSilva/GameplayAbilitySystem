@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Tasks/AbilityTask_GetCursorLocation.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
+#include "CommonAbilityFunctionLibrary.h"
 
 UAbilityTask_GetCursorLocation* UAbilityTask_GetCursorLocation::GetCursorLocation(UGameplayAbility* OwningAbility)
 {
@@ -14,7 +14,7 @@ UAbilityTask_GetCursorLocation* UAbilityTask_GetCursorLocation::GetCursorLocatio
 
 void UAbilityTask_GetCursorLocation::Activate()
 {
-	const APlayerController* PlayerController = UAuraBlueprintFunctionLibrary::GetLocalPlayerController(this);
+	const APlayerController* PlayerController = UCommonAbilityFunctionLibrary::GetLocalPlayerController(this);
 
 	FVector WorldLocation;
 

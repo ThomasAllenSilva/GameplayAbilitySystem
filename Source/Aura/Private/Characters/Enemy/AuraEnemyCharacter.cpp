@@ -3,11 +3,11 @@
 
 #include "Characters/Enemy/AuraEnemyCharacter.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 AAuraEnemyCharacter::AAuraEnemyCharacter()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UCommonAbilitySystemComponent>("AbilitySystemComponent");
 }
 
 void AAuraEnemyCharacter::BeginPlay()

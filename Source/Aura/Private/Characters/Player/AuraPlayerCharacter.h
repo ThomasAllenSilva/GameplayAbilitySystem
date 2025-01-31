@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class AAuraPlayerCharacter : public AAuraCharacterBase
+class AAuraPlayerCharacter final : public AAuraCharacterBase
 {
 	GENERATED_BODY()
 

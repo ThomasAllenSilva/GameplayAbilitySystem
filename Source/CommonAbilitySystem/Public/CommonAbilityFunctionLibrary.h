@@ -9,6 +9,7 @@
 
 class UCommonAbilitySystemComponent;
 class ACommonAbilityPlayerState;
+class ACommonAbilityPlayerController;
 
 /**
  * 
@@ -20,7 +21,16 @@ class COMMONABILITYSYSTEM_API UCommonAbilityFunctionLibrary final : public UBlue
 	
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
-	static ACommonAbilityPlayerState* GetLocalPlayerState(const UObject* WorldContextObject);
+	static APlayerController* GetLocalPlayerController(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	static APlayerState* GetLocalPlayerState(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	static ACommonAbilityPlayerState* GetLocalCommonAbilityPlayerState(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
+	static ACommonAbilityPlayerController* GetLocalCommonAbilityPlayerController(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static UCommonAbilitySystemComponent* GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject);

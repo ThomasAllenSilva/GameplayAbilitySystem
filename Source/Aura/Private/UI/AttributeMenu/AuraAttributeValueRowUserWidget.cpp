@@ -3,13 +3,13 @@
 
 #include "UI/AttributeMenu/AuraAttributeValueRowUserWidget.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 #include "AbilitySystem/Data/AttributesInfoDataAsset.h"
 
 #include "Debug.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
+#include "CommonAbilityFunctionLibrary.h"
 
 void UAuraAttributeValueRowUserWidget::NativeConstruct()
 {
@@ -17,7 +17,7 @@ void UAuraAttributeValueRowUserWidget::NativeConstruct()
 
 	checkf(AttributeInfoData, TEXT("Cannot Retrieve Attribute Info Using Null Attribute Info Data"));
 
-	UAuraAbilitySystemComponent* ASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	FAuraAttributeInfo AttributeInfo = AttributeInfoData->GetAttributeInfo(AssociatedTag);
 
@@ -38,7 +38,7 @@ void UAuraAttributeValueRowUserWidget::BeginDestroy()
 {
 	Super::BeginDestroy();
 
-	UAuraAbilitySystemComponent* ASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	if (ASC == nullptr)
 	{

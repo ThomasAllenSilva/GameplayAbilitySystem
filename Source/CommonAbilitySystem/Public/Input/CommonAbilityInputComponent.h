@@ -28,7 +28,7 @@ inline void UCommonAbilityInputComponent::BindNativeInput(const UDataAsset_Input
 {
 	check(InputConfig);
 
-	if (UInputAction* InputAction = InputConfig->GetInputActionByTag(InputTag))
+	if (const UInputAction* InputAction = InputConfig->GetInputActionByTag(InputTag))
 	{
 		BindAction(InputAction, TriggerEvent, Object, Func);
 	}

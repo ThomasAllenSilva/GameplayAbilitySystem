@@ -23,7 +23,7 @@ protected:
 
 	virtual void AbilityInputReleased(FGameplayTag InputTag);
 
-private:
+protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UDataAsset_InputConfig> InputConfig;
 };

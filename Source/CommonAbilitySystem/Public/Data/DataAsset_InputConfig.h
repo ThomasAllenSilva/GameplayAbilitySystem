@@ -25,9 +25,14 @@ public:
 
 	FORCEINLINE const UInputMappingContext* GetInputMappingContext() const { return InputMappingContext; }
 
+	FORCEINLINE int GetMappingContextPriority() const { return MappingContextPriority; }
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UInputMappingContext> InputMappingContext;
+
+	UPROPERTY(EditDefaultsOnly)
+	int MappingContextPriority;
 
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FGameplayTag, TObjectPtr<UInputAction>> NativeInputActions;

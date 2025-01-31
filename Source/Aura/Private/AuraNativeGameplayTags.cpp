@@ -28,3 +28,5 @@ UE_DEFINE_GAMEPLAY_TAG(Damage, "Damage");
 UE_DEFINE_GAMEPLAY_TAG(Common_Event, "Common.Event");
 
 UE_DEFINE_GAMEPLAY_TAG(Common_Status_Dead, "Common.Status.Dead");
+
+UE_DEFINE_GAMEPLAY_TAG(Input_Move, "Input.Move");

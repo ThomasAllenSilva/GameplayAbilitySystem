@@ -1,13 +1,17 @@
 // Thomas Hero Project
 
-
 #include "PlayerController/CommonAbilityPlayerController.h"
 #include "Input/CommonAbilityInputComponent.h"
 #include "CommonAbilityFunctionLibrary.h"
+#include "EnhancedInputSubsystems.h"
 #include "Components/CommonAbilitySystemComponent.h"
 
 void ACommonAbilityPlayerController::SetupInputComponent()
 {
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+
+	Subsystem->AddMappingContext(InputConfig->GetInputMappingContext(), InputConfig->GetMappingContextPriority());
+
 	UCommonAbilityInputComponent* AbilityInputComponent = CastChecked<UCommonAbilityInputComponent>(InputComponent);
 
 	AbilityInputComponent->BindAbilityActions(InputConfig, this, &ACommonAbilityPlayerController::AbilityInputTriggered, &ACommonAbilityPlayerController::AbilityInputReleased);

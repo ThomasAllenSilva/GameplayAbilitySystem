@@ -3,15 +3,17 @@
 
 #include "Characters/Player/AuraPlayerCharacter.h"
 
-#include "Player/State/AuraPlayerState.h"
+#include "Components/CommonAbilitySystemComponent.h"
+
+#include "PlayerState/CommonAbilityPlayerState.h"
 
 void AAuraPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	ACommonAbilityPlayerState* CommonAbilityPlayerState = GetPlayerState<ACommonAbilityPlayerState>();
 
-	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+	AbilitySystemComponent = Cast<UCommonAbilitySystemComponent>(CommonAbilityPlayerState->GetAbilitySystemComponent());
 
 	check(AbilitySystemComponent);
 }

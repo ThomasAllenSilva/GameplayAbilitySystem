@@ -2,11 +2,11 @@
 
 #include "AuraPlayerStatusUserWidget.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
-
 #include "AbilitySystem/AttributeSet/AuraVitalAttributeSet.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "CommonAbilityFunctionLibrary.h"
+
+#include "Components/CommonAbilitySystemComponent.h"
 
 void UAuraPlayerStatusUserWidget::NativeConstruct()
 {
@@ -19,7 +19,7 @@ void UAuraPlayerStatusUserWidget::NativeConstruct()
 
 void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
 {
-	const UAuraAbilitySystemComponent* ASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	const UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	bool bFound;
 
@@ -36,7 +36,7 @@ void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
 
 void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
 {
-	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	UCommonAbilitySystemComponent* PlayerASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
 
@@ -47,7 +47,7 @@ void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
 	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
 }
 
-void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)
+void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UCommonAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)
 {
 	PlayerASC->GetGameplayAttributeValueChangeDelegate(Attribute).AddWeakLambda(this,
 		[this, Callback, &WidgetAttributeValue](const FOnAttributeChangeData& Data)

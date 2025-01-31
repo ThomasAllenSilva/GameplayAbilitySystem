@@ -12,9 +12,7 @@
 
 #include "AuraCharacterBase.generated.h"
 
-class UAbilitySystemComponent;
-
-class UAuraAttributeSet;
+class UCommonAbilitySystemComponent;
 
 class UMotionWarpingComponent;
 
@@ -38,7 +36,7 @@ protected:
 
 protected:
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UCommonAbilitySystemComponent> AbilitySystemComponent;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

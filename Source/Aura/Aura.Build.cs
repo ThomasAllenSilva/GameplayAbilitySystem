@@ -21,7 +21,8 @@ public class Aura : ModuleRules
             "MotionWarping",
             "Niagara",
             "DebugUtils",
-            "CommonFramework"});
+            "CommonFramework",
+            "CommonAbilitySystem"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

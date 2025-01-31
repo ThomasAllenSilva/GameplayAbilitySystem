@@ -2,6 +2,8 @@
 
 #include "Characters/Base/AuraCharacterBase.h"
 
+#include "Components/CommonAbilitySystemComponent.h"
+
 #include "MotionWarpingComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()

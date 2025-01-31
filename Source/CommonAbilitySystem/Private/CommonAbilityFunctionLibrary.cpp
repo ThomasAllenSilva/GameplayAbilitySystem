@@ -5,10 +5,11 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Components/CommonAbilitySystemComponent.h"
 #include "PlayerState/CommonAbilityPlayerState.h"
+#include "PlayerController/CommonAbilityPlayerController.h"
 
-ACommonAbilityPlayerState* UCommonAbilityFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
+APlayerController* UCommonAbilityFunctionLibrary::GetLocalPlayerController(const UObject* WorldContextObject)
 {
-	checkf(WorldContextObject, TEXT("Context Object Is Required To Get Player State"));
+	checkf(WorldContextObject, TEXT("Context Object Is Required To Retrieve Local Player Controller"));
 
 	UWorld* World = WorldContextObject->GetWorld();
 	if (World == nullptr) return nullptr;
@@ -17,23 +18,46 @@ ACommonAbilityPlayerState* UCommonAbilityFunctionLibrary::GetLocalPlayerState(co
 	if (LocalPlayer == nullptr) return nullptr;
 
 	APlayerController* PlayerController = LocalPlayer->GetPlayerController(World);
-	if (PlayerController == nullptr) return nullptr;
 
-	ACommonAbilityPlayerState* PlayerState = PlayerController->GetPlayerState<ACommonAbilityPlayerState>();
+	check(PlayerController);
+
+	return PlayerController;
+}
+
+APlayerState* UCommonAbilityFunctionLibrary::GetLocalPlayerState(const UObject* WorldContextObject)
+{
+	checkf(WorldContextObject, TEXT("Context Object Is Required To Retrieve Local Player State"));
+
+	APlayerController* PlayerController = GetLocalPlayerController(WorldContextObject);
+
+	APlayerState* PlayerState = PlayerController->GetPlayerState<APlayerState>();
 
 	check(PlayerState);
 
 	return PlayerState;
 }
 
+ACommonAbilityPlayerState* UCommonAbilityFunctionLibrary::GetLocalCommonAbilityPlayerState(const UObject* WorldContextObject)
+{
+	ACommonAbilityPlayerState* PlayerState = Cast<ACommonAbilityPlayerState>(GetLocalPlayerState(WorldContextObject));
+
+	check(PlayerState);
+
+	return PlayerState;
+}
+
+ACommonAbilityPlayerController* UCommonAbilityFunctionLibrary::GetLocalCommonAbilityPlayerController(const UObject* WorldContextObject)
+{
+	ACommonAbilityPlayerController* PlayerController = Cast<ACommonAbilityPlayerController>(GetLocalPlayerController(WorldContextObject));
+
+	check(PlayerController);
+
+	return PlayerController;
+}
+
 UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject)
 {
-	ACommonAbilityPlayerState* PlayerState = GetLocalPlayerState(WorldContextObject);
-
-	if (PlayerState == nullptr)
-	{
-		return nullptr;
-	}
+	ACommonAbilityPlayerState* PlayerState = GetLocalCommonAbilityPlayerState(WorldContextObject);
 
 	return Cast<UCommonAbilitySystemComponent>(PlayerState->GetAbilitySystemComponent());
 }

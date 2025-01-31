@@ -4,7 +4,7 @@
 
 #include "GameplayEffectExtension.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
+#include "CommonAbilityFunctionLibrary.h"
 
 #include "AuraNativeGameplayTags.h"
 
@@ -27,7 +27,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		if (GetHealth() <= 0.0f)
 		{
-			UAuraBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), Common_Status_Dead);
+			UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), Common_Status_Dead);
 		}
 	}
 }
