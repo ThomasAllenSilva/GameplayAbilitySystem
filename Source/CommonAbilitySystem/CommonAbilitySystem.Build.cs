@@ -14,7 +14,8 @@ public class CommonAbilitySystem : ModuleRules
             "Engine",
 			"GameplayAbilities",
 			"GameplayTags",
-			"GameplayTasks",});
+			"GameplayTasks",
+            "EnhancedInput"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 

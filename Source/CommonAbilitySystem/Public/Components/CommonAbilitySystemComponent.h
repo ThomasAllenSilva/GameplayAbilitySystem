@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "CommonAbilitySystemComponent.generated.h"
 
+class UDataAsset_CommonAbilitySet;
+
 /**
  * 
  */
@@ -14,4 +16,14 @@ class COMMONABILITYSYSTEM_API UCommonAbilitySystemComponent : public UAbilitySys
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void AbilityInputTriggered(const FGameplayTag& InputTag);
+
+	virtual void AbilityInputReleased(const FGameplayTag& InputTag);
+
+protected:
+	virtual void BeginPlay();
+
+private:
+	TArray<TObjectPtr<UDataAsset_CommonAbilitySet>> AbilitySets;
 };

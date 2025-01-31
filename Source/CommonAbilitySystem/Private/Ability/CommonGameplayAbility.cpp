@@ -1,8 +1,8 @@
 // Thomas Learning Project
 
-#include "CommonGameplayAbility.h"
+#include "Ability/CommonGameplayAbility.h"
 
-#include "CommonAbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 void UCommonGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
