@@ -7,6 +7,11 @@
 
 #include "PlayerState/CommonAbilityPlayerState.h"
 
+UAbilitySystemComponent* AAuraPlayerCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void AAuraPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

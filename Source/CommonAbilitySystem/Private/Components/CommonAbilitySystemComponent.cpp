@@ -32,6 +32,8 @@ void UCommonAbilitySystemComponent::AbilityInputReleased(const FGameplayTag& Inp
 
 void UCommonAbilitySystemComponent::BeginPlay()
 {
+	Super::BeginPlay();
+
 	for (int32 SetIndex = 0; SetIndex < AbilitySets.Num(); ++SetIndex)
 	{
 		UDataAsset_CommonAbilitySet* AbilitySet = AbilitySets[SetIndex];

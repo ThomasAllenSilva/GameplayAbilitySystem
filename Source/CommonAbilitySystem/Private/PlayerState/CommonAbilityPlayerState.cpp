@@ -13,8 +13,6 @@ void ACommonAbilityPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(GetPawn());
-
 	AbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
 }
 

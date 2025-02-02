@@ -37,8 +37,4 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, MaxMana);
-
-	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
-	FGameplayAttributeData Test;
-	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, Test);
 };

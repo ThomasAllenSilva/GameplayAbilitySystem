@@ -30,6 +30,11 @@ APlayerState* UCommonAbilityFunctionLibrary::GetLocalPlayerState(const UObject* 
 
 	APlayerController* PlayerController = GetLocalPlayerController(WorldContextObject);
 
+	if (PlayerController == nullptr)
+	{
+		return nullptr;
+	}
+
 	APlayerState* PlayerState = PlayerController->GetPlayerState<APlayerState>();
 
 	check(PlayerState);
@@ -40,8 +45,6 @@ APlayerState* UCommonAbilityFunctionLibrary::GetLocalPlayerState(const UObject* 
 ACommonAbilityPlayerState* UCommonAbilityFunctionLibrary::GetLocalCommonAbilityPlayerState(const UObject* WorldContextObject)
 {
 	ACommonAbilityPlayerState* PlayerState = Cast<ACommonAbilityPlayerState>(GetLocalPlayerState(WorldContextObject));
-
-	check(PlayerState);
 
 	return PlayerState;
 }
@@ -58,6 +61,11 @@ ACommonAbilityPlayerController* UCommonAbilityFunctionLibrary::GetLocalCommonAbi
 UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject)
 {
 	ACommonAbilityPlayerState* PlayerState = GetLocalCommonAbilityPlayerState(WorldContextObject);
+
+	if (PlayerState == nullptr)
+	{
+		return nullptr;
+	}
 
 	return Cast<UCommonAbilitySystemComponent>(PlayerState->GetAbilitySystemComponent());
 }

@@ -25,5 +25,6 @@ protected:
 	virtual void BeginPlay();
 
 private:
+	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UDataAsset_CommonAbilitySet>> AbilitySets;
 };

@@ -8,6 +8,10 @@
 
 void ACommonAbilityPlayerController::SetupInputComponent()
 {
+	Super::SetupInputComponent();
+
+	checkf(InputConfig, TEXT("Null Or Invalid InputConfig When Setting Up Input"));
+
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 
 	Subsystem->AddMappingContext(InputConfig->GetInputMappingContext(), InputConfig->GetMappingContextPriority());

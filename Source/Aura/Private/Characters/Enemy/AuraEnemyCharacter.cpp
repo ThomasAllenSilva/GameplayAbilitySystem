@@ -2,7 +2,6 @@
 
 
 #include "Characters/Enemy/AuraEnemyCharacter.h"
-
 #include "Components/CommonAbilitySystemComponent.h"
 
 AAuraEnemyCharacter::AAuraEnemyCharacter()

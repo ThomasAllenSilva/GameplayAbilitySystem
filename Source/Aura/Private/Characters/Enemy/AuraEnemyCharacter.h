@@ -8,6 +8,8 @@
 
 #include "AuraEnemyCharacter.generated.h"
 
+class UCommonAbilitySystemComponent;
+
 UCLASS()
 class AAuraEnemyCharacter final : public AAuraCharacterBase
 {
@@ -18,4 +20,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UCommonAbilitySystemComponent> AbilitySystemComponent;
 };

@@ -24,7 +24,7 @@ class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, pu
 public:
 	AAuraCharacterBase();
 
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
 
 	virtual FVector GetProjectileSpawnLocation() override;
 
@@ -33,10 +33,6 @@ public:
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
-
-protected:
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UCommonAbilitySystemComponent> AbilitySystemComponent;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

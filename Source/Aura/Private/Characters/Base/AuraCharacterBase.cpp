@@ -31,7 +31,7 @@ AAuraCharacterBase::AAuraCharacterBase()
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 {
-	return AbilitySystemComponent;
+	return nullptr;
 }
 
 FVector AAuraCharacterBase::GetProjectileSpawnLocation()
