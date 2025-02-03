@@ -12,8 +12,8 @@
 
 #include "WidgetDefinitions.generated.h"
 
-UENUM()
-enum EWidgetCreationType
+UENUM(BlueprintType)
+enum class EWidgetCreationType
 {
 	AddToViewport,
 
@@ -30,7 +30,7 @@ public:
 	TSubclassOf<UUserWidget> Widget;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TEnumAsByte<EWidgetCreationType> WidgetCreationType;
+	EWidgetCreationType WidgetCreationType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::WidgetComponent"))
 	TObjectPtr<UWidgetComponentSettings> WidgetComponentSettings;
