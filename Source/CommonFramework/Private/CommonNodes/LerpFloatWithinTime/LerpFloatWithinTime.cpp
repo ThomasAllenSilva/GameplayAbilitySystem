@@ -1,6 +1,6 @@
 // Thomas Learning Project
 
-#include "CommonNodes/LerpFloatWithinTime.h"
+#include "LerpFloatWithinTime.h"
 
 #include "TickableObject.h"
 

@@ -10,7 +10,7 @@
 
 #include "WidgetCreatorComponent.generated.h"
 
-class UWidgetDefinitions;
+class UDataAsset_WidgetDefinitions;
 
 struct FWidgetSetupSettings;
 
@@ -34,5 +34,5 @@ private:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	TArray<TObjectPtr<UWidgetDefinitions>> WidgetDefinitions;
+	TArray<TObjectPtr<UDataAsset_WidgetDefinitions>> WidgetDefinitions;
 };

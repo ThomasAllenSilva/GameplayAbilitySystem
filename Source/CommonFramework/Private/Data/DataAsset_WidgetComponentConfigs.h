@@ -3,19 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Engine/DataAsset.h"
-
 #include "Components/WidgetComponent.h"
-
-#include "WidgetComponentSettings.generated.h"
+#include "DataAsset_WidgetComponentConfigs.generated.h"
 
 #define PROPERTY_ACCESSOR(PropertyType, PropertyName) \
 public: \
     FORCEINLINE PropertyType Get##PropertyName() const { return PropertyName; } \
 
+/**
+ *
+ */
 UCLASS()
-class COMMONFRAMEWORK_API UWidgetComponentSettings final : public UDataAsset
+class COMMONFRAMEWORK_API UDataAsset_WidgetComponentConfigs final : public UDataAsset
 {
 	GENERATED_BODY()
 

@@ -1,15 +1,10 @@
 // Thomas Learning Project
 
 #include "WidgetCreatorComponent.h"
-
 #include "Blueprint/UserWidget.h"
-
-#include "WidgetComponentSettings.h"
-
 #include "UI/Base/ContextualUserWidget.h"
-
-#include "UI/WidgetDefinitions.h"
-
+#include "Data/DataAsset_WidgetDefinitions.h"
+#include "Data/DataAsset_WidgetComponentConfigs.h"
 #include "Components/WidgetComponent.h"
 
 UWidgetCreatorComponent::UWidgetCreatorComponent()
@@ -30,7 +25,7 @@ void UWidgetCreatorComponent::BeginPlay()
 
 void UWidgetCreatorComponent::CreateStartupWidgets()
 {
-	for (TObjectPtr<UWidgetDefinitions> WidgetDefinition : WidgetDefinitions)
+	for (TObjectPtr<UDataAsset_WidgetDefinitions> WidgetDefinition : WidgetDefinitions)
 	{
 		for (const FWidgetSetupSettings& WidgetSetupSettings : WidgetDefinition->GetStartupWidgets())
 		{
@@ -48,7 +43,7 @@ UUserWidget* UWidgetCreatorComponent::CreateWidgetByTag(const FGameplayTag& Tag)
 {
 	UUserWidget* WidgetInstance = nullptr;
 
-	for (TObjectPtr<UWidgetDefinitions> WidgetDefinition : WidgetDefinitions)
+	for (TObjectPtr<UDataAsset_WidgetDefinitions> WidgetDefinition : WidgetDefinitions)
 	{
 		const FWidgetSetupSettings* WidgetSetupSettings = WidgetDefinition->GetWidgetSettingsByTag(Tag);
 
@@ -86,7 +81,7 @@ UUserWidget* UWidgetCreatorComponent::ConstructWidgetUsingSettings(const FWidget
 
 	else
 	{
-		UWidgetComponentSettings* ComponentSettings = WidgetSetupSettings.WidgetComponentSettings;
+		UDataAsset_WidgetComponentConfigs* ComponentSettings = WidgetSetupSettings.WidgetComponentSettings;
 
 		UWidgetComponent* WidgetComponent = NewObject<UWidgetComponent>(OwningActor);
 
