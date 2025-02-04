@@ -3,15 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Components/ActorComponent.h"
-
 #include "GameplayTagContainer.h"
-
 #include "WidgetCreatorComponent.generated.h"
 
 class UDataAsset_WidgetDefinitions;
-
 struct FWidgetSetupSettings;
 
 UCLASS(ClassGroup = (CommonFramework), meta = (BlueprintSpawnableComponent))

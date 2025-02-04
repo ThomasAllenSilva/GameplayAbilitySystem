@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Tickable.h"
-
 #include "TickableObject.generated.h"
 
 DECLARE_DELEGATE_OneParam(FOnTickSignature, float);
