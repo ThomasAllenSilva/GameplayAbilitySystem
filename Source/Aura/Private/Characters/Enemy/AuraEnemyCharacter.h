@@ -18,6 +18,9 @@ class AAuraEnemyCharacter final : public AAuraCharacterBase
 public:
 	AAuraEnemyCharacter();
 
+public:
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 protected:
 	virtual void BeginPlay() override;
 

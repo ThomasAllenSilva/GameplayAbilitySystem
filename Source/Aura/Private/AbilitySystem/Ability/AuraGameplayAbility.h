@@ -3,24 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Abilities/GameplayAbility.h"
-
+#include "Ability/CommonGameplayAbility.h"
 #include "AuraGameplayAbility.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UAuraGameplayAbility : public UGameplayAbility
+class UAuraGameplayAbility : public UCommonGameplayAbility
 {
 	GENERATED_BODY()
 	
-
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Damage")
 	FScalableFloat ScalableDamage;
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	FGameplayTag InputTag;
 };

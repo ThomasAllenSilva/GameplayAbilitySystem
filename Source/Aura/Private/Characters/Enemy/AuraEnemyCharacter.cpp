@@ -9,6 +9,11 @@ AAuraEnemyCharacter::AAuraEnemyCharacter()
 	AbilitySystemComponent = CreateDefaultSubobject<UCommonAbilitySystemComponent>("AbilitySystemComponent");
 }
 
+UAbilitySystemComponent* AAuraEnemyCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void AAuraEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();

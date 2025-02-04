@@ -31,6 +31,8 @@ AAuraCharacterBase::AAuraCharacterBase()
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 {
+	check(nullptr);
+
 	return nullptr;
 }
 

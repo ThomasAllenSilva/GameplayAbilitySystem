@@ -1,20 +1,15 @@
 // Thomas Learning Project
 
 #include "AbilitySystem/Actor/AuraProjectile.h"
-
 #include "AbilitySystem/Interfaces/CombatInterface.h"
-
 #include "NiagaraFunctionLibrary.h"
-
 #include "Kismet/GameplayStatics.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
-
 #include "AbilitySystemComponent.h"
-
 #include "GameFramework/ProjectileMovementComponent.h"
-
 #include "AuraNativeGameplayTags.h"
+
+#include "Debug.h"
 
 AAuraProjectile::AAuraProjectile()
 {
