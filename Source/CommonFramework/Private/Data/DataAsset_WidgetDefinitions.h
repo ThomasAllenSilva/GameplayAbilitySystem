@@ -44,12 +44,12 @@ class COMMONFRAMEWORK_API UDataAsset_WidgetDefinitions final : public UDataAsset
 public:
 	FORCEINLINE const TArray<FWidgetSetupSettings> GetStartupWidgets() const { return StartupWidgets; }
 
-	FORCEINLINE const FWidgetSetupSettings* GetWidgetSettingsByTag(const FGameplayTag& Tag) const { return WidgetSettingsMap.Find(Tag); }
+	FORCEINLINE const FWidgetSetupSettings* GetWidgetSettingsByTag(const FGameplayTag& Tag) const { return WidgetsMap.Find(Tag); }
 
 private:
 	UPROPERTY(EditDefaultsOnly, meta = (TitleProperty = "{Widget}"))
 	TArray<FWidgetSetupSettings> StartupWidgets;
 
 	UPROPERTY(EditDefaultsOnly)
-	TMap<FGameplayTag, FWidgetSetupSettings> WidgetSettingsMap;
+	TMap<FGameplayTag, FWidgetSetupSettings> WidgetsMap;
 };
