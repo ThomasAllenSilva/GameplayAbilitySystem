@@ -79,3 +79,36 @@ void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, c
 		ASC->AddLooseGameplayTag(Tag);
 	}
 }
+
+const FString UCommonAbilityFunctionLibrary::GetTagLastName(const FGameplayTag& Tag)
+{
+	if (!Tag.IsValid())
+	{
+		return FString("Invalid Tag");
+	}
+
+	FString TagString = Tag.ToString();
+
+	int32 LastDotIndex;
+
+	if (TagString.FindLastChar('.', LastDotIndex))
+	{
+		FString LastName = TagString.Mid(LastDotIndex + 1);
+
+		FString FormattedName;
+
+		for (int32 i = 0; i < LastName.Len(); i++)
+		{
+			if (i > 0 && FChar::IsUpper(LastName[i]) && FChar::IsLower(LastName[i - 1]))
+			{
+				FormattedName.AppendChar(' ');
+			}
+
+			FormattedName.AppendChar(LastName[i]);
+		}
+
+		return FormattedName;
+	}
+
+	return TagString;
+}

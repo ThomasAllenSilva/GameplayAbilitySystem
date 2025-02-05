@@ -40,4 +40,8 @@ void UCommonAbilitySystemComponent::BeginPlay()
 
 		AbilitySet->GiveToAbilitySystem(this);
 	}
+
+	bIsInitialized = true;
+
+	OnInitialized.Broadcast();
 }

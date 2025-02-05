@@ -10,11 +10,26 @@
 
 void UAuraPlayerStatusUserWidget::NativeConstruct()
 {
-	InitPlayerStatusValues();
-
-	BindToAttributesChanges();
-
 	Super::NativeConstruct();
+
+	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+
+	if (ASC->GetIsInitialized() == true)
+	{
+		InitPlayerStatusValues();
+
+		BindToAttributesChanges();
+	}
+
+	else
+	{
+		ASC->OnInitialized.AddWeakLambda(this, [this]()
+			{
+				InitPlayerStatusValues();
+
+				BindToAttributesChanges();
+			});
+	}
 }
 
 void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
@@ -31,20 +46,25 @@ void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
 
 	MaxMana = ASC->GetGameplayAttributeValue(UAuraVitalAttributeSet::GetMaxManaAttribute(), bFound);
 
-	check(bFound)
+	OnHealthValueChanged();
+
+	OnManaValueChanged();
+
+	check(bFound);
 }
 
 void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
 {
 	UCommonAbilitySystemComponent* PlayerASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
-
 	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxHealthAttribute(), &UAuraPlayerStatusUserWidget::OnMaxHealthValueChanged, MaxHealth);
+
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
+
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
 
 	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetManaAttribute(), &UAuraPlayerStatusUserWidget::OnManaValueChanged, Mana);
 
-	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
 }
 
 void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UCommonAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)

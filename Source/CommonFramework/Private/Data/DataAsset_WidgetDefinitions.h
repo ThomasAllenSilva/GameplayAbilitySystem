@@ -34,7 +34,7 @@ public:
 };
 
 /**
- * 
+ *
  */
 UCLASS()
 class COMMONFRAMEWORK_API UDataAsset_WidgetDefinitions final : public UDataAsset
@@ -47,7 +47,7 @@ public:
 	FORCEINLINE const FWidgetSetupSettings* GetWidgetSettingsByTag(const FGameplayTag& Tag) const { return WidgetSettingsMap.Find(Tag); }
 
 private:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, meta = (TitleProperty = "{Widget}"))
 	TArray<FWidgetSetupSettings> StartupWidgets;
 
 	UPROPERTY(EditDefaultsOnly)

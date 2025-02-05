@@ -19,14 +19,19 @@ UWidgetCreatorComponent::UWidgetCreatorComponent()
 void UWidgetCreatorComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	CreateStartupWidgets();
 }
 
 void UWidgetCreatorComponent::CreateStartupWidgets()
 {
-	for (TObjectPtr<UDataAsset_WidgetDefinitions> WidgetDefinition : WidgetDefinitions)
+	for (const UDataAsset_WidgetDefinitions* WidgetDefinition : WidgetDefinitions)
 	{
+		if (WidgetDefinition == nullptr)
+		{
+			continue;
+		}
+
 		for (const FWidgetSetupSettings& WidgetSetupSettings : WidgetDefinition->GetStartupWidgets())
 		{
 			if (WidgetSetupSettings.Widget == nullptr)
