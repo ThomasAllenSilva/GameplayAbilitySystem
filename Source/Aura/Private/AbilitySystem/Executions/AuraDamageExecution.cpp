@@ -3,9 +3,9 @@
 
 #include "AuraDamageExecution.h"
 
-#include "AbilitySystem/AttributeSet/AuraSecondaryAttributeSet.h"
+#include "AbilitySystem/AttributeSets/AuraSecondaryAttributeSet.h"
 
-#include "AbilitySystem/AttributeSet/AuraMetaAttributeSet.h"
+#include "AbilitySystem/AttributeSets/AuraMetaAttributeSet.h"
 
 #include "AuraNativeGameplayTags.h"
 

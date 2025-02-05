@@ -3,11 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "AttributeSet.h"
-
 #include "AbilitySystemComponent.h"
-
 #include "AuraSecondaryAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -17,7 +14,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class UAuraSecondaryAttributeSet : public UAttributeSet
+class UAuraSecondaryAttributeSet final : public UAttributeSet
 {
 	GENERATED_BODY()
 

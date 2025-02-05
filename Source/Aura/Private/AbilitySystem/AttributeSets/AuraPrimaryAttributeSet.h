@@ -3,11 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "AttributeSet.h"
-
 #include "AbilitySystemComponent.h"
-
 #include "AuraPrimaryAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \

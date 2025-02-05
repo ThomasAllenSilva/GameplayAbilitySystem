@@ -2,7 +2,7 @@
 
 #include "AuraPlayerStatusUserWidget.h"
 
-#include "AbilitySystem/AttributeSet/AuraVitalAttributeSet.h"
+#include "AbilitySystem/AttributeSets/AuraVitalAttributeSet.h"
 
 #include "CommonAbilityFunctionLibrary.h"
 

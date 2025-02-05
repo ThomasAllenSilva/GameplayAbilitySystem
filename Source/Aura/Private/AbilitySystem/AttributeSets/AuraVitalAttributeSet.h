@@ -3,11 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "AttributeSet.h"
-
 #include "AbilitySystemComponent.h"
-
 #include "AuraVitalAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -17,9 +14,16 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class UAuraVitalAttributeSet : public UAttributeSet
+class UAuraVitalAttributeSet final : public UAttributeSet
 {
 	GENERATED_BODY()
+
+public:
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
+
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
