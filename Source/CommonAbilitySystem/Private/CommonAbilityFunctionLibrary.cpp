@@ -70,6 +70,15 @@ UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetLocalPlayerAbil
 	return Cast<UCommonAbilitySystemComponent>(PlayerState->GetAbilitySystemComponent());
 }
 
+UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetCommonAbilitySystemComponentFromActor(AActor* Actor)
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
+
+	checkf(ASC, TEXT("Actor does not contain AbilitySystemComponent: %s"), *Actor->GetFName().ToString());
+
+	return CastChecked<UCommonAbilitySystemComponent>(ASC);
+}
+
 void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag)
 {
 	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);

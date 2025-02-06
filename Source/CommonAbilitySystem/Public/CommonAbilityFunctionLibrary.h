@@ -12,13 +12,13 @@ class ACommonAbilityPlayerState;
 class ACommonAbilityPlayerController;
 
 /**
- * 
+ *
  */
 UCLASS()
 class COMMONABILITYSYSTEM_API UCommonAbilityFunctionLibrary final : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
-	
+
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static APlayerController* GetLocalPlayerController(const UObject* WorldContextObject);
@@ -34,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"))
 	static UCommonAbilitySystemComponent* GetLocalPlayerAbilitySystemComponent(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static UCommonAbilitySystemComponent* GetCommonAbilitySystemComponentFromActor(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable)
 	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);
