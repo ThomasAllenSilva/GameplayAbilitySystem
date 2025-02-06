@@ -4,7 +4,6 @@
 #include "Components/CommonAbilitySystemComponent.h"
 #include "AbilitySystem/Data/AttributesInfoDataAsset.h"
 #include "CommonAbilityFunctionLibrary.h"
-
 #include "Debug.h"
 
 void UAuraAttributeValueRowUserWidget::NativeConstruct()

@@ -1,11 +1,8 @@
 // Thomas Learning Project
 
 #include "AuraPlayerStatusUserWidget.h"
-
 #include "AbilitySystem/AttributeSets/AuraVitalAttributeSet.h"
-
 #include "CommonAbilityFunctionLibrary.h"
-
 #include "Components/CommonAbilitySystemComponent.h"
 
 void UAuraPlayerStatusUserWidget::NativeConstruct()
