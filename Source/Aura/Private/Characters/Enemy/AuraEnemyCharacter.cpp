@@ -2,16 +2,16 @@
 
 
 #include "Characters/Enemy/AuraEnemyCharacter.h"
-
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
-
-#include "AbilitySystem/AttributeSet/AuraAttributeSet.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 AAuraEnemyCharacter::AAuraEnemyCharacter()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UCommonAbilitySystemComponent>("AbilitySystemComponent");
+}
 
-	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSetBase");
+UAbilitySystemComponent* AAuraEnemyCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void AAuraEnemyCharacter::BeginPlay()

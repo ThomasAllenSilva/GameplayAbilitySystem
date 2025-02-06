@@ -3,11 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Blueprint/UserWidget.h"
-
 #include "ContextualUserWidget.generated.h"
-
 
 UCLASS()
 class COMMONFRAMEWORK_API UContextualUserWidget : public UUserWidget

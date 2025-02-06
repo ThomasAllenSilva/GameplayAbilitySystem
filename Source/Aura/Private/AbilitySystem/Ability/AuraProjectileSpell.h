@@ -25,7 +25,7 @@ protected:
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
-	TSubclassOf<UGameplayEffect> SpellEffect;
+	TArray<TSubclassOf<UGameplayEffect>> SpellEffects;
 
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TSubclassOf<AAuraProjectile> ProjectileClass;

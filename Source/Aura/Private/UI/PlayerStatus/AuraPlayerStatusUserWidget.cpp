@@ -1,51 +1,70 @@
 // Thomas Learning Project
 
 #include "AuraPlayerStatusUserWidget.h"
-
-#include "AuraBlueprintFunctionLibrary.h"
-
-#include "AbilitySystem/AttributeSet/AuraAttributeSet.h"
-
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AttributeSets/AuraVitalAttributeSet.h"
+#include "CommonAbilityFunctionLibrary.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 void UAuraPlayerStatusUserWidget::NativeConstruct()
 {
-	InitPlayerStatusValues();
-
-	BindToAttributesChanges();
-
 	Super::NativeConstruct();
+
+	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+
+	if (ASC->GetIsInitialized() == true)
+	{
+		InitPlayerStatusValues();
+
+		BindToAttributesChanges();
+	}
+
+	else
+	{
+		ASC->OnInitialized.AddWeakLambda(this, [this]()
+			{
+				InitPlayerStatusValues();
+
+				BindToAttributesChanges();
+			});
+	}
 }
 
 void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()
 {
-	const UAuraAttributeSet* AttributeSet = UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeSet(this);
+	const UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	Health = AttributeSet->GetHealth();
+	bool bFound;
 
-	MaxHealth = AttributeSet->GetMaxHealth();
+	Health = ASC->GetGameplayAttributeValue(UAuraVitalAttributeSet::GetHealthAttribute(), bFound);
 
-	Mana = AttributeSet->GetMana();
+	MaxHealth = ASC->GetGameplayAttributeValue(UAuraVitalAttributeSet::GetMaxHealthAttribute(), bFound);
 
-	MaxMana = AttributeSet->GetMaxMana();
+	Mana = ASC->GetGameplayAttributeValue(UAuraVitalAttributeSet::GetManaAttribute(), bFound);
+
+	MaxMana = ASC->GetGameplayAttributeValue(UAuraVitalAttributeSet::GetMaxManaAttribute(), bFound);
+
+	OnHealthValueChanged();
+
+	OnManaValueChanged();
+
+	check(bFound);
 }
 
 void UAuraPlayerStatusUserWidget::BindToAttributesChanges()
 {
-	const UAuraAttributeSet* AttributeSet = UAuraBlueprintFunctionLibrary::GetLocalPlayerAttributeSet(this);
+	UCommonAbilitySystemComponent* PlayerASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxHealthAttribute(), &UAuraPlayerStatusUserWidget::OnMaxHealthValueChanged, MaxHealth);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxHealthAttribute(), &UAuraPlayerStatusUserWidget::OnMaxHealthValueChanged, MaxHealth);
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetHealthAttribute(), &UAuraPlayerStatusUserWidget::OnHealthValueChanged, Health);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetManaAttribute(), &UAuraPlayerStatusUserWidget::OnManaValueChanged, Mana);
+	BindAttributeChangeDelegate(PlayerASC, UAuraVitalAttributeSet::GetManaAttribute(), &UAuraPlayerStatusUserWidget::OnManaValueChanged, Mana);
 
-	BindAttributeChangeDelegate(PlayerASC, AttributeSet->GetMaxManaAttribute(), &UAuraPlayerStatusUserWidget::OnMaxManaValueChanged, MaxMana);
 }
 
-void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)
+void UAuraPlayerStatusUserWidget::BindAttributeChangeDelegate(UCommonAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue)
 {
 	PlayerASC->GetGameplayAttributeValueChangeDelegate(Attribute).AddWeakLambda(this,
 		[this, Callback, &WidgetAttributeValue](const FOnAttributeChangeData& Data)

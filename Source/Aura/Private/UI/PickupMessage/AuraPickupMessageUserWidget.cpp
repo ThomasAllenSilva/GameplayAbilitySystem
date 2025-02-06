@@ -3,15 +3,15 @@
 
 #include "AuraPickupMessageUserWidget.h"
 
-#include "AuraBlueprintFunctionLibrary.h"
+#include "CommonAbilityFunctionLibrary.h"
 
-#include "AbilitySystem/Component/AuraAbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
 
 void UAuraPickupMessageUserWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	UCommonAbilitySystemComponent* PlayerASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	EffectAppliedDelegateHandle = PlayerASC->OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraPickupMessageUserWidget::OnGameplayEffectAppliedDelegateToSelf);
 }
@@ -20,7 +20,7 @@ void UAuraPickupMessageUserWidget::BeginDestroy()
 {
 	Super::BeginDestroy();
 
-	UAuraAbilitySystemComponent* PlayerASC = UAuraBlueprintFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
+	UCommonAbilitySystemComponent* PlayerASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
 	if (IsValid(PlayerASC))
 	{

@@ -8,7 +8,7 @@
 
 #include "AuraPlayerStatusUserWidget.generated.h"
 
-class UAuraAbilitySystemComponent;
+class UCommonAbilitySystemComponent;
 
 struct FGameplayAttribute;
 
@@ -51,5 +51,5 @@ private:
 
 	void BindToAttributesChanges();
 
-	void BindAttributeChangeDelegate(UAuraAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue);
+	void BindAttributeChangeDelegate(UCommonAbilitySystemComponent* PlayerASC, const FGameplayAttribute& Attribute, void (UAuraPlayerStatusUserWidget::* Callback)(), float& WidgetAttributeValue);
 };

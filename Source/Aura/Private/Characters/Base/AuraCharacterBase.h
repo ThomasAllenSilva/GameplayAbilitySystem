@@ -12,9 +12,7 @@
 
 #include "AuraCharacterBase.generated.h"
 
-class UAbilitySystemComponent;
-
-class UAuraAttributeSet;
+class UCommonAbilitySystemComponent;
 
 class UMotionWarpingComponent;
 
@@ -26,22 +24,15 @@ class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, pu
 public:
 	AAuraCharacterBase();
 
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
 
 	virtual FVector GetProjectileSpawnLocation() override;
 
 	virtual void UpdateWarpTargetFromLocation(const FVector& Location) override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
-
-protected:
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAuraAttributeSet> AttributeSet;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

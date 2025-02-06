@@ -2,6 +2,8 @@
 
 #include "Characters/Base/AuraCharacterBase.h"
 
+#include "Components/CommonAbilitySystemComponent.h"
+
 #include "MotionWarpingComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
@@ -29,7 +31,9 @@ AAuraCharacterBase::AAuraCharacterBase()
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 {
-	return AbilitySystemComponent;
+	check(nullptr);
+
+	return nullptr;
 }
 
 FVector AAuraCharacterBase::GetProjectileSpawnLocation()

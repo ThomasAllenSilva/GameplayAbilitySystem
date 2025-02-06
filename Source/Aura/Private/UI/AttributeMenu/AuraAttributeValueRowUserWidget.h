@@ -30,6 +30,9 @@ protected:
 	void InternalOnAttributeValueChanged(const FOnAttributeChangeData& AttributeData);
 
 private:
+	void InitializeAttributeRow();
+
+private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TObjectPtr<UAttributesInfoDataAsset> AttributeInfoData;
 
