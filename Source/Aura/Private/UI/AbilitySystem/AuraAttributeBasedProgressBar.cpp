@@ -1,28 +1,44 @@
 // Thomas Learning Project
 
 #include "UI/AbilitySystem/AuraAttributeBasedProgressBar.h"
-
-#include "AbilitySystemBlueprintLibrary.h"
-
-#include "AbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
+#include "CommonAbilityFunctionLibrary.h"
 
 void UAuraAttributeBasedProgressBar::Internal_OwningActorSet()
 {
-	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OwningActor);
+	Super::Internal_OwningActorSet();
+
+	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetCommonAbilitySystemComponentFromActor(OwningActor);
+
+	if (ASC->GetIsInitialized() == true)
+	{
+		OnAbilitySystemComponentAvailable(ASC);
+	}
+
+	else
+	{
+		ASC->OnInitialized.AddWeakLambda(this, [this, ASC]()
+		{
+				OnAbilitySystemComponentAvailable(ASC);
+		});
+	}
+}
+
+void UAuraAttributeBasedProgressBar::OnAbilitySystemComponentAvailable(UCommonAbilitySystemComponent* ASC)
+{
+	ASC->GetGameplayAttributeValueChangeDelegate(MaxValueAttribute).AddUObject(this, &UAuraAttributeBasedProgressBar::OnMaxAttributeValueChanged);
 
 	ASC->GetGameplayAttributeValueChangeDelegate(BaseValueAttribute).AddUObject(this, &UAuraAttributeBasedProgressBar::OnBaseAttributeValueChanged);
 
-	ASC->GetGameplayAttributeValueChangeDelegate(MaxValueAttribute).AddUObject(this, &UAuraAttributeBasedProgressBar::OnMaxAttributeValueChanged);
-
 	bool bFound;
-
-	BaseValue = ASC->GetGameplayAttributeValue(BaseValueAttribute, bFound);
 
 	MaxValue = ASC->GetGameplayAttributeValue(MaxValueAttribute, bFound);
 
-	AttributeValueChanged();
+	BaseValue = ASC->GetGameplayAttributeValue(BaseValueAttribute, bFound);
 
-	Super::Internal_OwningActorSet();
+	check(bFound);
+
+	SetupInitialValues();
 }
 
 void UAuraAttributeBasedProgressBar::OnBaseAttributeValueChanged(const FOnAttributeChangeData& Data)
