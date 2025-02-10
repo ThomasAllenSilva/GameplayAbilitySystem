@@ -2,12 +2,10 @@
 
 
 #include "AuraDamageExecution.h"
-
 #include "AbilitySystem/AttributeSets/AuraSecondaryAttributeSet.h"
-
 #include "AbilitySystem/AttributeSets/AuraMetaAttributeSet.h"
-
 #include "AuraNativeGameplayTags.h"
+#include "AbilitySystem/Types/AuraEffectTypes.h"
 
 struct FDamageStatics
 {
@@ -78,6 +76,8 @@ void UAuraDamageExecution::Execute_Implementation(const FGameplayEffectCustomExe
 	EvaluateParameters.SourceTags = SourceTags;
 	EvaluateParameters.TargetTags = TargetTags;
 
+	FAuraGameplayEffectContext* EffectContext = static_cast<FAuraGameplayEffectContext*>(Spec.GetContext().Get());
+
 	float DamageMagnitude = Spec.GetSetByCallerMagnitude(Damage);
 
 	float BlockChanceMagnitude = GetCalculatedCapturedAttributeMagnitude(ExecutionParams, DamageStatic.BlockChanceDef, EvaluateParameters);
@@ -92,11 +92,11 @@ void UAuraDamageExecution::Execute_Implementation(const FGameplayEffectCustomExe
 
 	float SourceCriticalHitDamage = GetCalculatedCapturedAttributeMagnitude(ExecutionParams, DamageStatic.CriticalHitDamageDef, EvaluateParameters);
 
-	CalculateBlockChance(BlockChanceMagnitude, DamageMagnitude);
+	CalculateBlockChance(BlockChanceMagnitude, DamageMagnitude, EffectContext);
 
 	CalculateArmorPenetration(TargetArmorMagnitude, SourceArmorPenetrationMagnitude, DamageMagnitude);
 
-	CalculateCriticalHit(SourceCriticalHitChance, TargetCriticalHitResistance, SourceCriticalHitDamage, DamageMagnitude);
+	CalculateCriticalHit(SourceCriticalHitChance, TargetCriticalHitResistance, SourceCriticalHitDamage, DamageMagnitude, EffectContext);
 
 	const FGameplayModifierEvaluatedData DamageModifierEvaluatedData(UAuraMetaAttributeSet::GetBaseDamageAttribute(), EGameplayModOp::Additive, DamageMagnitude);
 
@@ -112,12 +112,13 @@ float UAuraDamageExecution::GetCalculatedCapturedAttributeMagnitude(const FGamep
 	return AttributeMagnitude;
 }
 
-void UAuraDamageExecution::CalculateBlockChance(float BlockChanceMagnitude, float& OutDamage) const
+void UAuraDamageExecution::CalculateBlockChance(float BlockChanceMagnitude, float& OutDamage, FAuraGameplayEffectContext* EffectContext) const
 {
-	//Successful Block. Maybe sending a Gameplay Event here to the target actor could help display damage texts?
 	if (BlockChanceMagnitude != 0.0f && FMath::RandRange(1.0f, 100.0f) < BlockChanceMagnitude)
 	{
 		OutDamage *= 0.5f;
+
+		EffectContext->SetIsBlockedHit(true);
 	}
 }
 
@@ -132,7 +133,7 @@ void UAuraDamageExecution::CalculateArmorPenetration(float TargetAmor, float Sou
 	OutDamage = FMath::Clamp(OutDamage, 0.0f, UE_BIG_NUMBER);
 }
 
-void UAuraDamageExecution::CalculateCriticalHit(float SourceCriticalHitChance, float TargetCriticalHitResistance, float CriticalHitDamage, float& OutDamage) const
+void UAuraDamageExecution::CalculateCriticalHit(float SourceCriticalHitChance, float TargetCriticalHitResistance, float CriticalHitDamage, float& OutDamage, FAuraGameplayEffectContext* EffectContext) const
 {
 	SourceCriticalHitChance *= (100 - TargetCriticalHitResistance) / 100;
 
@@ -143,5 +144,7 @@ void UAuraDamageExecution::CalculateCriticalHit(float SourceCriticalHitChance, f
 		OutDamage *= 2.0f;
 
 		OutDamage += CriticalHitDamage;
+
+		EffectContext->SetIsCriticalHit(true);
 	}
 }

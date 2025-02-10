@@ -6,6 +6,8 @@
 #include "GameplayEffectExecutionCalculation.h"
 #include "AuraDamageExecution.generated.h"
 
+struct FAuraGameplayEffectContext;
+
 /**
  *
  */
@@ -22,9 +24,9 @@ public:
 private:
 	float GetCalculatedCapturedAttributeMagnitude(const FGameplayEffectCustomExecutionParameters& CustomExecutionParameters, const FGameplayEffectAttributeCaptureDefinition& AttributeCaptureDefinition, const FAggregatorEvaluateParameters& EvaluateParameters) const;
 
-	void CalculateBlockChance(float BlockChanceMagnitude, float& OutDamage) const;
+	void CalculateBlockChance(float BlockChanceMagnitude, float& OutDamage, FAuraGameplayEffectContext* EffectContext) const;
 
 	void CalculateArmorPenetration(float TargetAmor, float SourceArmorPenetration, float& OutDamage) const;
 
-	void CalculateCriticalHit(float SourceCriticalHitChance, float TargetCriticalHitResistance, float CriticalHitDamage, float& OutDamage) const;
+	void CalculateCriticalHit(float SourceCriticalHitChance, float TargetCriticalHitResistance, float CriticalHitDamage, float& OutDamage, FAuraGameplayEffectContext* EffectContext) const;
 };
