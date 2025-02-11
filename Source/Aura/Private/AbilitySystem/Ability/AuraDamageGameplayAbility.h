@@ -3,15 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Ability/AuraGameplayAbility.h"
+#include "Ability/CommonGameplayAbility.h"
+#include "GameplayTagContainer.h"
 #include "AuraDamageGameplayAbility.generated.h"
 
 /**
- * 
+ * Base class for abilties that cause damage 
  */
-UCLASS()
-class UAuraDamageGameplayAbility : public UAuraGameplayAbility
+UCLASS(Abstract)
+class UAuraDamageGameplayAbility : public UCommonGameplayAbility
 {
 	GENERATED_BODY()
 	
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	TArray<TSubclassOf<UGameplayEffect>> DamageEffects;
+
+	UPROPERTY(EditDefaultsOnly)
+	TMap<FGameplayTag, FScalableFloat> DamageTypes;
 };
