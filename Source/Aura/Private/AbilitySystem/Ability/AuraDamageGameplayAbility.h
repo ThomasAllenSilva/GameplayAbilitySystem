@@ -16,9 +16,12 @@ class UAuraDamageGameplayAbility : public UCommonGameplayAbility
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<TSubclassOf<UGameplayEffect>> DamageEffects;
 
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FGameplayTag, FScalableFloat> DamageTypes;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TArray<TSubclassOf<UGameplayEffect>> OtherEffects;
 };
