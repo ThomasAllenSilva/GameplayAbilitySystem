@@ -27,7 +27,7 @@ public:
 	TSubclassOf<UUserWidget> Widget;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TEnumAsByte<EWidgetCreationType> WidgetCreationType;
+	TEnumAsByte<EWidgetCreationType> WidgetCreationType = EWidgetCreationType::AddToViewport;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::WidgetComponent"))
 	TObjectPtr<UDataAsset_WidgetComponentConfigs> WidgetComponentSettings;
