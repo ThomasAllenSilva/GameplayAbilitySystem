@@ -36,7 +36,7 @@ void UAuraPickupMessageUserWidget::OnGameplayEffectAppliedDelegateToSelf(UAbilit
 
 	for (const FGameplayTag& Tag : TagsContainer)
 	{
-		if (MessageTag.MatchesTag(MessageTag))
+		if (Tag.MatchesTag(MessageTag))
 		{
 			OnRequestedPickupMessage(Tag);
 		}

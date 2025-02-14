@@ -26,7 +26,20 @@ UE_DEFINE_GAMEPLAY_TAG(Attributes_Secondary_CriticalHitResistance, "Attributes.S
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Secondary_HealthRegeneration, "Attributes.Secondary.HealthRegeneration");
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Secondary_ManaRegeneration, "Attributes.Secondary.ManaRegeneration");
 
+
+// Attributes_Resistance
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance, "Attributes.Resistance");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Fire, "Attributes.Resistance.FireResistance");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Lightning, "Attributes.Resistance.LightningResistance");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Arcane, "Attributes.Resistance.ArcaneResistance");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Physical, "Attributes.Resistance.PhysicalResistance");
+
+// Damage Types
 UE_DEFINE_GAMEPLAY_TAG(Damage, "Damage");
+UE_DEFINE_GAMEPLAY_TAG(Damage_Fire, "Damage.Fire");
+UE_DEFINE_GAMEPLAY_TAG(Damage_Lightning, "Damage.Lightning");
+UE_DEFINE_GAMEPLAY_TAG(Damage_Arcane, "Damage.Arcane");
+UE_DEFINE_GAMEPLAY_TAG(Damage_Physical, "Damage.Physical");
 
 UE_DEFINE_GAMEPLAY_TAG(Common_Event, "Common.Event");
 

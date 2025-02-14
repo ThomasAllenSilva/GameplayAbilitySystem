@@ -1,14 +1,9 @@
 // Thomas Learning Project
 
 #include "AbilitySystem/Ability/AuraProjectileSpell.h"
-
 #include "AbilitySystem/Actor/AuraProjectile.h"
-
 #include "AbilitySystemComponent.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
-
-#include "AuraNativeGameplayTags.h"
 
 void UAuraProjectileSpell::SpawnProjectile(const FVector& TargetLocation)
 {
@@ -16,11 +11,21 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& TargetLocation)
 
 	TArray<FGameplayEffectSpecHandle> EffectSpecHandles;
 
-	for (TSubclassOf<UGameplayEffect>& GameplayEffect : SpellEffects)
+	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : DamageEffects)
 	{
 		FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, GetAbilityLevel(), ASC->MakeEffectContext());
 
-		EffectSpecHandle = UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(EffectSpecHandle, Damage, ScalableDamage.GetValueAtLevel(GetAbilityLevel()));
+		for (const TPair<const FGameplayTag, FScalableFloat>& Pair : DamageTypes)
+		{
+			EffectSpecHandle = UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(EffectSpecHandle, Pair.Key, Pair.Value.GetValueAtLevel(GetAbilityLevel()));
+		}
+
+		EffectSpecHandles.Add(EffectSpecHandle);
+	}
+
+	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : OtherEffects)
+	{
+		FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(GameplayEffect, GetAbilityLevel(), ASC->MakeEffectContext());
 
 		EffectSpecHandles.Add(EffectSpecHandle);
 	}

@@ -75,8 +75,7 @@ void AAuraProjectile::ApplyProjectileEffectToTarget(AActor* TargetActor)
 
 			FGameplayTagContainer TagContainer;
 
-			EffectSpecHandle.Data.Get()->GetAllGrantedTags(TagContainer);
-
+			EffectSpecHandle.Data.Get()->GetAllAssetTags(TagContainer);
 			for (const FGameplayTag& GameplayTag : TagContainer)
 			{
 				if (GameplayTag.MatchesTag(Common_Event))

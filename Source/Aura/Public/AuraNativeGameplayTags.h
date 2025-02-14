@@ -26,7 +26,19 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitResistance);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_HealthRegeneration);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ManaRegeneration);
 
+// Resistance Attributes
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Fire);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Lightning);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Arcane);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Physical);
+
+// Damage Types
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Fire);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Lightning);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Arcane);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Physical);
 
 // Common Tags
 
@@ -34,5 +46,5 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Status_Dead);
 
-//Input Tags
+// Input Tags
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Move);
