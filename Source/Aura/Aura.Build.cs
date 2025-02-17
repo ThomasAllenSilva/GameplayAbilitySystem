@@ -22,7 +22,8 @@ public class Aura : ModuleRules
             "Niagara",
             "DebugUtils",
             "CommonFramework",
-            "CommonAbilitySystem"});
+            "CommonAbilitySystem",
+            "AIModule"});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 
