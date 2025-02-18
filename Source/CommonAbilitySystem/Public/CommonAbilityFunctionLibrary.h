@@ -42,5 +42,11 @@ public:
 	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static int GetInt32Max();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static float GetFloatBigNumber();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static const FString GetTagLastName(const FGameplayTag& Tag);
 };

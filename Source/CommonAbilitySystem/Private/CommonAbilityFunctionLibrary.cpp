@@ -89,6 +89,16 @@ void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, c
 	}
 }
 
+int UCommonAbilityFunctionLibrary::GetInt32Max()
+{
+	return INT32_MAX;
+}
+
+float UCommonAbilityFunctionLibrary::GetFloatBigNumber()
+{
+	return UE_BIG_NUMBER;
+}
+
 const FString UCommonAbilityFunctionLibrary::GetTagLastName(const FGameplayTag& Tag)
 {
 	if (!Tag.IsValid())
