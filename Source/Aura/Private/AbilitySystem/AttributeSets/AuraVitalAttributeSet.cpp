@@ -24,6 +24,7 @@ void UAuraVitalAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 	{
 		if (GetHealth() <= 0.0f)
 		{
+			//In case we went below zero
 			SetHealth(0.0f);
 
 			UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), Common_Status_Dead);

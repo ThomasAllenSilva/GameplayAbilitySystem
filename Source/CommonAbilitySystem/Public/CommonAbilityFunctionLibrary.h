@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);
 
+	UFUNCTION(BlueprintCallable)
+	static void CompletelyRemoveGameplayTagFromActor(AActor* Actor, const FGameplayTag& Tag);
+
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static int GetInt32Max();
 

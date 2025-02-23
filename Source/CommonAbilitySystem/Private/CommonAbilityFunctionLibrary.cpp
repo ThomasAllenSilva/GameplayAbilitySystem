@@ -83,9 +83,25 @@ void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, c
 {
 	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
 
+	check(ASC);
+
 	if (ASC->HasMatchingGameplayTag(Tag) == false)
 	{
 		ASC->AddLooseGameplayTag(Tag);
+	}
+}
+
+void UCommonAbilityFunctionLibrary::CompletelyRemoveGameplayTagFromActor(AActor* Actor, const FGameplayTag& Tag)
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
+
+	check(ASC);
+
+	int TagCount = ASC->GetTagCount(Tag);
+
+	if (TagCount > 0)
+	{
+		ASC->RemoveLooseGameplayTag(Tag, TagCount);
 	}
 }
 

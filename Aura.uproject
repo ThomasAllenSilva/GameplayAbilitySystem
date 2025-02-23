@@ -15,7 +15,8 @@
 				"CoreUObject",
 				"GameFeatures",
 				"EnhancedInput",
-				"AIModule"
+				"AIModule",
+				"CommonAbilitySystem"
 			]
 		},
 		{
