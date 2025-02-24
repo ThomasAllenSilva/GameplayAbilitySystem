@@ -58,14 +58,6 @@ bool AAuraCharacterBase::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
 
 bool AAuraCharacterBase::HasAnyMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
 {
-	if (GetAbilitySystemComponent()->HasAnyMatchingGameplayTags(TagContainer))
-	{
-		UE_LOG(LogTemp, Display, TEXT("Has Gameplay Tag"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Display, TEXT("Don't Have Gameplay Tag"));
-	}
 	return GetAbilitySystemComponent()->HasAnyMatchingGameplayTags(TagContainer);
 }
 
