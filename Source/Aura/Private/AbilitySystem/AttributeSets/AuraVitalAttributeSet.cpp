@@ -17,11 +17,17 @@ void UAuraVitalAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 
 		SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
 
-		if (GetHealth() == 0.0f)
+		SetIncomingDamage(0.0f);
+	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute() || Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		if (GetHealth() <= 0.0f)
 		{
+			//In case we went below zero
+			SetHealth(0.0f);
+
 			UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), Common_Status_Dead);
 		}
-
-		SetIncomingDamage(0.0f);
 	}
 }

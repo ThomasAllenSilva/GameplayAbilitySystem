@@ -14,7 +14,9 @@
 				"UMG",
 				"CoreUObject",
 				"GameFeatures",
-				"EnhancedInput"
+				"EnhancedInput",
+				"AIModule",
+				"CommonAbilitySystem"
 			]
 		},
 		{

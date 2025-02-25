@@ -42,6 +42,7 @@ UE_DEFINE_GAMEPLAY_TAG(Damage_Arcane, "Damage.Arcane");
 UE_DEFINE_GAMEPLAY_TAG(Damage_Physical, "Damage.Physical");
 
 UE_DEFINE_GAMEPLAY_TAG(Common_Event, "Common.Event");
+UE_DEFINE_GAMEPLAY_TAG(Common_Event_HitReact, "Common.Event.HitReact");
 
 UE_DEFINE_GAMEPLAY_TAG(Common_Status_Dead, "Common.Status.Dead");
 
