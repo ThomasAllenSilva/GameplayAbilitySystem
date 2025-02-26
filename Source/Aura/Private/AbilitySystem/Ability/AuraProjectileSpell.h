@@ -6,12 +6,11 @@
 #include "AuraDamageGameplayAbility.h"
 #include "AuraProjectileSpell.generated.h"
 
-/**
- * 
- */
-
 class AAuraProjectile;
 
+/**
+ * Gameplay ability used for spawning projectiles that carry gameplay effects
+ */
 UCLASS()
 class UAuraProjectileSpell final : public UAuraDamageGameplayAbility
 {
