@@ -8,6 +8,8 @@ void UCommonGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* Acto
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
 
+	OnAbilityGiven(*ActorInfo);
+
 	if (ActivationPolicy == EAbilityActivationPolicy::OnGiven)
 	{
 		ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle);
@@ -22,4 +24,11 @@ void UCommonGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
 	{
 		ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 	}
+}
+
+void UCommonGameplayAbility::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+{
+	Super::OnRemoveAbility(ActorInfo, Spec);
+
+	OnAbilityRemoved(*ActorInfo, Spec);
 }
