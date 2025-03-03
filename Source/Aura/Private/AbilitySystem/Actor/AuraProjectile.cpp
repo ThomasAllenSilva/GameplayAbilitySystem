@@ -28,7 +28,7 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 
 	if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(OwningActor))
 	{
-		SpawnLocation = CombatInterface->GetProjectileSpawnLocation();
+		SpawnLocation = CombatInterface->GetWeaponSocketLocation();
 	}
 
 	const FVector Direction = (TargetLocation - SpawnLocation);
