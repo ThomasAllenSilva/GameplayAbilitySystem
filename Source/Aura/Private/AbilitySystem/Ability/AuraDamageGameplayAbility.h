@@ -18,11 +18,17 @@ class UAuraDamageGameplayAbility : public UCommonGameplayAbility
 	GENERATED_BODY()
 	
 protected:
-	/* Effects that are used specifically for causing damage */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<TSubclassOf<UGameplayEffect>> DamageEffects;
+	UFUNCTION(BlueprintCallable)
+	void ApplyDamage(AActor* TargetActor);
 
-	/* The scalable magnitude to apply on the damage type. Applied on each Damage Effect */
+	TArray<FGameplayEffectSpecHandle> GetAbilityEffectsSpecs();
+
+protected:
+	/* Effect that is used specifically for causing damage */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffect;
+
+	/* The scalable magnitude to apply on the damage type. Applied on the Damage Effect */
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FGameplayTag, FScalableFloat> DamageTypes;
 
