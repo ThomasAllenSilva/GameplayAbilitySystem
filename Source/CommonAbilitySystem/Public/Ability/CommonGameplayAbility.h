@@ -25,7 +25,17 @@ class COMMONABILITYSYSTEM_API UCommonGameplayAbility : public UGameplayAbility
 public:
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
-	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled);
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+
+	virtual void OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
+	/** Called when the ability is given to an AbilitySystemComponent */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability")
+	void OnAbilityGiven(const FGameplayAbilityActorInfo& ActorInfo);
+
+	/** Called when the ability is removed from an AbilitySystemComponent */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability")
+	void OnAbilityRemoved(const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilitySpec& Spec);
 
 private:
 	/*Specifies if the ability is activated when its given to an ASC or triggered later. Used on OnGiveAbility callback*/

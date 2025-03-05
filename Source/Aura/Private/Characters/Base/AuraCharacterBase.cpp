@@ -36,14 +36,38 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 	return nullptr;
 }
 
-FVector AAuraCharacterBase::GetProjectileSpawnLocation()
+FVector AAuraCharacterBase::GetWeaponSocketLocation()
 {
-	return WeaponMesh->GetSocketLocation(ProjectileSocketName);
+	return WeaponMesh->GetSocketLocation(WeaponSocketName);
 }
 
 void AAuraCharacterBase::UpdateWarpTargetFromLocation(const FVector& Location)
 {
 	MotionWarpingComponent->AddOrUpdateWarpTargetFromLocation(WarpName, Location);
+}
+
+void AAuraCharacterBase::SetTargetActor(AActor* InTargetActor)
+{
+	check(InTargetActor);
+
+	TargetActor = InTargetActor;
+}
+
+AActor* AAuraCharacterBase::GetTargetActor() const
+{
+	return TargetActor.Get();
+}
+
+AActor* AAuraCharacterBase::GetTargetActorChecked() const
+{
+	check(TargetActor.IsValid());
+
+	return TargetActor.Get();
+}
+
+void AAuraCharacterBase::ClearTargetActor()
+{
+	TargetActor.Reset();
 }
 
 void AAuraCharacterBase::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const
