@@ -40,11 +40,11 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Lightning);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Arcane);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Physical);
 
-// Common Tags
-
+// Event Tags
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event_HitReact);
 
+// Character Status Tag
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Status_Dead);
 
 // Input Tags
