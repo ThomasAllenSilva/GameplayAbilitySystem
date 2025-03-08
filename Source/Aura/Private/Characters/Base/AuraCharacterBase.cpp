@@ -20,7 +20,7 @@ AAuraCharacterBase::AAuraCharacterBase()
 
 	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	WeaponMesh->PrimaryComponentTick.bCanEverTick = false;
+	WeaponMesh->PrimaryComponentTick.bCanEverTick = true;
 
 	WeaponMesh->PrimaryComponentTick.bStartWithTickEnabled = false;
 

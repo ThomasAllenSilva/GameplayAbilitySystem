@@ -35,9 +35,10 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 
 	FRotator Rotation = Direction.Rotation();
 
-	FTransform SpawnTransform = FTransform(Rotation.Quaternion());
+	FTransform SpawnTransform;
 
 	SpawnTransform.SetLocation(SpawnLocation);
+	SpawnTransform.SetRotation(Rotation.Quaternion());
 
 	AAuraProjectile* ProjectileInstance = WorldContextObject->GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass, SpawnTransform, OwningActor);
 
@@ -61,7 +62,7 @@ void AAuraProjectile::ApplyProjectileEffectToTarget(AActor* TargetActor)
 {
 	checkf(CollisionEffect, TEXT("Invalid Or Null Collision Effect For Projectile"));
 
-	checkf(CollisionEffect, TEXT("Invalid Or Null Collision Sound For Projectile"));
+	checkf(CollisionSound, TEXT("Invalid Or Null Collision Sound For Projectile"));
 
 	UGameplayStatics::PlaySoundAtLocation(this, CollisionSound, GetActorLocation());
 
