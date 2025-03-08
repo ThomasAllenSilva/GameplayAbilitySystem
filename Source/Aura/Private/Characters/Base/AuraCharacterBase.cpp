@@ -34,16 +34,6 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 	return nullptr;
 }
 
-FVector AAuraCharacterBase::GetWeaponSocketLocation() const
-{
-	return WeaponMesh->GetSocketLocation(WeaponSocketName);
-}
-
-void AAuraCharacterBase::UpdateWarpTargetFromLocation(const FVector& Location)
-{
-	MotionWarpingComponent->AddOrUpdateWarpTargetFromLocation(WarpName, Location);
-}
-
 void AAuraCharacterBase::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const
 {
 	return GetAbilitySystemComponent()->GetOwnedGameplayTags(TagContainer);
@@ -62,4 +52,49 @@ bool AAuraCharacterBase::HasAnyMatchingGameplayTags(const FGameplayTagContainer&
 bool AAuraCharacterBase::HasAllMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
 {
 	return GetAbilitySystemComponent()->HasAllMatchingGameplayTags(TagContainer);
+}
+
+
+FVector AAuraCharacterBase::GetWeaponSocketLocation() const
+{
+	return WeaponMesh->GetSocketLocation(WeaponSocketName);
+}
+
+void AAuraCharacterBase::UpdateWarpTargetFromLocation(const FVector& Location)
+{
+	MotionWarpingComponent->AddOrUpdateWarpTargetFromLocation(WarpName, Location);
+}
+
+void AAuraCharacterBase::SetTargetActor(AActor* InTargetActor)
+{
+	check(InTargetActor);
+
+	TargetActor = InTargetActor;
+}
+
+AActor* AAuraCharacterBase::GetTargetActor() const
+{
+	return TargetActor.Get();
+}
+
+AActor* AAuraCharacterBase::GetTargetActorChecked() const
+{
+	check(TargetActor.IsValid());
+
+	return TargetActor.Get();
+}
+
+FVector AAuraCharacterBase::GetTargetActorLocation() const
+{
+	if (AActor* Actor = TargetActor.Get())
+	{
+		Actor->GetActorLocation();
+	}
+
+	return FVector::ZeroVector;
+}
+
+void AAuraCharacterBase::ClearTargetActor()
+{
+	TargetActor.Reset();
 }

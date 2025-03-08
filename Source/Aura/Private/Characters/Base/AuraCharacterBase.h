@@ -44,6 +44,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateWarpTargetFromLocation(const FVector& Location);
 
+	UFUNCTION(BlueprintCallable)
+	void SetTargetActor(AActor* InTargetActor);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	AActor* GetTargetActor() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	AActor* GetTargetActorChecked() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FVector GetTargetActorLocation() const;
+
+	UFUNCTION(BlueprintCallable)
+	void ClearTargetActor();
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
@@ -51,4 +66,8 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;
+
+	UPROPERTY()
+	/* The current actor that is being aimed at or attacked. */
+	TWeakObjectPtr<AActor> TargetActor;
 };
