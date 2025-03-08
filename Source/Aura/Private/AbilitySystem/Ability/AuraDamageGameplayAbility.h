@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability/CommonGameplayAbility.h"
+#include "Base/AuraGameplayAbility.h"
 #include "GameplayTagContainer.h"
 #include "AuraDamageGameplayAbility.generated.h"
 
@@ -13,7 +13,7 @@
  * It also specifies other effects that this ability can carry along.
  */
 UCLASS(Abstract)
-class UAuraDamageGameplayAbility : public UCommonGameplayAbility
+class UAuraDamageGameplayAbility : public UAuraGameplayAbility
 {
 	GENERATED_BODY()
 	
