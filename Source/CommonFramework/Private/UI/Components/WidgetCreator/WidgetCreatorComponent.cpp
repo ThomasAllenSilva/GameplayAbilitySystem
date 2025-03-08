@@ -19,8 +19,10 @@ UWidgetCreatorComponent::UWidgetCreatorComponent()
 void UWidgetCreatorComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	CreateStartupWidgets();
+
+	//This little trick right here makes the widgets creation gets called after the owning actor begin play.
+	//It's useful to make sure things are initialized (e.g., AbilitySystemComponent).
+	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &UWidgetCreatorComponent::CreateStartupWidgets);
 }
 
 void UWidgetCreatorComponent::CreateStartupWidgets()
@@ -76,6 +78,8 @@ UUserWidget* UWidgetCreatorComponent::ConstructWidgetUsingSettings(const FWidget
 	APlayerController* PlayerController = LocalPlayer->GetPlayerController(World);
 
 	UUserWidget* WidgetInstance = CreateWidget<UUserWidget>(PlayerController, WidgetSetupSettings.Widget);
+
+	check(WidgetInstance);
 
 	AActor* OwningActor = GetOwner();
 
