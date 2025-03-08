@@ -1,7 +1,7 @@
 // Thomas Learning Project
 
 #include "AbilitySystem/Actor/AuraProjectile.h"
-#include "AbilitySystem/Interfaces/CombatInterface.h"
+#include "Characters/Base/AuraCharacterBase.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "AbilitySystemBlueprintLibrary.h"
@@ -26,9 +26,9 @@ const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldCon
 {
 	FVector SpawnLocation = OwningActor->GetActorLocation();
 
-	if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(OwningActor))
+	if (AAuraCharacterBase* AuraCharacter = Cast<AAuraCharacterBase>(OwningActor))
 	{
-		SpawnLocation = CombatInterface->GetWeaponSocketLocation();
+		SpawnLocation = AuraCharacter->GetWeaponSocketLocation();
 	}
 
 	const FVector Direction = (TargetLocation - SpawnLocation);

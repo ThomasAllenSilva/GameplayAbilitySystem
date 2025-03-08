@@ -4,8 +4,6 @@
 #include "Components/CommonAbilitySystemComponent.h"
 #include "MotionWarpingComponent.h"
 
-#include "Debug.h"
-
 AAuraCharacterBase::AAuraCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -36,7 +34,7 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 	return nullptr;
 }
 
-FVector AAuraCharacterBase::GetWeaponSocketLocation()
+FVector AAuraCharacterBase::GetWeaponSocketLocation() const
 {
 	return WeaponMesh->GetSocketLocation(WeaponSocketName);
 }
@@ -44,30 +42,6 @@ FVector AAuraCharacterBase::GetWeaponSocketLocation()
 void AAuraCharacterBase::UpdateWarpTargetFromLocation(const FVector& Location)
 {
 	MotionWarpingComponent->AddOrUpdateWarpTargetFromLocation(WarpName, Location);
-}
-
-void AAuraCharacterBase::SetTargetActor(AActor* InTargetActor)
-{
-	check(InTargetActor);
-
-	TargetActor = InTargetActor;
-}
-
-AActor* AAuraCharacterBase::GetTargetActor() const
-{
-	return TargetActor.Get();
-}
-
-AActor* AAuraCharacterBase::GetTargetActorChecked() const
-{
-	check(TargetActor.IsValid());
-
-	return TargetActor.Get();
-}
-
-void AAuraCharacterBase::ClearTargetActor()
-{
-	TargetActor.Reset();
 }
 
 void AAuraCharacterBase::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const

@@ -17,6 +17,41 @@ UAbilitySystemComponent* AAuraEnemyCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+
+void AAuraEnemyCharacter::SetTargetActor(AActor* InTargetActor)
+{
+	check(InTargetActor);
+
+	TargetActor = InTargetActor;
+}
+
+AActor* AAuraEnemyCharacter::GetTargetActor() const
+{
+	return TargetActor.Get();
+}
+
+AActor* AAuraEnemyCharacter::GetTargetActorChecked() const
+{
+	check(TargetActor.IsValid());
+
+	return TargetActor.Get();
+}
+
+FVector AAuraEnemyCharacter::GetTargetActorLocation() const
+{
+	if (AActor* Actor = TargetActor.Get())
+	{
+		Actor->GetActorLocation();
+	}
+
+	return FVector::ZeroVector;
+}
+
+void AAuraEnemyCharacter::ClearTargetActor()
+{
+	TargetActor.Reset();
+}
+
 void AAuraEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();

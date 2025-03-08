@@ -22,6 +22,21 @@ public:
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetTargetActor(AActor* InTargetActor);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	AActor* GetTargetActor() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	AActor* GetTargetActorChecked() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FVector GetTargetActorLocation() const;
+
+	UFUNCTION(BlueprintCallable)
+	void ClearTargetActor();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -40,4 +55,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<AAuraAIController> AuraAIController;
+
+	/* The current actor that is being aimed at or attacked. */
+	TWeakObjectPtr<AActor> TargetActor;
 };
