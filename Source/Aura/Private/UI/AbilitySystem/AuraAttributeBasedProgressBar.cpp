@@ -10,18 +10,7 @@ void UAuraAttributeBasedProgressBar::Internal_OwningActorSet()
 
 	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetCommonAbilitySystemComponentFromActor(OwningActor);
 
-	if (ASC->GetIsInitialized() == true)
-	{
-		OnAbilitySystemComponentAvailable(ASC);
-	}
-
-	else
-	{
-		ASC->OnInitialized.AddWeakLambda(this, [this, ASC]()
-		{
-				OnAbilitySystemComponentAvailable(ASC);
-		});
-	}
+	OnAbilitySystemComponentAvailable(ASC);
 }
 
 void UAuraAttributeBasedProgressBar::OnAbilitySystemComponentAvailable(UCommonAbilitySystemComponent* ASC)

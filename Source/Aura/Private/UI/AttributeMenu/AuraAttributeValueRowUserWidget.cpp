@@ -14,18 +14,7 @@ void UAuraAttributeValueRowUserWidget::NativeConstruct()
 
 	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	if (ASC->GetIsInitialized() == true)
-	{
-		InitializeAttributeRow();
-	}
-
-	else
-	{
-		ASC->OnInitialized.AddWeakLambda(this, [this]()
-		{
-			InitializeAttributeRow();
-		});
-	}
+	InitializeAttributeRow();
 }
 
 void UAuraAttributeValueRowUserWidget::BeginDestroy()

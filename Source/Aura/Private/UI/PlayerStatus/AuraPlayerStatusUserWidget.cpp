@@ -11,22 +11,9 @@ void UAuraPlayerStatusUserWidget::NativeConstruct()
 
 	UCommonAbilitySystemComponent* ASC = UCommonAbilityFunctionLibrary::GetLocalPlayerAbilitySystemComponent(this);
 
-	if (ASC->GetIsInitialized() == true)
-	{
-		InitPlayerStatusValues();
+	InitPlayerStatusValues();
 
-		BindToAttributesChanges();
-	}
-
-	else
-	{
-		ASC->OnInitialized.AddWeakLambda(this, [this]()
-			{
-				InitPlayerStatusValues();
-
-				BindToAttributesChanges();
-			});
-	}
+	BindToAttributesChanges();
 }
 
 void UAuraPlayerStatusUserWidget::InitPlayerStatusValues()

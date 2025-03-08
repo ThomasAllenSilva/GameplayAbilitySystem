@@ -6,8 +6,6 @@
 #include "AbilitySystemComponent.h"
 #include "CommonAbilitySystemComponent.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FInitializedSignature);
-
 class UDataAsset_CommonAbilitySet;
 
 /**
@@ -23,18 +21,9 @@ public:
 
 	virtual void AbilityInputReleased(const FGameplayTag& InputTag);
 
-	FORCEINLINE bool GetIsInitialized() const { return bIsInitialized; }
-
-
-public:
-	FInitializedSignature OnInitialized;
-
-protected:
-	virtual void BeginPlay() override;
+	void InitializeAbilitySets();
 
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UDataAsset_CommonAbilitySet>> AbilitySets;
-
-	bool bIsInitialized;
 };

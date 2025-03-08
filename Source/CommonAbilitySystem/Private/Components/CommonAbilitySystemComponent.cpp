@@ -30,18 +30,12 @@ void UCommonAbilitySystemComponent::AbilityInputReleased(const FGameplayTag& Inp
 	}
 }
 
-void UCommonAbilitySystemComponent::BeginPlay()
+void UCommonAbilitySystemComponent::InitializeAbilitySets()
 {
-	Super::BeginPlay();
-
 	for (int32 SetIndex = 0; SetIndex < AbilitySets.Num(); ++SetIndex)
 	{
 		UDataAsset_CommonAbilitySet* AbilitySet = AbilitySets[SetIndex];
 
 		AbilitySet->GiveToAbilitySystem(this);
 	}
-
-	bIsInitialized = true;
-
-	OnInitialized.Broadcast();
 }
