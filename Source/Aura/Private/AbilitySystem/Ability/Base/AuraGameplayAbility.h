@@ -6,12 +6,26 @@
 #include "Ability/CommonGameplayAbility.h"
 #include "AuraGameplayAbility.generated.h"
 
+class AAuraCharacterBase;
+
 /**
- * 
+ * The base gameplay ability class used by this project.
  */
-UCLASS()
+UCLASS(Abstract)
 class UAuraGameplayAbility : public UCommonGameplayAbility
 {
 	GENERATED_BODY()
 	
+protected:
+	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
+	virtual void OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Aura|Ability")
+	AAuraCharacterBase* GetAuraCharacterFromActorInfo();
+
+protected:
+	/** The Aura Character that owns this ability */
+	UPROPERTY(BlueprintReadOnly, Category = "Aura Ability")
+	TWeakObjectPtr<AAuraCharacterBase>	OwnerAuraCharacter;
 };
