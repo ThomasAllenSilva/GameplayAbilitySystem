@@ -88,7 +88,7 @@ FVector AAuraCharacterBase::GetTargetActorLocation() const
 {
 	if (AActor* Actor = TargetActor.Get())
 	{
-		Actor->GetActorLocation();
+		return Actor->GetActorLocation();
 	}
 
 	return FVector::ZeroVector;
