@@ -20,6 +20,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void SpawnProjectile(const FVector& TargetLocation);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	FVector GetProjectileSpawnLocation() const;
+
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TSubclassOf<AAuraProjectile> ProjectileClass;

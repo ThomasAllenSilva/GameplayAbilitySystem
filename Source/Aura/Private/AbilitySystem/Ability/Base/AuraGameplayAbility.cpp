@@ -19,7 +19,9 @@ void UAuraGameplayAbility::OnRemoveAbility(const FGameplayAbilityActorInfo* Acto
     OwnerAuraCharacter.Reset();
 }
 
-AAuraCharacterBase* UAuraGameplayAbility::GetAuraCharacterFromActorInfo()
+AAuraCharacterBase* UAuraGameplayAbility::GetAuraCharacterFromActorInfo() const
 {
+    check(OwnerAuraCharacter.Get());
+
     return OwnerAuraCharacter.Get();
 }
