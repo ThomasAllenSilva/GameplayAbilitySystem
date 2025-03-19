@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Ability/CommonGameplayAbility.h"
+#include "DebuggableObjectInterface.h"
 #include "AuraGameplayAbility.generated.h"
 
 class AAuraCharacterBase;
@@ -12,7 +13,7 @@ class AAuraCharacterBase;
  * The base gameplay ability class used by this project.
  */
 UCLASS(Abstract)
-class UAuraGameplayAbility : public UCommonGameplayAbility
+class UAuraGameplayAbility : public UCommonGameplayAbility, public IDebuggableObjectInterface
 {
 	GENERATED_BODY()
 	
