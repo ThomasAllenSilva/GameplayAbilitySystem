@@ -11,8 +11,8 @@ class AAuraAIController;
 class UBehaviorTree;
 struct FGameplayTag;
 
-UCLASS()
-class AAuraEnemyCharacter final : public AAuraCharacterBase
+UCLASS(Abstract)
+class AAuraEnemyCharacter : public AAuraCharacterBase
 {
 	GENERATED_BODY()
 

@@ -37,7 +37,9 @@ void AAuraEnemyCharacter::PossessedBy(AController* NewController)
 		return;
 	}
 
-	AuraAIController = Cast<AAuraAIController>(NewController);
+	AuraAIController = CastChecked<AAuraAIController>(NewController);
+
+	check(AuraAIController);
 
 	AuraAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 
