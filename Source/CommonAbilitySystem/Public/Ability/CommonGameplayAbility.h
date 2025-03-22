@@ -17,7 +17,7 @@ enum class EAbilityActivationPolicy
 /**
  *
  */
-UCLASS()
+UCLASS(Abstract)
 class COMMONABILITYSYSTEM_API UCommonGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()

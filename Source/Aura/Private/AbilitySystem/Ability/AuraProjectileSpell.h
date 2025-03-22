@@ -11,7 +11,7 @@ class AAuraProjectile;
 /**
  * Gameplay ability used for spawning projectiles that carry gameplay effects
  */
-UCLASS()
+UCLASS(Abstract)
 class UAuraProjectileSpell final : public UAuraDamageGameplayAbility
 {
 	GENERATED_BODY()

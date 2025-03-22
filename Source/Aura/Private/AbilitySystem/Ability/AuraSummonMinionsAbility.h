@@ -11,7 +11,7 @@ class AAuraElementalistEnemyCharacter;
 /**
  *
  */
-UCLASS()
+UCLASS(Abstract)
 class UAuraSummonMinionsAbility final : public UAuraGameplayAbility
 {
 	GENERATED_BODY()
