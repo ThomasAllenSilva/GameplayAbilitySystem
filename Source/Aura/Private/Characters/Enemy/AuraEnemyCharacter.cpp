@@ -17,6 +17,30 @@ UAbilitySystemComponent* AAuraEnemyCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+void AAuraEnemyCharacter::Die()
+{
+	Super::Die();
+
+	check(CharacterDissolveMaterial);
+
+	SetLifeSpan(LifeSpanAfterDeath);
+
+	UMaterialInstanceDynamic* CharacterDissolveDynamicMaterial = UMaterialInstanceDynamic::Create(CharacterDissolveMaterial, this);
+
+	GetMesh()->SetMaterial(0, CharacterDissolveDynamicMaterial);
+
+	DissolveCharacterMaterial(CharacterDissolveDynamicMaterial);
+
+	if (WeaponDissolveMaterial != nullptr)
+	{
+		UMaterialInstanceDynamic* WeaponDissolveDynamicMaterial = UMaterialInstanceDynamic::Create(WeaponDissolveMaterial, this);
+
+		WeaponMesh->SetMaterial(0, WeaponDissolveDynamicMaterial);
+
+		DissolveWeaponMaterial(WeaponDissolveDynamicMaterial);
+	}
+}
+
 void AAuraEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();

@@ -55,7 +55,6 @@ bool AAuraCharacterBase::HasAllMatchingGameplayTags(const FGameplayTagContainer&
 	return GetAbilitySystemComponent()->HasAllMatchingGameplayTags(TagContainer);
 }
 
-
 FVector AAuraCharacterBase::GetWeaponSocketLocation() const
 {
 	return WeaponMesh->GetSocketLocation(WeaponSocketName);
@@ -109,6 +108,7 @@ void AAuraCharacterBase::Die()
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetMesh()->SetEnableGravity(true);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
+
 	WeaponMesh->DetachFromParent(true);
 	WeaponMesh->SetSimulatePhysics(true);
 	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
