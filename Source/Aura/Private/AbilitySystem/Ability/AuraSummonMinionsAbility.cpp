@@ -35,8 +35,6 @@ TArray<FVector> UAuraSummonMinionsAbility::GetSpawnLocations() const
 
 		FVector SpawnLocation = ActorLocation + SpawnAngle * RandomSpawnDistance;
 
-		SpawnPoints.Add(SpawnLocation);
-
 		FHitResult OutResult;
 
 		GetWorld()->LineTraceSingleByChannel(OutResult, SpawnLocation + FVector::UpVector * 100, SpawnLocation - FVector::UpVector * 1000, ECollisionChannel::ECC_WorldStatic);
@@ -45,6 +43,8 @@ TArray<FVector> UAuraSummonMinionsAbility::GetSpawnLocations() const
 		{
 			SpawnLocation = OutResult.ImpactPoint;
 		}
+
+		SpawnPoints.Add(SpawnLocation);
 	}
 
 	return SpawnPoints;
