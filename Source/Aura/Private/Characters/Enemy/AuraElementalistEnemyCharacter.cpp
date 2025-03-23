@@ -6,17 +6,32 @@ void AAuraElementalistEnemyCharacter::IncrementMinionsCount(int Amount)
 {
 	check(Amount > 0);
 
-	MinionsCount += Amount;
+	CurrentMinionsCount += Amount;
 }
 
 void AAuraElementalistEnemyCharacter::DecrementMinionsCount(int Amount)
 {
 	check(Amount < 0);
 
-	MinionsCount += Amount;
+	CurrentMinionsCount += Amount;
 }
 
 int AAuraElementalistEnemyCharacter::GetCurrentMinionsCount() const
 {
-	return MinionsCount;
+	return CurrentMinionsCount;
+}
+
+int AAuraElementalistEnemyCharacter::GetTargetMinionsCount() const
+{
+	return TargetMinionsCount;
+}
+
+bool AAuraElementalistEnemyCharacter::ShouldSpawnNewMinions() const
+{
+	return CurrentMinionsCount < MinMinionsCount;
+}
+
+bool AAuraElementalistEnemyCharacter::CanSpawnNewMinion() const
+{
+	return CurrentMinionsCount < TargetMinionsCount;
 }

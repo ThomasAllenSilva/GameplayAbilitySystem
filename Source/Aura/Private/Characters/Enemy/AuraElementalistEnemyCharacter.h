@@ -24,6 +24,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int GetCurrentMinionsCount() const;
 
+	UFUNCTION(BlueprintCallable)
+	int GetTargetMinionsCount() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool ShouldSpawnNewMinions() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool CanSpawnNewMinion() const;
+
 private:
-	int MinionsCount;
+	UPROPERTY(EditDefaultsOnly)
+	int MinMinionsCount;
+
+	UPROPERTY(EditDefaultsOnly)
+	int TargetMinionsCount;
+
+	int CurrentMinionsCount;
 };

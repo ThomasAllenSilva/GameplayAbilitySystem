@@ -13,17 +13,19 @@ void UAuraSummonMinionsAbility::OnGiveAbility(const FGameplayAbilityActorInfo* A
 
 TArray<FVector> UAuraSummonMinionsAbility::GetSpawnLocations() const
 {
+	const int TargetMinionsCount = OwnerElementalistEnemyCharacter->GetTargetMinionsCount();
+
 	const FVector ActorLocation = GetAvatarActorFromActorInfo()->GetActorLocation();
 
 	const FVector ActorForward = GetAvatarActorFromActorInfo()->GetActorForwardVector();
 
-	const float IterationAngle = SpreadAngle / MinionsCount;
+	const float IterationAngle = SpreadAngle / TargetMinionsCount;
 
 	TArray<FVector> SpawnPoints;
 
 	FVector SpawnAngle = ActorForward.RotateAngleAxis(-SpreadAngle / 2.0f, FVector::UpVector);
 
-	for (int32 i = 0; i < MinionsCount; i++)
+	for (int32 i = 0; i < TargetMinionsCount; i++)
 	{
 		SpawnAngle = SpawnAngle.RotateAngleAxis(IterationAngle, FVector::UpVector);
 

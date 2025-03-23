@@ -33,9 +33,6 @@ private:
 	float SpreadAngle = 90.0f;
 
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess))
-	int MinionsCount = 5;
-
-	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess))
 	float MinSpawnDistance = 150.0f;
 
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess))
