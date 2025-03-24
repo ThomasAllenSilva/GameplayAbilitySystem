@@ -59,6 +59,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ClearTargetActor();
 
+	UFUNCTION(BlueprintCallable)
+	virtual void Die();
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;

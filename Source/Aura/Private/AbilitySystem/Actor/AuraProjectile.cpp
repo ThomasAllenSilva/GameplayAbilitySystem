@@ -22,15 +22,8 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 }
 
-const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const TArray<FGameplayEffectSpecHandle>& EffectSpecHandle)
+const AAuraProjectile* AAuraProjectile::CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const FVector& SpawnLocation, const TArray<FGameplayEffectSpecHandle>& EffectSpecHandle)
 {
-	FVector SpawnLocation = OwningActor->GetActorLocation();
-
-	if (AAuraCharacterBase* AuraCharacter = Cast<AAuraCharacterBase>(OwningActor))
-	{
-		SpawnLocation = AuraCharacter->GetWeaponSocketLocation();
-	}
-
 	const FVector Direction = (TargetLocation - SpawnLocation);
 
 	FRotator Rotation = Direction.Rotation();

@@ -67,6 +67,8 @@ public:
 	// Grants the ability set to the specified ability system component.
 	void GiveToAbilitySystem(UCommonAbilitySystemComponent* InASC) const;
 
+	void GiveAttributeSetsToAbilitySystem(UCommonAbilitySystemComponent* InASC) const;
+
 private:
 	// Gameplay abilities to grant when this ability set is granted.
 	UPROPERTY(EditDefaultsOnly, Category = "Gameplay Abilities", meta = (TitleProperty = Ability))

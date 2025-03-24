@@ -11,7 +11,7 @@ class AAuraProjectile;
 /**
  * Gameplay ability used for spawning projectiles that carry gameplay effects
  */
-UCLASS()
+UCLASS(Abstract)
 class UAuraProjectileSpell final : public UAuraDamageGameplayAbility
 {
 	GENERATED_BODY()
@@ -19,6 +19,9 @@ class UAuraProjectileSpell final : public UAuraDamageGameplayAbility
 protected:
 	UFUNCTION(BlueprintCallable)
 	void SpawnProjectile(const FVector& TargetLocation);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	FVector GetProjectileSpawnLocation() const;
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))

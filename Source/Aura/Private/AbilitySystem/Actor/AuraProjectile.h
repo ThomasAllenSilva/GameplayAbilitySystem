@@ -25,7 +25,7 @@ public:
 	AAuraProjectile();
 
 	UFUNCTION(BlueprintCallable, Category = "Projectile", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
-	static const AAuraProjectile* CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const TArray<FGameplayEffectSpecHandle>& EffectsSpecHandle);
+	static const AAuraProjectile* CreateProjectile(const UObject* WorldContextObject, TSubclassOf<AAuraProjectile> ProjectileClass, AActor* OwningActor, const FVector& TargetLocation, const FVector& SpawnLocation, const TArray<FGameplayEffectSpecHandle>& EffectsSpecHandle);
 
 protected:
 	UFUNCTION(BlueprintCallable)

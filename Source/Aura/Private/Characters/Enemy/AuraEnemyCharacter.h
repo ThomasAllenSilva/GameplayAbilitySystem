@@ -11,8 +11,8 @@ class AAuraAIController;
 class UBehaviorTree;
 struct FGameplayTag;
 
-UCLASS()
-class AAuraEnemyCharacter final : public AAuraCharacterBase
+UCLASS(Abstract)
+class AAuraEnemyCharacter : public AAuraCharacterBase
 {
 	GENERATED_BODY()
 
@@ -22,14 +22,31 @@ public:
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	virtual void Die() override;
+
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void PossessedBy(AController* Controller) override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void DissolveCharacterMaterial(UMaterialInstanceDynamic* DynamicMaterialInstance);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DissolveWeaponMaterial(UMaterialInstanceDynamic* DynamicMaterialInstance);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UCommonAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Death")
+	TObjectPtr<UMaterialInstance> CharacterDissolveMaterial;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Death")
+	TObjectPtr<UMaterialInstance> WeaponDissolveMaterial;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Death")
+	float LifeSpanAfterDeath;
 
 private:
 	void HitReactTagChanged(const FGameplayTag Tag, int32 Count);

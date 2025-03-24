@@ -5,5 +5,6 @@
 
 void UAuraProjectileSpell::SpawnProjectile(const FVector& TargetLocation)
 {
-	AAuraProjectile::CreateProjectile(this, ProjectileClass, GetAvatarActorFromActorInfo(), TargetLocation, GetAbilityEffectsSpecs());
+	AAuraProjectile::CreateProjectile(this, ProjectileClass, GetAvatarActorFromActorInfo(), TargetLocation, GetProjectileSpawnLocation(), GetAbilityEffectsSpecs());
 }
+

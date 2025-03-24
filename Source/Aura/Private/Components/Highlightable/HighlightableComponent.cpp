@@ -60,7 +60,7 @@ void UHighlightableComponent::InitializeHighlightableMeshs()
 	{
 		MeshComponent->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Block);
 
-		MeshComponent->SetCustomDepthStencilValue(HighlightColor);
+		MeshComponent->SetCustomDepthStencilValue(static_cast<int32>(HighlightColor));
 
 		HighlightableMeshs.Add(MeshComponent);
 	}

@@ -3,6 +3,7 @@
 #include "Characters/Base/AuraCharacterBase.h"
 #include "Components/CommonAbilitySystemComponent.h"
 #include "MotionWarpingComponent.h"
+#include "Components/CapsuleComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -54,7 +55,6 @@ bool AAuraCharacterBase::HasAllMatchingGameplayTags(const FGameplayTagContainer&
 	return GetAbilitySystemComponent()->HasAllMatchingGameplayTags(TagContainer);
 }
 
-
 FVector AAuraCharacterBase::GetWeaponSocketLocation() const
 {
 	return WeaponMesh->GetSocketLocation(WeaponSocketName);
@@ -97,4 +97,20 @@ FVector AAuraCharacterBase::GetTargetActorLocation() const
 void AAuraCharacterBase::ClearTargetActor()
 {
 	TargetActor.Reset();
+}
+
+void AAuraCharacterBase::Die()
+{
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	GetMesh()->bPauseAnims = true;
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetMesh()->SetEnableGravity(true);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
+
+	WeaponMesh->DetachFromParent(true);
+	WeaponMesh->SetSimulatePhysics(true);
+	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	WeaponMesh->SetEnableGravity(true);
 }

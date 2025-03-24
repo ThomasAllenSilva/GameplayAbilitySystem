@@ -11,25 +11,7 @@ void UDataAsset_CommonAbilitySet::GiveToAbilitySystem(UCommonAbilitySystemCompon
 
 	if (InASC->IsOwnerActorAuthoritative() == false)
 	{
-		// Must be authoritative to give or take ability sets.
 		return;
-	}
-
-	// Grant the attribute sets.
-	for (int32 SetIndex = 0; SetIndex < GrantedAttributes.Num(); ++SetIndex)
-	{
-		TSubclassOf<UAttributeSet> SetToGrant = GrantedAttributes[SetIndex];
-
-		if (!IsValid(SetToGrant))
-		{
-			UE_LOG(LogTemp, Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
-
-			continue;
-		}
-
-		UAttributeSet* NewSet = NewObject<UAttributeSet>(InASC->GetOwner(), SetToGrant);
-
-		InASC->AddAttributeSetSubobject(NewSet);
 	}
 
 	// Grant the gameplay abilities.
@@ -67,5 +49,29 @@ void UDataAsset_CommonAbilitySet::GiveToAbilitySystem(UCommonAbilitySystemCompon
 
 		const UGameplayEffect* GameplayEffect = EffectToGrant.GameplayEffect->GetDefaultObject<UGameplayEffect>();
 		InASC->ApplyGameplayEffectToSelf(GameplayEffect, EffectToGrant.EffectLevel, InASC->MakeEffectContext());
+	}
+}
+
+void UDataAsset_CommonAbilitySet::GiveAttributeSetsToAbilitySystem(UCommonAbilitySystemComponent* InASC) const
+{
+	if (InASC->IsOwnerActorAuthoritative() == false)
+	{
+		return;
+	}
+
+	for (int32 SetIndex = 0; SetIndex < GrantedAttributes.Num(); ++SetIndex)
+	{
+		TSubclassOf<UAttributeSet> SetToGrant = GrantedAttributes[SetIndex];
+
+		if (!IsValid(SetToGrant))
+		{
+			UE_LOG(LogTemp, Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
+
+			continue;
+		}
+
+		UAttributeSet* NewSet = NewObject<UAttributeSet>(InASC->GetOwner(), SetToGrant);
+
+		InASC->AddAttributeSetSubobject(NewSet);
 	}
 }

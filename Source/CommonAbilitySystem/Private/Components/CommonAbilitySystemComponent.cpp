@@ -32,6 +32,14 @@ void UCommonAbilitySystemComponent::AbilityInputReleased(const FGameplayTag& Inp
 
 void UCommonAbilitySystemComponent::InitializeAbilitySets()
 {
+	//we first grant the attribute sets in case we want to apply GEs that needs them
+	for (int32 SetIndex = 0; SetIndex < AbilitySets.Num(); ++SetIndex)
+	{
+		UDataAsset_CommonAbilitySet* AbilitySet = AbilitySets[SetIndex];
+
+		AbilitySet->GiveAttributeSetsToAbilitySystem(this);
+	}
+
 	for (int32 SetIndex = 0; SetIndex < AbilitySets.Num(); ++SetIndex)
 	{
 		UDataAsset_CommonAbilitySet* AbilitySet = AbilitySets[SetIndex];

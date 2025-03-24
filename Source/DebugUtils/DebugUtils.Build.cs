@@ -11,7 +11,9 @@ public class DebugUtils : ModuleRules
         PublicDependencyModuleNames.AddRange(new string[] {
             "Core",
             "CoreUObject",
-            "Engine",});
+            "Engine",
+            "GameplayAbilities",
+            "GameplayTags",});
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 
