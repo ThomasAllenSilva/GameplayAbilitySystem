@@ -46,4 +46,9 @@ UE_DEFINE_GAMEPLAY_TAG(Common_Event_HitReact, "Common.Event.HitReact");
 
 UE_DEFINE_GAMEPLAY_TAG(Common_Status_Dead, "Common.Status.Dead");
 
+// Input Tags
+UE_DEFINE_GAMEPLAY_TAG(Input, "Input");
 UE_DEFINE_GAMEPLAY_TAG(Input_Move, "Input.Move");
+UE_DEFINE_GAMEPLAY_TAG(Input_Mouse_LeftButton, "Input.Mouse.LeftButton");
+UE_DEFINE_GAMEPLAY_TAG(Input_Mouse_RightButton, "Input.Mouse.RightButton");
+
