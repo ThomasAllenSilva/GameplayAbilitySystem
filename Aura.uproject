@@ -16,7 +16,8 @@
 				"GameFeatures",
 				"EnhancedInput",
 				"AIModule",
-				"CommonAbilitySystem"
+				"CommonAbilitySystem",
+				"CommonFramework"
 			]
 		},
 		{

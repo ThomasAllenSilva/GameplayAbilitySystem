@@ -25,11 +25,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void AttributeValueChanged();
 
+	UFUNCTION(BlueprintCallable)
+	float GetTargetPercent() const;
+
 protected:
-	UPROPERTY(BlueprintReadOnly)
 	float BaseValue;
 
-	UPROPERTY(BlueprintReadOnly)
 	float MaxValue;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)

@@ -11,11 +11,11 @@ ACommonAbilityPlayerState::ACommonAbilityPlayerState()
 
 void ACommonAbilityPlayerState::BeginPlay()
 {
-	Super::BeginPlay();
-
 	AbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
 
 	AbilitySystemComponent->InitializeAbilitySets();
+
+	Super::BeginPlay();
 }
 
 UAbilitySystemComponent* ACommonAbilityPlayerState::GetAbilitySystemComponent() const

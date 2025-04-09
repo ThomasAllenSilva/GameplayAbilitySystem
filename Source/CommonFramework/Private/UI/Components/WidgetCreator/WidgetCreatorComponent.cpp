@@ -1,11 +1,13 @@
 // Thomas Learning Project
 
-#include "WidgetCreatorComponent.h"
+#include "UI/Components/WidgetCreator/WidgetCreatorComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "UI/Base/ContextualUserWidget.h"
 #include "Data/DataAsset_WidgetDefinitions.h"
 #include "Data/DataAsset_WidgetComponentConfigs.h"
 #include "Components/WidgetComponent.h"
+#include "UI/Subsystem/CommonHUDSubsystem.h"
+#include "UI/Widgets/HUDLayoutUserWidget.h"
 
 UWidgetCreatorComponent::UWidgetCreatorComponent()
 {
@@ -16,16 +18,7 @@ UWidgetCreatorComponent::UWidgetCreatorComponent()
 	PrimaryComponentTick.bAllowTickOnDedicatedServer = false;
 }
 
-void UWidgetCreatorComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	//This little trick right here makes the widgets creation gets called after the owning actor begin play.
-	//It's useful to make sure things are initialized (e.g., AbilitySystemComponent).
-	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &UWidgetCreatorComponent::CreateStartupWidgets);
-}
-
-void UWidgetCreatorComponent::CreateStartupWidgets()
+void UWidgetCreatorComponent::CreateDefaultWidgets()
 {
 	for (const UDataAsset_WidgetDefinitions* WidgetDefinition : WidgetDefinitions)
 	{
@@ -46,29 +39,6 @@ void UWidgetCreatorComponent::CreateStartupWidgets()
 	}
 }
 
-UUserWidget* UWidgetCreatorComponent::CreateWidgetByTag(const FGameplayTag& Tag)
-{
-	UUserWidget* WidgetInstance = nullptr;
-
-	for (TObjectPtr<UDataAsset_WidgetDefinitions> WidgetDefinition : WidgetDefinitions)
-	{
-		const FWidgetSetupSettings* WidgetSetupSettings = WidgetDefinition->GetWidgetSettingsByTag(Tag);
-
-		if (WidgetSetupSettings == nullptr)
-		{
-			continue;
-		}
-
-		WidgetInstance = ConstructWidgetUsingSettings(*WidgetSetupSettings);
-
-		break;
-	}
-
-	checkf(WidgetInstance, TEXT("Widget Setup Settings Does Not Exist For Tag: %s"), *Tag.ToString());
-
-	return WidgetInstance;
-}
-
 UUserWidget* UWidgetCreatorComponent::ConstructWidgetUsingSettings(const FWidgetSetupSettings& WidgetSetupSettings)
 {
 	UWorld* World = GetWorld();
@@ -86,6 +56,12 @@ UUserWidget* UWidgetCreatorComponent::ConstructWidgetUsingSettings(const FWidget
 	if (WidgetSetupSettings.WidgetCreationType == EWidgetCreationType::AddToViewport)
 	{
 		WidgetInstance->AddToViewport();
+
+		UCommonHUDSubsystem* CommonHUDSubsystem = ULocalPlayer::GetSubsystem<UCommonHUDSubsystem>(LocalPlayer);
+
+		FWidgetContentInfo WidgetContentInfo(WidgetSetupSettings.WidgetTag, WidgetInstance);
+
+		CommonHUDSubsystem->PushToOverlayLayer(WidgetSetupSettings.OverlayLayerTag, WidgetContentInfo);
 	}
 
 	else

@@ -11,5 +11,5 @@ void UContextualUserWidget::SetOwningActor(AActor* InOwningActor)
 
 void UContextualUserWidget::Internal_OwningActorSet()
 {
-	OwningActorSet();
+	OwningActorSet(OwningActor);
 }
