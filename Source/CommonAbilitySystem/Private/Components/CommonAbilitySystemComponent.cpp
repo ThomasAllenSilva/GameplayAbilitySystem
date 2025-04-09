@@ -46,4 +46,6 @@ void UCommonAbilitySystemComponent::InitializeAbilitySets()
 
 		AbilitySet->GiveToAbilitySystem(this);
 	}
+
+	OnInitializedAbilitySets.Broadcast();
 }

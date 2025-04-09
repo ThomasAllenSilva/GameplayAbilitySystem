@@ -19,7 +19,7 @@ protected:
 	virtual void Internal_OwningActorSet();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "ContextObject")
-	void OwningActorSet();
+	void OwningActorSet(AActor* InOwningActor);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "ContextObject")

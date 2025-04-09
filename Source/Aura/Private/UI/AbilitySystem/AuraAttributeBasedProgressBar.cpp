@@ -13,6 +13,11 @@ void UAuraAttributeBasedProgressBar::Internal_OwningActorSet()
 	OnAbilitySystemComponentAvailable(ASC);
 }
 
+float UAuraAttributeBasedProgressBar::GetTargetPercent() const
+{
+	return BaseValue / MaxValue;
+}
+
 void UAuraAttributeBasedProgressBar::OnAbilitySystemComponentAvailable(UCommonAbilitySystemComponent* ASC)
 {
 	ASC->GetGameplayAttributeValueChangeDelegate(MaxValueAttribute).AddUObject(this, &UAuraAttributeBasedProgressBar::OnMaxAttributeValueChanged);
@@ -22,9 +27,9 @@ void UAuraAttributeBasedProgressBar::OnAbilitySystemComponentAvailable(UCommonAb
 	bool bFound;
 
 	MaxValue = ASC->GetGameplayAttributeValue(MaxValueAttribute, bFound);
+	check(bFound);
 
 	BaseValue = ASC->GetGameplayAttributeValue(BaseValueAttribute, bFound);
-
 	check(bFound);
 
 	SetupInitialValues();
