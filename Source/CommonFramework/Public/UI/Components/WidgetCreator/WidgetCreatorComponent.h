@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GameplayTagContainer.h"
 #include "WidgetCreatorComponent.generated.h"
 
 class UDataAsset_WidgetDefinitions;
@@ -18,14 +17,10 @@ class COMMONFRAMEWORK_API UWidgetCreatorComponent final : public UActorComponent
 public:
 	UWidgetCreatorComponent();
 
-	UUserWidget* CreateWidgetByTag(const FGameplayTag& Tag);
-
-protected:
-	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable)
+	void CreateDefaultWidgets();
 
 private:
-	void CreateStartupWidgets();
-
 	UUserWidget* ConstructWidgetUsingSettings(const FWidgetSetupSettings& WidgetSetupSettings);
 
 private:

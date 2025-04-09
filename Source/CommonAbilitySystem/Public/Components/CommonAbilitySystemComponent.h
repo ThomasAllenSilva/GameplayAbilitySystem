@@ -8,6 +8,8 @@
 
 class UDataAsset_CommonAbilitySet;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FInitializedAbilitySetsSignature);
+
 /**
  *
  */
@@ -22,6 +24,9 @@ public:
 	virtual void AbilityInputReleased(const FGameplayTag& InputTag);
 
 	void InitializeAbilitySets();
+
+	UPROPERTY(BlueprintAssignable)
+	FInitializedAbilitySetsSignature OnInitializedAbilitySets;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

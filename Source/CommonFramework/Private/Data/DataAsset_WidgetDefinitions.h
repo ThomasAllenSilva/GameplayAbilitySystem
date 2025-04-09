@@ -8,6 +8,7 @@
 #include "DataAsset_WidgetDefinitions.generated.h"
 
 class UDataAsset_WidgetComponentConfigs;
+struct FGameplayTag;
 
 UENUM(BlueprintType)
 enum EWidgetCreationType
@@ -27,7 +28,13 @@ public:
 	TSubclassOf<UUserWidget> Widget;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag WidgetTag;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TEnumAsByte<EWidgetCreationType> WidgetCreationType = EWidgetCreationType::AddToViewport;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::AddToViewport"))
+	FGameplayTag OverlayLayerTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "WidgetCreationType == EWidgetCreationType::WidgetComponent"))
 	TObjectPtr<UDataAsset_WidgetComponentConfigs> WidgetComponentSettings;
