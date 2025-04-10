@@ -16,7 +16,17 @@ class UAuraExperienceAttributeSet final : public UAttributeSet
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(BlueprintReadOnly, Category = "Experience Attributes")
-	FGameplayAttributeData Level;
 	ATTRIBUTE_ACCESSORS(UAuraExperienceAttributeSet, Level);
+	ATTRIBUTE_ACCESSORS(UAuraExperienceAttributeSet, XP);
+	ATTRIBUTE_ACCESSORS(UAuraExperienceAttributeSet, IncomingXP);
+
+private:
+	UPROPERTY(BlueprintReadOnly, Category = "Experience Meta Attributes", meta = (AllowPrivateAccess))
+	FGameplayAttributeData Level;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Experience Meta Attributes", meta = (AllowPrivateAccess))
+	FGameplayAttributeData XP;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Experience Meta Attributes", meta = (AllowPrivateAccess))
+	FGameplayAttributeData IncomingXP;
 };

@@ -1,5 +1,3 @@
 // Thomas Learning Project
 
-
-#include "AuraExperienceAttributeSet.h"
-
+#include "AbilitySystem/AttributeSets/AuraExperienceAttributeSet.h"
