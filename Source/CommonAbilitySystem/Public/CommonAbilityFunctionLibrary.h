@@ -38,6 +38,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static UCommonAbilitySystemComponent* GetCommonAbilitySystemComponentFromActor(AActor* Actor);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static float GetMaximumEffectCooldownRemainingForTag(const FGameplayTag Tag, const UAbilitySystemComponent* ASC);
+
 	UFUNCTION(BlueprintCallable)
 	static void AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag);
 

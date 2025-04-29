@@ -79,6 +79,27 @@ UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetCommonAbilitySy
 	return CastChecked<UCommonAbilitySystemComponent>(ASC);
 }
 
+float UCommonAbilityFunctionLibrary::GetMaximumEffectCooldownRemainingForTag(const FGameplayTag Tag, const UAbilitySystemComponent* ASC)
+{
+	FGameplayEffectQuery EffectQuery = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(Tag.GetSingleTagContainer());
+
+	TArray<float> ActiveEffectsTimeRemaining = ASC->GetActiveEffectsTimeRemaining(EffectQuery);
+
+	checkf(ActiveEffectsTimeRemaining.Num() > 0, TEXT("Attempting to read an empty array"));
+
+	float RemainingTime = ActiveEffectsTimeRemaining[0];
+
+	for (int i = 0; i < ActiveEffectsTimeRemaining.Num(); i++)
+	{
+		if (ActiveEffectsTimeRemaining[i] > RemainingTime)
+		{
+			RemainingTime = ActiveEffectsTimeRemaining[i];
+		}
+	}
+
+	return RemainingTime;
+}
+
 void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag)
 {
 	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor);
