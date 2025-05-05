@@ -33,6 +33,13 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Lightning);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Arcane);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Physical);
 
+// Experience Attributes
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_XP);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_IncomingXP);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_Level);
+
+
 // Damage Types
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Fire);

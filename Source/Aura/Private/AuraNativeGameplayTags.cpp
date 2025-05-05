@@ -34,6 +34,12 @@ UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Lightning, "Attributes.Resistance.L
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Arcane, "Attributes.Resistance.ArcaneResistance");
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Resistance_Physical, "Attributes.Resistance.PhysicalResistance");
 
+// Experience Attributes
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience, "Attributes.Experience");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_XP, "Attributes.Experience.XP");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_IncomingXP, "Attributes.Experience.IncomingXP");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_Level, "Attributes.Experience.Level");
+
 // Damage Types
 UE_DEFINE_GAMEPLAY_TAG(Damage, "Damage");
 UE_DEFINE_GAMEPLAY_TAG(Damage_Fire, "Damage.Fire");
