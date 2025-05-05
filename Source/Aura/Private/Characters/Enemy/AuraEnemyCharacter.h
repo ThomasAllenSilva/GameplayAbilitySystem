@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/Base/AuraCharacterBase.h"
+#include "ScalableFloat.h"
 #include "AuraEnemyCharacter.generated.h"
 
 class UCommonAbilitySystemComponent;
@@ -47,6 +48,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Death")
 	float LifeSpanAfterDeath;
+
+	/* The amount of XP to give the player when he kills this enemy. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FScalableFloat XPReward;
 
 private:
 	void HitReactTagChanged(const FGameplayTag Tag, int32 Count);

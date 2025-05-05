@@ -10,6 +10,10 @@
 
 struct FInputActionValue;
 
+
+/// <summary>
+/// Default player controller class used by this project
+/// </summary>
 UCLASS()
 class AAuraPlayerController final : public ACommonAbilityPlayerController
 {
