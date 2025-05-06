@@ -18,5 +18,5 @@ class UAuraFunctionLibrary final : public UBlueprintFunctionLibrary
 	
 public:
 	/* Retrieves the XP reward for an enemy using its tag and level */
-	int GetXPRewardForEnemy(const UObject* WorldContextObject, const FGameplayTag& EnemyTag, int EnemyLevel) const;
+	static int GetXPRewardForEnemy(const UObject* WorldContextObject, const FGameplayTag& EnemyTag, const int EnemyLevel);
 };

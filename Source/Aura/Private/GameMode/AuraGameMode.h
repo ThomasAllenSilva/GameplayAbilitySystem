@@ -20,7 +20,7 @@ class AAuraGameMode final : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	int GetXPRewardForEnemy(const FGameplayTag& EnemyTag, int EnemyLevel) const;
+	int GetXPRewardForEnemy(const FGameplayTag& EnemyTag, const int EnemyLevel) const;
 
 private:
 	/* Used by enemies to reward player XP when killing them */

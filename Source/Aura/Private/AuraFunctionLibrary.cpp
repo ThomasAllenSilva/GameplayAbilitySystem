@@ -4,7 +4,7 @@
 #include "AuraFunctionLibrary.h"
 #include "GameMode/AuraGameMode.h"
 
-int UAuraFunctionLibrary::GetXPRewardForEnemy(const UObject* WorldContextObject, const FGameplayTag& EnemyTag, int EnemyLevel) const
+int UAuraFunctionLibrary::GetXPRewardForEnemy(const UObject* WorldContextObject, const FGameplayTag& EnemyTag, const int EnemyLevel)
 {
 	UWorld* const World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull);
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GameplayTagContainer.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "CommonAbilityFunctionLibrary.generated.h"
 
 class UCommonAbilitySystemComponent;
@@ -15,7 +16,7 @@ class ACommonAbilityPlayerController;
  *
  */
 UCLASS()
-class COMMONABILITYSYSTEM_API UCommonAbilityFunctionLibrary final : public UBlueprintFunctionLibrary
+class COMMONABILITYSYSTEM_API UCommonAbilityFunctionLibrary final : public UAbilitySystemBlueprintLibrary
 {
 	GENERATED_BODY()
 
@@ -37,6 +38,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static UCommonAbilitySystemComponent* GetCommonAbilitySystemComponentFromActor(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static UCommonAbilitySystemComponent* GetCommonAbilitySystemComponentFromASC(UAbilitySystemComponent* AbilitySystemComponent);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	static float GetMaximumEffectCooldownRemainingForTag(const FGameplayTag Tag, const UAbilitySystemComponent* ASC);

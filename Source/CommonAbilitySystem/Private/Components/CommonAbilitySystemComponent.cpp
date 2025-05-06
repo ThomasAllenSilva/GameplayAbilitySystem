@@ -49,3 +49,8 @@ void UCommonAbilitySystemComponent::InitializeAbilitySets()
 
 	OnInitializedAbilitySets.Broadcast();
 }
+
+const FGameplayTag& UCommonAbilitySystemComponent::GetTagID() const
+{
+	return TagID;
+}
