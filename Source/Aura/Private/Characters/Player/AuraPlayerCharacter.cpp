@@ -2,10 +2,9 @@
 
 
 #include "Characters/Player/AuraPlayerCharacter.h"
-
 #include "Components/CommonAbilitySystemComponent.h"
+#include "Player/State/AuraPlayerState.h"
 
-#include "PlayerState/CommonAbilityPlayerState.h"
 
 UAbilitySystemComponent* AAuraPlayerCharacter::GetAbilitySystemComponent() const
 {

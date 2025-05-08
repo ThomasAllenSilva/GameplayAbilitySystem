@@ -30,7 +30,8 @@ class UDataAsset_LevelUpInfo final : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	int FindLevelFromXP(int InXP) const;
+	/* Returns the level that it should be based on the XP param. */
+	int FindLevelForXP(int InXP) const;
 	
 	int GetMaxLevel() const { return LevelsInfo.Num(); }
 

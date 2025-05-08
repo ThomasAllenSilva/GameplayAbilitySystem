@@ -26,7 +26,7 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ End AbilitySystem Interface
 
-private:
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TObjectPtr<UCommonAbilitySystemComponent> AbilitySystemComponent;
 };
