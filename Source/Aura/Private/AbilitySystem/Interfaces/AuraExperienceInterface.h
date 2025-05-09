@@ -25,7 +25,15 @@ public:
 	/* Returns the current level that this character should be based on the XP param. */
 	virtual int GetLevelForXP(int XP) const = 0;
 
+	/* Returns the current level this character is. Default is 1. */
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	/* Gets the current level this character is. Default is 1. */
 	int GetCurrentLevel() const;
+
+	/* Returns the current amount of XP this character has. */
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	float GetCurrentXP() const;
+
+	/* Returns the current XP progress normalized between 0.0 (just leveled up) and 1.0 (ready to level up). */
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	float GetXPProgressNormalized() const;
 };

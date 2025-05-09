@@ -26,3 +26,29 @@ int AAuraPlayerState::GetCurrentLevel_Implementation() const
 
 	return Level;
 }
+
+float AAuraPlayerState::GetCurrentXP_Implementation() const
+{
+	bool bFound = false;
+
+	float Level = AbilitySystemComponent->GetGameplayAttributeValue(UAuraExperienceAttributeSet::GetXPAttribute(), bFound);
+
+	check(bFound);
+
+	return Level;
+}
+
+float AAuraPlayerState::GetXPProgressNormalized_Implementation() const
+{
+	const int CurrentLevel = GetCurrentLevel_Implementation();
+
+	const FLevelUpInfo LevelInfo = LevelUpInfo->GetInformationForLevel(CurrentLevel);
+
+	const float XPRequirement = LevelInfo.XPRequirement;
+
+	float CurrentXP = GetCurrentXP_Implementation();
+
+	CurrentXP = FMath::Clamp(CurrentXP, 0.0f, LevelUpInfo->GetMaxLevelXPRequirement());
+
+	return CurrentXP / XPRequirement;
+}

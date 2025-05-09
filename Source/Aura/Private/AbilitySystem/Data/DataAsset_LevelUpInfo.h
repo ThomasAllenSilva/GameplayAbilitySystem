@@ -35,6 +35,8 @@ public:
 	
 	int GetMaxLevel() const { return LevelsInfo.Num(); }
 
+	int GetMaxLevelXPRequirement() const;
+
 	FLevelUpInfo GetInformationForLevel(int LevelIndex) const;
 
 private:
