@@ -43,6 +43,10 @@ UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_XP, "Attributes.Experience.XP");
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_IncomingXP, "Attributes.Experience.IncomingXP");
 UE_DEFINE_GAMEPLAY_TAG(Attributes_Experience_Level, "Attributes.Experience.Level");
 
+// Upgrade Points Attributes
+UE_DEFINE_GAMEPLAY_TAG(Attributes_UpgradePoints, "Attributes.UpgradePoints");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_UpgradePoints_AttributePoint, "Attributes.UpgradePoints.AttributePoint");
+UE_DEFINE_GAMEPLAY_TAG(Attributes_UpgradePoints_AbilityPoint, "Attributes.UpgradePoints.AbilityPoint");
 
 // Damage Types
 UE_DEFINE_GAMEPLAY_TAG(Damage, "Damage");

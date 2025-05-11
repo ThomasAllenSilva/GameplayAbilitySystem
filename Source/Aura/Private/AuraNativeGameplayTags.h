@@ -41,6 +41,10 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_XP);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_IncomingXP);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_Level);
 
+// Upgrade Points Attributes
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_UpgradePoints);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_UpgradePoints_AttributePoint);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_UpgradePoints_AbilityPoint);
 
 // Damage Types
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage);
