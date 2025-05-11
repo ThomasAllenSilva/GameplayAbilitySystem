@@ -22,6 +22,7 @@ protected:
 
 	virtual void OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
+	/* Returns the Aura Character that owns this ability */
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Aura|Ability")
 	AAuraCharacterBase* GetAuraCharacterFromActorInfo() const;
 

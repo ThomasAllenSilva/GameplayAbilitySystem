@@ -25,10 +25,20 @@ public:
 
 	void InitializeAbilitySets();
 
-	UPROPERTY(BlueprintAssignable)
+
+	/* Returns the tag identifier of this component. It may return 'None' if it's not set */
+	UFUNCTION(BlueprintCallable)
+	const FGameplayTag& GetTagID() const;
+
+	UPROPERTY(BlueprintAssignable) 
 	FInitializedAbilitySetsSignature OnInitializedAbilitySets;
 
+	
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UDataAsset_CommonAbilitySet>> AbilitySets;
+
+	/* Unique tag used to identify this AbilitySystemComponent. In RPG games this can be used to define an ASC class (Warrior, Elementalist, etc.) */
+	UPROPERTY(EditDefaultsOnly)
+	FGameplayTag TagID;
 };

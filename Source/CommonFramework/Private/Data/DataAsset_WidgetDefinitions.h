@@ -49,9 +49,9 @@ class COMMONFRAMEWORK_API UDataAsset_WidgetDefinitions final : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	FORCEINLINE const TArray<FWidgetSetupSettings> GetStartupWidgets() const { return StartupWidgets; }
+	const TArray<FWidgetSetupSettings> GetStartupWidgets() const { return StartupWidgets; }
 
-	FORCEINLINE const FWidgetSetupSettings* GetWidgetSettingsByTag(const FGameplayTag& Tag) const { return WidgetsMap.Find(Tag); }
+	const FWidgetSetupSettings* GetWidgetSettingsByTag(const FGameplayTag& Tag, bool& bFound) const;
 
 private:
 	UPROPERTY(EditDefaultsOnly, meta = (TitleProperty = "{Widget}"))

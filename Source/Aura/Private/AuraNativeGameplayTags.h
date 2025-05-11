@@ -10,11 +10,13 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_MaxHealth);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Mana);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_MaxMana);
 
+
 // Primary Attributes
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Strength);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Intelligence);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Resilience);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Vigor);
+
 
 // Secondary Attributes
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_Armor);
@@ -33,6 +35,13 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Lightning);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Arcane);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Physical);
 
+// Experience Attributes
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_XP);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_IncomingXP);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Experience_Level);
+
+
 // Damage Types
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Fire);
@@ -40,12 +49,19 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Lightning);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Arcane);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Damage_Physical);
 
+
 // Event Tags
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Event_HitReact);
 
-// Character Status Tag
+
+// Character Events Tags
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(CharacterEvents_LeveledUp);
+
+
+// Character Status Tags
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Common_Status_Dead);
+
 
 // Input Tags
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input);

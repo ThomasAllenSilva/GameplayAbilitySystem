@@ -19,6 +19,9 @@ struct FAuraAbilityInfo
 	FGameplayTag AbilityTag = FGameplayTag();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag CooldownTag = FGameplayTag();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<const UTexture2D> AbilityIcon;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -26,7 +29,7 @@ struct FAuraAbilityInfo
 };
 
 /**
- * 
+ * Contains an array of ability infos and helper methods
  */
 UCLASS()
 class UDataAsset_AbilityInfo final : public UDataAsset

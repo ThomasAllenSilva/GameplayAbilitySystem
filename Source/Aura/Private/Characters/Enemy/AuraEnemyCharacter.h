@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/Base/AuraCharacterBase.h"
+#include "ScalableFloat.h"
 #include "AuraEnemyCharacter.generated.h"
 
 class UCommonAbilitySystemComponent;
