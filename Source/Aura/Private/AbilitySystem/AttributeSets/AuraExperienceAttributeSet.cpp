@@ -27,9 +27,9 @@ void UAuraExperienceAttributeSet::PostGameplayEffectExecute(const FGameplayEffec
 		{
 			const int CurrentLevel = GetLevel();
 
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningActor(), CharacterEvents_LeveledUp, FGameplayEventData());
-
 			SetLevel(CurrentLevel + 1);
+
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningActor(), CharacterEvents_LeveledUp, FGameplayEventData());
 		}
 
 		SetXP(NewTotalXP);

@@ -13,9 +13,12 @@ static const FName WeaponSocketName = TEXT("TipSocket");
 static const FName WarpName = TEXT("FacingTarget");
 
 class UCommonAbilitySystemComponent;
-
 class UMotionWarpingComponent;
 
+/**
+ * Base character class used by this project
+ * Defines shared information and components related to GAS and Motion Warping
+ */
 UCLASS(Abstract)
 class AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public IGameplayTagAssetInterface
 {
@@ -70,7 +73,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;
 
-	UPROPERTY()
 	/* The current actor that is being aimed at or attacked. */
+	UPROPERTY()
 	TWeakObjectPtr<AActor> TargetActor;
 };

@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "PlayerController/CommonAbilityPlayerController.h"
-
 #include "AuraPlayerController.generated.h"
 
 struct FInputActionValue;
@@ -23,5 +21,6 @@ protected:
 	virtual void SetupInputComponent() override;
 
 private:
+	/* Used to move the character around. */
 	void Move(const FInputActionValue& InputValue);
 };

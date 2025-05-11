@@ -9,7 +9,7 @@
 struct FGameplayTag;
 
 /**
- * 
+ * Common functions used by throughout this project
  */
 UCLASS()
 class UAuraFunctionLibrary final : public UBlueprintFunctionLibrary

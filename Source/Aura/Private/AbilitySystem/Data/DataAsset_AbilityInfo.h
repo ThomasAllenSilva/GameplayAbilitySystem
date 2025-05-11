@@ -29,7 +29,7 @@ struct FAuraAbilityInfo
 };
 
 /**
- * 
+ * Contains an array of ability infos and helper methods
  */
 UCLASS()
 class UDataAsset_AbilityInfo final : public UDataAsset

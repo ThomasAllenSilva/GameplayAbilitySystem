@@ -23,6 +23,9 @@ public:
 private:
 	UUserWidget* ConstructWidgetUsingSettings(const FWidgetSetupSettings& WidgetSetupSettings);
 
+	UFUNCTION(BlueprintCallable)
+	TSubclassOf<UUserWidget> GetWidgetByTagChecked(const FGameplayTag WidgetTag) const;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UDataAsset_WidgetDefinitions>> WidgetDefinitions;

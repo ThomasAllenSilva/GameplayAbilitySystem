@@ -14,7 +14,7 @@ class UAuraExperienceInterface : public UInterface
 };
 
 /**
- * 
+ * Interface that expose access to an Actor experience info
  */
 class IAuraExperienceInterface
 {

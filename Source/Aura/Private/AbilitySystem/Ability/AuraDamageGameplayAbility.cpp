@@ -4,7 +4,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 
-void UAuraDamageGameplayAbility::ApplyDamage(AActor* TargetActor)
+void UAuraDamageGameplayAbility::ApplyDamage(AActor* TargetActor) const
 {
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 
@@ -17,7 +17,7 @@ void UAuraDamageGameplayAbility::ApplyDamage(AActor* TargetActor)
 	}
 }
 
-TArray<FGameplayEffectSpecHandle> UAuraDamageGameplayAbility::GetAbilityEffectsSpecs()
+TArray<FGameplayEffectSpecHandle> UAuraDamageGameplayAbility::GetAbilityEffectsSpecs() const
 {
 	check(DamageEffect);
 

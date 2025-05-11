@@ -3,7 +3,6 @@
 
 #include "AuraFunctionLibrary.h"
 #include "GameMode/AuraGameMode.h"
-#include "Kismet/GameplayStatics.h"
 #include "CommonAbilityFunctionLibrary.h"
 
 int UAuraFunctionLibrary::GetXPRewardForEnemy(const UObject* WorldContextObject, const FGameplayTag& EnemyTag, const int EnemyLevel)

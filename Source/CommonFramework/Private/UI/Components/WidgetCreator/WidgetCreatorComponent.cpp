@@ -104,3 +104,26 @@ UUserWidget* UWidgetCreatorComponent::ConstructWidgetUsingSettings(const FWidget
 
 	return WidgetInstance;
 }
+
+TSubclassOf<UUserWidget> UWidgetCreatorComponent::GetWidgetByTagChecked(const FGameplayTag WidgetTag) const
+{
+	TSubclassOf<UUserWidget> Widget = nullptr;
+
+	for (const UDataAsset_WidgetDefinitions* WidgetDefinition : WidgetDefinitions)
+	{
+		bool bFound = false;
+
+		const FWidgetSetupSettings* WidgetSetupSettings = WidgetDefinition->GetWidgetSettingsByTag(WidgetTag, bFound);
+
+		if (bFound)
+		{
+			Widget = WidgetSetupSettings->Widget;
+
+			break;
+		}
+	}
+
+	checkf(Widget, TEXT("Could not find widget for the tag: %s"), *WidgetTag.ToString());
+
+	return Widget;
+}

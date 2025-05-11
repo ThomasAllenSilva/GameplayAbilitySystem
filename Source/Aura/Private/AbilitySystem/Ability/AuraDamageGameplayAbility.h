@@ -19,9 +19,9 @@ class UAuraDamageGameplayAbility : public UAuraGameplayAbility
 	
 protected:
 	UFUNCTION(BlueprintCallable)
-	void ApplyDamage(AActor* TargetActor);
+	void ApplyDamage(AActor* TargetActor) const;
 
-	TArray<FGameplayEffectSpecHandle> GetAbilityEffectsSpecs();
+	TArray<FGameplayEffectSpecHandle> GetAbilityEffectsSpecs() const;
 
 protected:
 	/* Effect that is used specifically for causing damage */

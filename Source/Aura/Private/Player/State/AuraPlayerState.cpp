@@ -42,7 +42,7 @@ float AAuraPlayerState::GetXPProgressNormalized_Implementation() const
 {
 	const int CurrentLevel = GetCurrentLevel_Implementation();
 
-	const FLevelUpInfo LevelInfo = LevelUpInfo->GetInformationForLevel(CurrentLevel);
+	const FLevelInfo& LevelInfo = LevelUpInfo->GetInformationForLevel(CurrentLevel);
 
 	const float XPRequirement = LevelInfo.XPRequirement;
 

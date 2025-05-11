@@ -49,10 +49,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Death")
 	float LifeSpanAfterDeath;
 
-	/* The amount of XP to give the player when he kills this enemy. */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FScalableFloat XPReward;
-
 private:
 	void HitReactTagChanged(const FGameplayTag Tag, int32 Count);
 

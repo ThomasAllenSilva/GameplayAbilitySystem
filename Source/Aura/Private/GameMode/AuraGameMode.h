@@ -20,6 +20,7 @@ class AAuraGameMode final : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	/* Returns the amount of XP the enemy should reward the Killer, based on its level. */
 	int GetXPRewardForEnemy(const FGameplayTag& EnemyTag, const int EnemyLevel) const;
 
 private:

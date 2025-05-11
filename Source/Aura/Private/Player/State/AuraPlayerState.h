@@ -11,7 +11,8 @@
 class UDataAsset_LevelUpInfo;
 
 /**
- *
+ * Player state class used by this project
+ * It holds GAS information about the player
  */
 UCLASS()
 class AAuraPlayerState final : public ACommonAbilityPlayerState, public IAuraExperienceInterface
@@ -22,7 +23,6 @@ public:
 	UDataAsset_LevelUpInfo* GetLevelUpInfo() const;
 
 	//~ Begin AuraExperience Interface
-
 	/* Returns the current level that this character should be based on the XP param. */
 	virtual int GetLevelForXP(int XP) const;
 
@@ -37,6 +37,7 @@ public:
 	//~ End of AuraExperience Interface
 
 private:
+	/* Levels infos defined for this character. */
 	UPROPERTY(EditDefaultsOnly)
-	UDataAsset_LevelUpInfo* LevelUpInfo;
+	TObjectPtr<UDataAsset_LevelUpInfo> LevelUpInfo;
 };

@@ -20,14 +20,19 @@ int UDataAsset_LevelUpInfo::FindLevelForXP(int InXP) const
 	return LevelsInfo.Num() - 1; //if the XP is higher than all the levels xp requirement, we simply return the max level
 }
 
+int UDataAsset_LevelUpInfo::GetMaxLevel() const
+{
+	return LevelsInfo.Num() - 1;
+}
+
 int UDataAsset_LevelUpInfo::GetMaxLevelXPRequirement() const
 {
-	FLevelUpInfo LevelInfo = LevelsInfo[LevelsInfo.Num() - 1];
+	const FLevelInfo LevelInfo = LevelsInfo[LevelsInfo.Num() - 1];
 
 	return LevelInfo.XPRequirement;
 }
 
-FLevelUpInfo UDataAsset_LevelUpInfo::GetInformationForLevel(int LevelIndex) const
+const FLevelInfo& UDataAsset_LevelUpInfo::GetInformationForLevel(int LevelIndex) const
 {
 	check(LevelIndex > 0);
 	check(LevelIndex < LevelsInfo.Num());
