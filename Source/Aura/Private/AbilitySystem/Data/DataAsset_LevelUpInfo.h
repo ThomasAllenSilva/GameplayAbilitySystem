@@ -18,17 +18,17 @@ struct FLevelInfo final : public FTableRowBase
 
 	/* The amount of attribute points to award the player when he completes this level. This is used to upgrade attributes. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int AttributePointAward = 1;
+	float AttributePointAward = 1;
 
 	/* The amount of ability points to award the player when he completes this level. This is used to unlock abilities. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int AbilityPointAward = 1;
+	float AbilityPointAward = 1;
 };
 
 /**
  * Contains information about each level created and helper functions
  */
-UCLASS()
+UCLASS(BlueprintType)
 class UDataAsset_LevelUpInfo final : public UDataAsset
 {
 	GENERATED_BODY()
@@ -44,6 +44,7 @@ public:
 	int GetMaxLevelXPRequirement() const;
 
 	/* Returns the information of the level in the specified index */
+	UFUNCTION(BlueprintCallable)
 	const FLevelInfo& GetInformationForLevel(int LevelIndex) const;
 
 private:
