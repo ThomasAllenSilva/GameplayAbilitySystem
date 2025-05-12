@@ -2,7 +2,6 @@
 
 
 #include "CommonAbilityFunctionLibrary.h"
-#include "AbilitySystemBlueprintLibrary.h"
 #include "Components/CommonAbilitySystemComponent.h"
 #include "PlayerState/CommonAbilityPlayerState.h"
 #include "PlayerController/CommonAbilityPlayerController.h"
@@ -77,6 +76,32 @@ UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetCommonAbilitySy
 	checkf(ASC, TEXT("Actor does not contain AbilitySystemComponent: %s"), *Actor->GetFName().ToString());
 
 	return CastChecked<UCommonAbilitySystemComponent>(ASC);
+}
+
+UCommonAbilitySystemComponent* UCommonAbilityFunctionLibrary::GetCommonAbilitySystemComponentFromASC(UAbilitySystemComponent* AbilitySystemComponent)
+{
+	return CastChecked<UCommonAbilitySystemComponent>(AbilitySystemComponent);
+}
+
+float UCommonAbilityFunctionLibrary::GetMaximumEffectCooldownRemainingForTag(const FGameplayTag Tag, const UAbilitySystemComponent* ASC)
+{
+	FGameplayEffectQuery EffectQuery = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(Tag.GetSingleTagContainer());
+
+	TArray<float> ActiveEffectsTimeRemaining = ASC->GetActiveEffectsTimeRemaining(EffectQuery);
+
+	checkf(ActiveEffectsTimeRemaining.Num() > 0, TEXT("Attempting to read an empty array"));
+
+	float RemainingTime = ActiveEffectsTimeRemaining[0];
+
+	for (int i = 0; i < ActiveEffectsTimeRemaining.Num(); i++)
+	{
+		if (ActiveEffectsTimeRemaining[i] > RemainingTime)
+		{
+			RemainingTime = ActiveEffectsTimeRemaining[i];
+		}
+	}
+
+	return RemainingTime;
 }
 
 void UCommonAbilityFunctionLibrary::AddGameplayTagToActorIfNone(AActor* Actor, const FGameplayTag& Tag)

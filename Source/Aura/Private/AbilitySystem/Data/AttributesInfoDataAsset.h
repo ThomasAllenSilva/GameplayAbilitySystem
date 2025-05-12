@@ -3,13 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Engine/DataAsset.h"
-
 #include "GameplayTagContainer.h"
-
 #include "AttributeSet.h"
-
 #include "AttributesInfoDataAsset.generated.h"
 
 USTRUCT(BlueprintType)
@@ -29,6 +25,7 @@ class UAttributesInfoDataAsset final : public UDataAsset
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable)
 	FAuraAttributeInfo GetAttributeInfo(const FGameplayTag& AttributeTag) const;
 
 private:

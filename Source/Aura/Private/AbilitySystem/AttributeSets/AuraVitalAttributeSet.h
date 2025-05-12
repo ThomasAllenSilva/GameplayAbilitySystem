@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
-#include "AbilitySystemComponent.h"
+#include "Components/CommonAbilitySystemComponent.h"
 #include "AuraVitalAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -28,6 +28,10 @@ public:
 	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, Mana);
 	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, MaxMana);
 	ATTRIBUTE_ACCESSORS(UAuraVitalAttributeSet, IncomingDamage);
+
+private:
+	/* Used to reward XP to whoever killed the owner of this attribute set. */
+	void SendXPEventToKiller(UAbilitySystemComponent* Killer);
 
 private:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", meta = (AllowPrivateAccess))
