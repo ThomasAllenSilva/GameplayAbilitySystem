@@ -48,6 +48,11 @@ void UAuraVitalAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 
 void UAuraVitalAttributeSet::SendXPEventToKiller(UAbilitySystemComponent* Killer)
 {
+	if (Killer->HasAttributeSetForAttribute(UAuraExperienceAttributeSet::GetXPAttribute()) == false)
+	{
+		return; //The killer doesn't have the Experience AttributeSet, so we don't need to send the XP event.
+	}
+
 	UCommonAbilitySystemComponent* OwningASC = UCommonAbilityFunctionLibrary::GetCommonAbilitySystemComponentFromASC(GetOwningAbilitySystemComponentChecked());
 
 	bool bFound = false;
@@ -56,7 +61,7 @@ void UAuraVitalAttributeSet::SendXPEventToKiller(UAbilitySystemComponent* Killer
 
 	if (bFound == false)
 	{
-		EnemyLevel = 1; //The enemy doesn't have the Experience AttributeSet, so by default we set to level 1.
+		EnemyLevel = 1.0f;  //The OwningASC doesn't have the Experience AttributeSet, so by default we set the level to 1, because 0 is invalid/.
 	}
 
 	const FGameplayTag& EnemyTag = OwningASC->GetTagID();

@@ -50,6 +50,29 @@ void UCommonAbilitySystemComponent::InitializeAbilitySets()
 	OnInitializedAbilitySets.Broadcast();
 }
 
+float UCommonAbilitySystemComponent::GetGameplayAttributeValueChecked(FGameplayAttribute Attribute)
+{
+	bool bFound = false;
+
+	// validate the attribute
+	if (Attribute.IsValid())
+	{
+		// get the associated AttributeSet
+		const UAttributeSet* InternalAttributeSet = GetAttributeSubobject(Attribute.GetAttributeSetClass());
+
+		if (InternalAttributeSet)
+		{
+			// NOTE: this is currently not taking predicted gameplay effect modifiers into consideration, so the value may not be accurate on client
+			bFound = true;
+			return Attribute.GetNumericValue(InternalAttributeSet);
+		}
+	}
+
+	checkf(bFound, TEXT("Could not find attribute value associated with the attribute: %s"), *Attribute.GetName());
+
+	return 0.0f;
+}
+
 const FGameplayTag& UCommonAbilitySystemComponent::GetTagID() const
 {
 	return TagID;

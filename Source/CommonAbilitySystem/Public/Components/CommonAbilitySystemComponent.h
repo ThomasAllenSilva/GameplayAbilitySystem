@@ -25,6 +25,8 @@ public:
 
 	void InitializeAbilitySets();
 
+	UFUNCTION(BlueprintPure)
+	float GetGameplayAttributeValueChecked(FGameplayAttribute Attribute);
 
 	/* Returns the tag identifier of this component. It may return 'None' if it's not set */
 	UFUNCTION(BlueprintCallable)

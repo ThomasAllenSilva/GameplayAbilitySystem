@@ -25,6 +25,7 @@ class UAttributesInfoDataAsset final : public UDataAsset
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable)
 	FAuraAttributeInfo GetAttributeInfo(const FGameplayTag& AttributeTag) const;
 
 private:
