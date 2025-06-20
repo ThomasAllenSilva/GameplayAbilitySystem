@@ -10,7 +10,7 @@ struct FGameplayTag;
 class UAbilitySystemComponent;
 
 /**
- * Common functions used by throughout this project
+ * Common functions used throughout this project
  */
 UCLASS()
 class UAuraFunctionLibrary final : public UBlueprintFunctionLibrary
